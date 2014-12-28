@@ -8,7 +8,8 @@
         }
     ],
     "require": {
-        "typicms/core": "~1.8.0"
+        "typicms/core": "~1.8.0",
+        "typicms/menulinks": "~1.8.0"
     },
     "autoload": {
         "classmap": [
