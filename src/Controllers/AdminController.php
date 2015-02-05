@@ -23,7 +23,7 @@ class AdminController extends AdminSimpleController
     {
         $models = $this->repository->getAll(array('translations'), true);
 
-        $this->layout->content = View::make('core::admin.index')
+        return view('core::admin.index')
             ->withModels($models);
     }
 }
