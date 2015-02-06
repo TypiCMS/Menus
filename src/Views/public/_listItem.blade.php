@@ -5,7 +5,7 @@ Code for manually display a menu in a blade template :
 <nav class="col-sm-3 col-md-2" role="navigation">
     <ul class="{{ $mainMenu->class }}">
         @foreach($mainMenu->menulinks as $menulink)
-            @include('menus.public._listItem', array('menulink' => $menulink))
+            @include('menus::public._listItem', array('menulink' => $menulink))
         @endforeach
     </ul>
 </nav>
@@ -25,7 +25,7 @@ Code for manually display a menu in a blade template :
     @if ($menulink->models)
         <ul class="dropdown-menu">
             @foreach ($menulink->models as $childMenulink)
-                @include('menus.public._listItem', array('menulink' => $childMenulink))
+                @include('menus::public._listItem', array('menulink' => $childMenulink))
             @endforeach
         </ul>
     @endif
