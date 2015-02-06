@@ -1,25 +1,18 @@
 <?php
 namespace TypiCMS\Modules\Menus\Providers;
 
-use Lang;
-use View;
 use Config;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
-
-// Model
+use Illuminate\Support\ServiceProvider;
+use Lang;
 use TypiCMS\Modules\Menus\Models\Menu;
-
-// Repo
-use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
-
-// Cache
 use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
-use TypiCMS\Services\Cache\LaravelCache;
-
-// Form
+use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Services\Form\MenuForm;
 use TypiCMS\Modules\Menus\Services\Form\MenuFormLaravelValidator;
+use TypiCMS\Services\Cache\LaravelCache;
+use View;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -30,7 +23,7 @@ class ModuleProvider extends ServiceProvider
         require __DIR__ . '/../routes.php';
 
         // Add dirs
-        View::addLocation(__DIR__ . '/../Views');
+        View::addNamespace('menus', __DIR__ . '/../views/');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'menus');
         $this->publishes([
             __DIR__ . '/../config/' => config_path('typicms/menus'),
@@ -38,6 +31,11 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../migrations/' => base_path('/database/migrations'),
         ], 'migrations');
+
+        AliasLoader::getInstance()->alias(
+            'Menus',
+            'TypiCMS\Modules\Menus\Facades\Facade'
+        );
     }
 
     public function register()
