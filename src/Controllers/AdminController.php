@@ -21,7 +21,7 @@ class AdminController extends AdminSimpleController
      */
     public function index()
     {
-        $models = $this->repository->getAll(array('translations'), true);
+        $models = $this->repository->getAll(['translations'], true);
 
         return view('core::admin.index')
             ->with(compact('models'));
