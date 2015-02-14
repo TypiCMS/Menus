@@ -1,7 +1,7 @@
 <?php
-namespace TypiCMS\Modules\Menus\Controllers;
+namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use TypiCMS\Controllers\AdminSimpleController;
+use TypiCMS\Http\Controllers\AdminSimpleController;
 use TypiCMS\Modules\Menus\Repositories\MenuInterface;
 use TypiCMS\Modules\Menus\Services\Form\MenuForm;
 use View;

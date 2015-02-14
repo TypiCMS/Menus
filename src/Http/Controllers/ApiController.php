@@ -1,7 +1,7 @@
 <?php
-namespace TypiCMS\Modules\Menus\Controllers;
+namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use TypiCMS\Controllers\BaseApiController;
+use TypiCMS\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Repositories\MenuInterface as Repository;
 
 class ApiController extends BaseApiController

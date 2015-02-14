@@ -7,7 +7,7 @@ Route::bind('menus', function ($value) {
 
 Route::group(
     array(
-        'namespace' => 'TypiCMS\Modules\Menus\Controllers',
+        'namespace' => 'TypiCMS\Modules\Menus\Http\Controllers',
         'prefix'    => 'admin',
     ),
     function () {
