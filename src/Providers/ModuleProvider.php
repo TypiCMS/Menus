@@ -9,8 +9,6 @@ use Lang;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
-use TypiCMS\Modules\Menus\Services\Form\MenuForm;
-use TypiCMS\Modules\Menus\Services\Form\MenuFormLaravelValidator;
 use TypiCMS\Services\Cache\LaravelCache;
 use View;
 
@@ -58,13 +56,6 @@ class ModuleProvider extends ServiceProvider
             $laravelCache = new LaravelCache($app['cache'], ['menus', 'menulinks', 'pages'], 10);
 
             return new CacheDecorator($repository, $laravelCache);
-        });
-
-        $app->bind('TypiCMS\Modules\Menus\Services\Form\MenuForm', function (Application $app) {
-            return new MenuForm(
-                new MenuFormLaravelValidator($app['validator']),
-                $app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')
-            );
         });
 
         /*

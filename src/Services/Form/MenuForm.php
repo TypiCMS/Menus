@@ -3,6 +3,7 @@ namespace TypiCMS\Modules\Menus\Services\Form;
 
 use TypiCMS\Services\Form\AbstractForm;
 use TypiCMS\Services\Validation\ValidableInterface;
+use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Repositories\MenuInterface;
 
 class MenuForm extends AbstractForm
