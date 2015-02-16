@@ -8,7 +8,7 @@ class FormRequest extends AbstractFormRequest {
     public function rules()
     {
         $rules = [
-            'name' => 'required|alpha_dash|unique:menus',
+            'name' => 'required|alpha_dash|unique:menus,name,' . $this->get('id'),
         ];
         return $rules;
     }
