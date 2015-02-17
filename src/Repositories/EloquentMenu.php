@@ -139,13 +139,13 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         if ($menulink->page) {
             $uri = $menulink->page->uri;
             if ($menulink->page->is_home) {
-                $uri = Config::get('app.locale');
+                $uri = config('app.locale');
                 // Set uri to '/' for home page in main locale (fallback_locale)
-                // only when langChooser is disabled and app.main_locale_in_url is false
+                // only when langChooser is disabled and typicms.main_locale_in_url is false
                 if (
-                    ! Config::get('typicms.langChooser') &&
-                    Config::get('app.fallback_locale') == App::getLocale() &&
-                    ! Config::get('app.main_locale_in_url')
+                    ! config('typicms.lang_chooser') &&
+                    config('app.fallback_locale') == App::getLocale() &&
+                    ! config('typicms.main_locale_in_url')
                 ) {
                     $uri = '';
                 }
