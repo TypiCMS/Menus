@@ -1,18 +1,25 @@
 <?php
 namespace TypiCMS\Modules\Menus\Composers;
 
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Sidebar\SidebarGroup;
+use Maatwebsite\Sidebar\SidebarItem;
+use TypiCMS\Composers\BaseSidebarViewComposer;
 
-class SidebarViewComposer
+class SidebarViewComposer extends BaseSidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->menus['content']->put('menus', [
-            'weight' => config('typicms.menus.sidebar.weight'),
-            'request' => $view->prefix . '/menus*',
-            'route' => 'admin.menus.index',
-            'icon-class' => 'icon fa fa-fw fa-bars',
-            'title' => 'Menus',
-        ]);
+        $view->sidebar->group(trans('global.menus.content'), function (SidebarGroup $group) {
+            $group->addItem(trans('menus::global.name'), function (SidebarItem $item) {
+                $item->icon = config('typicms.menus.sidebar.icon', 'icon fa fa-fw fa-bars');
+                $item->weight = config('typicms.menus.sidebar.weight');
+                $item->route('admin.menus.index');
+                $item->append('admin.menus.create');
+                $item->authorize(
+                    $this->auth->hasAccess('menus.index')
+                );
+            });
+        });
     }
 }
