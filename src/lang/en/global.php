@@ -1,6 +1,6 @@
 <?php
 return array(
-    'name' => 'menus',
+    'name' => 'Menus',
     'menus' => 'menu|menus',
     'New'  => 'New menu',
     'Edit' => 'Edit menu',
