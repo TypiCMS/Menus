@@ -1,12 +1,12 @@
 <?php
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use TypiCMS\Http\Controllers\AdminSimpleController;
+use TypiCMS\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Repositories\MenuInterface;
 use View;
 
-class AdminController extends AdminSimpleController
+class AdminController extends BaseAdminController
 {
 
     public function __construct(MenuInterface $menu)
@@ -21,9 +21,11 @@ class AdminController extends AdminSimpleController
     public function index()
     {
         $models = $this->repository->getAll(['translations'], true);
+        $module = $this->repository->getTable();
+        $title = trans($module . '::global.name');
 
         return view('core::admin.index')
-            ->with(compact('models'));
+            ->with(compact('models', 'module', 'title'));
     }
 
     /**
