@@ -18,16 +18,18 @@ class ModuleProvider extends ServiceProvider
     public function boot()
     {
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'menus');
-        $this->publishes([
-            __DIR__ . '/../views' => base_path('resources/views/vendor/menus'),
-        ], 'views');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'menus');
         $this->mergeConfigFrom(
             __DIR__ . '/../config/config.php', 'typicms.menus'
         );
+
+        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'menus');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'menus');
+
         $this->publishes([
-            __DIR__ . '/../migrations/' => base_path('/database/migrations'),
+            __DIR__ . '/../views' => base_path('resources/views/vendor/menus'),
+        ], 'views');
+        $this->publishes([
+            __DIR__ . '/../database' => base_path('database'),
         ], 'migrations');
 
         AliasLoader::getInstance()->alias(
