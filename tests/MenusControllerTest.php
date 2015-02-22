@@ -3,10 +3,6 @@ use TypiCMS\Modules\Menus\Models\Menu;
 
 class MenusControllerTest extends TestCase
 {
-    public function tearDown()
-    {
-        Mockery::close();
-    }
 
     public function testAdminIndex()
     {
@@ -15,7 +11,7 @@ class MenusControllerTest extends TestCase
         $this->registerNestedView($view);
 
         $this->get('admin/menus');
-        $this->assertTrue($this->client->getResponse()->isOk());
+        $this->assertEquals(200, $response->getStatusCode());
         $menus = $this->nestedViewsData[$view]['models'];
 
         $this->assertNestedViewHas($view, 'models');
