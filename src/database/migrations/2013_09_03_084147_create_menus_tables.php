@@ -29,7 +29,7 @@ class CreateMenusTables extends Migration
             $table->integer('menu_id')->unsigned();
 
             $table->string('locale')->index();
-            $table->tinyInteger('status')->default(0);
+            $table->boolean('status')->default(0);
 
             $table->string('title');
 
