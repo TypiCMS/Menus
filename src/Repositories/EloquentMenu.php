@@ -93,7 +93,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
             if ($item->has_categories) {
                 $item->items = $this->prepare(Categories::getAllForMenu($item->uri));
             }
-            $item->uri = $this->setUri($item);
+            $item->href = $this->setHref($item);
             $item->class = $this->setClass($item);
         });
 
@@ -129,7 +129,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      * @param Model   $menulink
      * @return string uri
      */
-    public function setUri($menulink)
+    public function setHref($menulink)
     {
         if ($menulink->url) {
             return $menulink->url;
