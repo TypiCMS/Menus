@@ -33,6 +33,8 @@ class Menu extends Base
         'status',
     );
 
+    protected $appends = ['status', 'title'];
+
     /**
      * Relations
      */
