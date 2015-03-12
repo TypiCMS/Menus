@@ -11,7 +11,7 @@ interface MenuInterface extends RepositoryInterface
      *
      * @return array with key = menu name and value = menu model
      */
-    public function getAllMenus();
+    public function allMenus();
 
     /**
      * Build a menu

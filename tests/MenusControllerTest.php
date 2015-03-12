@@ -6,7 +6,7 @@ class MenusControllerTest extends TestCase
 
     public function testAdminIndex()
     {
-        // Menu::shouldReceive('getAll')->once()->andReturn(true);
+        // Menu::shouldReceive('all')->once()->andReturn(true);
         $view = 'menus::admin.index';
         $this->registerNestedView($view);
 

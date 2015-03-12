@@ -20,7 +20,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->getAll(['translations'], true);
+        $models = $this->repository->all(['translations'], true);
         $module = $this->repository->getTable();
         $title = trans($module . '::global.name');
 

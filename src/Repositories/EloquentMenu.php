@@ -26,7 +26,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      *
      * @return array with key = menu name and value = menu model
      */
-    public function getAllMenus()
+    public function allMenus()
     {
         $with = [
             'translations',
@@ -91,7 +91,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     {
         $items->each(function ($item) {
             if ($item->has_categories) {
-                $item->items = $this->prepare(Categories::getAllForMenu($item->uri));
+                $item->items = $this->prepare(Categories::allForMenu($item->uri));
             }
             $item->href = $this->setHref($item);
             $item->class = $this->setClass($item);

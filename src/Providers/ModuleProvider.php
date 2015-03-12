@@ -72,7 +72,7 @@ class ModuleProvider extends ServiceProvider
         |--------------------------------------------------------------------------|
         */
         $this->app['TypiCMS.menus'] = $this->app->share(function (Application $app) {
-            return $app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->getAllMenus();
+            return $app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->allMenus();
         });
     }
 }
