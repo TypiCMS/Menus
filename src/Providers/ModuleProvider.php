@@ -58,7 +58,7 @@ class ModuleProvider extends ServiceProvider
 
         $app->bind('TypiCMS\Modules\Menus\Repositories\MenuInterface', function (Application $app) {
             $repository = new EloquentMenu(new Menu);
-            if (! Config::get('app.cache')) {
+            if (! config('typicms.cache')) {
                 return $repository;
             }
             $laravelCache = new LaravelCache($app['cache'], ['menus', 'menulinks', 'pages'], 10);
