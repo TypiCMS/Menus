@@ -3,8 +3,8 @@ namespace TypiCMS\Modules\Menus\Models;
 
 use Dimsav\Translatable\Translatable;
 use TypiCMS\Models\Base;
+use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Presenters\PresentableTrait;
-use TypiCMS\Traits\Historable;
 
 class Menu extends Base
 {
