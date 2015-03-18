@@ -1,8 +1,8 @@
 <div ng-app="typicms" ng-cloak ng-controller="ListController">
 
     <h1>
-        <a href="{{ url }}/create" class="btn-add"><i class="fa fa-plus-circle"></i><span class="sr-only" translate>New</span></a>
-        <span translate translate-n="models.length" translate-plural="{{ models.length }} menus">{{ models.length }} menu</span>
+        <a href="{{ route('admin.' . $module . '.create') }}" class="btn-add"><i class="fa fa-plus-circle"></i><span class="sr-only" translate>New</span></a>
+        <span translate translate-n="models.length" translate-plural="@{{ models.length }} menus">@{{ models.length }} menu</span>
     </h1>
 
     <div class="btn-toolbar" role="toolbar" ng-include="'/views/partials/btnLocales.html'"></div>
@@ -25,8 +25,8 @@
                     <td><typi-btn-delete ng-click="delete(model)"></typi-btn-delete></td>
                     <td typi-btn-edit></td>
                     <td typi-btn-status></td>
-                    <td>{{ model.name }}</td>
-                    <td>{{ model.title }}</td>
+                    <td>@{{ model.name }}</td>
+                    <td>@{{ model.title }}</td>
                 </tr>
             </tbody>
         </table>
