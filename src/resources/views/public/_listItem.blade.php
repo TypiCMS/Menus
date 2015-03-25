@@ -13,7 +13,7 @@ Code for manually display a menu in a blade template :
 -->
 
 <li id="menuitem_{{ $menulink->id }}" class="{{ $menulink->class }}" role="menuitem">
-    <a href="{{ $menulink->uri }}" @if($menulink->models) class="dropdown-toggle" data-toggle="dropdown" @endif>
+    <a href="{{ url($menulink->uri) }}" @if($menulink->models) class="dropdown-toggle" data-toggle="dropdown" @endif>
         @if ($menulink->icon_class)
             <span class="{{ $menulink->icon_class }}"></span>
         @endif
