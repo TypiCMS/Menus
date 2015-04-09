@@ -30,7 +30,8 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     {
         $with = [
             'menulinks.translations',
-            'menulinks.page.translations',
+            'menulinks.page',
+            // 'menulinks.page.translations',
         ];
         $menus = $this->make($with)
             ->whereHas(
