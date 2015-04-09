@@ -14,6 +14,15 @@ interface MenuInterface extends RepositoryInterface
     public function allMenus();
 
     /**
+     * Build a menu
+     *
+     * @deprecated
+     * @param  string $name       menu name
+     * @return string             html code of a menu
+     */
+    public function build($name);
+
+    /**
      * Get a menu
      *
      * @param  string $name       menu name
