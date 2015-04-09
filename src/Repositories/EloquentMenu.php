@@ -5,9 +5,9 @@ use App;
 use Categories;
 use Config;
 use ErrorException;
-use HTML;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Log;
 use Notification;
 use Request;
 use TypiCMS\Modules\Menulinks\Models\Menulink;
@@ -70,13 +70,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         try {
             $menu = App::make('TypiCMS.menus')[$name];
         } catch (ErrorException $e) {
-            Notification::error(
-                trans('menus::global.No menu found with name “:name”', ['name' => $name])
-            );
-            return null;
-        }
-
-        if (! $menu) {
+            Log::info('No menu found with name “' . $name . '”');
             return null;
         }
 
@@ -101,30 +95,8 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     }
 
     /**
-     * Build a menu
-     *
-     * @param  string $name       menu name
-     * @return mixed null or string (html code of a menu)
-     */
-    public function build($name)
-    {
-        if (! $menu = $this->getMenu($name)) {
-            return null;
-        }
-
-        $attributes = [
-            'class' => $menu->class,
-            'id' => 'nav-' . $name,
-            'role' => 'menu',
-        ];
-
-        return HTML::menu($menu->menulinks, $attributes);
-    }
-
-    /**
-     * 1. Uri = menulink->uri
+     * 1. if menulink has url field, take it
      * 2. if menulink has a page, take the uri of the page
-     * 3. if menulink has url field, take it
      *
      * @param Model   $menulink
      * @return string uri
@@ -139,7 +111,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
             return '/' . $menulink->page->uri;
         }
 
-        return '/' . $menulink->uri;
+        return '';
 
     }
 
