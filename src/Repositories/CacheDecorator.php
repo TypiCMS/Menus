@@ -36,6 +36,17 @@ class CacheDecorator extends CacheAbstractDecorator implements MenuInterface
     }
 
     /**
+     * Render a menu
+     *
+     * @param  string $name menu name
+     * @return string       html code of a menu
+     */
+    public function render($name)
+    {
+        return $this->repo->render($name);
+    }
+
+    /**
      * Build a menu
      *
      * @deprecated

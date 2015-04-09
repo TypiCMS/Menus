@@ -60,6 +60,17 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     }
 
     /**
+     * Render a menu
+     *
+     * @param  string $name menu name
+     * @return string       html code of a menu
+     */
+    public function render($name)
+    {
+        return view('menus::public._menu', ['name' => $name]);
+    }
+
+    /**
      * Build a menu
      *
      * @deprecated
@@ -68,7 +79,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      */
     public function build($name)
     {
-        return '<div class="alert alert-warning">Build method is deprecated, use <code>@include(\'menus::public._menu\', [\'name\' => \'menuname\'])</code> in place of <code>{!! Menus::build(\'menuname\') !!}</code></div>';
+        return $this->render($name);
     }
 
     /**
