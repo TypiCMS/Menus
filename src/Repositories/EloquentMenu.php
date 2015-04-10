@@ -22,44 +22,6 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     }
 
     /**
-     * Get all menus
-     *
-     * @return array with key = menu name and value = menu model
-     */
-    public function allMenus()
-    {
-        $with = [
-            'menulinks.translations',
-            'menulinks.page',
-            // 'menulinks.page.translations',
-        ];
-        $menus = $this->make($with)
-            ->whereHas(
-                'translations',
-                function (Builder $query) {
-                    $query->where('status', 1);
-                    $query->where('locale', App::getLocale());
-                }
-            )
-            ->get();
-
-        $menusArray = array();
-        foreach ($menus as $menu) {
-
-            // remove offline items from each menu
-            $menu->menulinks = $menu->menulinks->filter(function (Menulink $menulink) {
-                if ($menulink->status == 1) {
-                    return true;
-                }
-            });
-
-            $menusArray[$menu->name] = $menu;
-        }
-
-        return $menusArray;
-    }
-
-    /**
      * Render a menu
      *
      * @param  string $name menu name
@@ -91,7 +53,9 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     public function getMenu($name)
     {
         try {
-            $menu = App::make('TypiCMS.menus')[$name];
+            $menu = app('TypiCMS.menus')->filter(function($menu) use ($name) {
+                return $menu->name == $name;
+            })->first();
         } catch (ErrorException $e) {
             Log::info('No menu found with name “' . $name . '”');
             return null;

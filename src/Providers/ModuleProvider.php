@@ -39,6 +39,9 @@ class ModuleProvider extends ServiceProvider
             'Menus',
             'TypiCMS\Modules\Menus\Facades\Facade'
         );
+
+        $this->storeAllMenus();
+
     }
 
     public function register()
@@ -65,14 +68,24 @@ class ModuleProvider extends ServiceProvider
 
             return new CacheDecorator($repository, $laravelCache);
         });
+    }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Get all menus.
-        |--------------------------------------------------------------------------|
-        */
-        $this->app['TypiCMS.menus'] = $this->app->share(function (Application $app) {
-            return $app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->allMenus();
-        });
+    /**
+     * Store all menus in container
+     *
+     * @return void
+     */
+    private function storeAllMenus()
+    {
+        $with = [
+            'translations',
+            'menulinks' => function($query){
+                $query->online();
+            },
+            'menulinks.translations',
+            'menulinks.page.translations',
+        ];
+        $menus = app('TypiCMS\Modules\Menus\Repositories\MenuInterface')->all($with);
+        app()->instance('TypiCMS.menus', $menus);
     }
 }

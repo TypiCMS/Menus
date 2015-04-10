@@ -7,13 +7,6 @@ interface MenuInterface extends RepositoryInterface
 {
 
     /**
-     * Get all menus
-     *
-     * @return array with key = menu name and value = menu model
-     */
-    public function allMenus();
-
-    /**
      * Render a menu
      *
      * @param  string $name menu name

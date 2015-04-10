@@ -15,27 +15,6 @@ class CacheDecorator extends CacheAbstractDecorator implements MenuInterface
     }
 
     /**
-     * Get all menus
-     *
-     * @return array with key = menu name and value = menu model
-     */
-    public function allMenus()
-    {
-        $cacheKey = md5(App::getLocale() . 'allMenus');
-
-        if ($this->cache->has($cacheKey)) {
-            return $this->cache->get($cacheKey);
-        }
-
-        $array = $this->repo->allMenus();
-
-        // Store in cache for next request
-        $this->cache->put($cacheKey, $array);
-
-        return $array;
-    }
-
-    /**
      * Render a menu
      *
      * @param  string $name menu name
