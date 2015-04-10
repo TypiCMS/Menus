@@ -2,10 +2,11 @@
 namespace TypiCMS\Modules\Menus\Providers;
 
 use Config;
+use Exception;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Lang;
+use Log;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
@@ -17,6 +18,8 @@ class ModuleProvider extends ServiceProvider
 
     public function boot()
     {
+
+        $this->storeAllMenus();
 
         $this->mergeConfigFrom(
             __DIR__ . '/../config/config.php', 'typicms.menus'
@@ -39,8 +42,6 @@ class ModuleProvider extends ServiceProvider
             'Menus',
             'TypiCMS\Modules\Menus\Facades\Facade'
         );
-
-        $this->storeAllMenus();
 
     }
 
@@ -77,15 +78,20 @@ class ModuleProvider extends ServiceProvider
      */
     private function storeAllMenus()
     {
-        $with = [
-            'translations',
-            'menulinks' => function($query){
-                $query->online();
-            },
-            'menulinks.translations',
-            'menulinks.page.translations',
-        ];
-        $menus = app('TypiCMS\Modules\Menus\Repositories\MenuInterface')->all($with);
-        app()->instance('TypiCMS.menus', $menus);
+        try {
+            $with = [
+                'translations',
+                'menulinks' => function($query){
+                    $query->online();
+                },
+                'menulinks.translations',
+                'menulinks.page.translations',
+            ];
+            $menus = $this->app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->all($with);
+            $this->app->instance('TypiCMS.menus', $menus);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
+
     }
 }
