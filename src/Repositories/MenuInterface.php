@@ -15,6 +15,15 @@ interface MenuInterface extends RepositoryInterface
     public function render($name);
 
     /**
+     * Get all models
+     *
+     * @param  boolean  $all  Show published or all
+     * @param  array    $with Eager load related models
+     * @return Collection
+     */
+    public function all(array $with = array(), $all = false);
+
+    /**
      * Build a menu
      *
      * @deprecated

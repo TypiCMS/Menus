@@ -22,6 +22,28 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     }
 
     /**
+     * Get all models
+     *
+     * @param  array       $with Eager load related models
+     * @param  boolean     $all  Show published or all
+     * @return Collection|NestedCollection
+     */
+    public function all(array $with = array(), $all = false)
+    {
+        $query = $this->make($with);
+
+        if (! $all) {
+            $query->online();
+        }
+
+        // Query ORDER BY
+        $query->order();
+
+        // Get
+        return $query->get();
+    }
+
+    /**
      * Render a menu
      *
      * @param  string $name menu name

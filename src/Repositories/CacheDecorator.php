@@ -15,6 +15,30 @@ class CacheDecorator extends CacheAbstractDecorator implements MenuInterface
     }
 
     /**
+     * Get all models
+     *
+     * @param  boolean  $all  Show published or all
+     * @param  array    $with Eager load related models
+     * @return Collection
+     */
+    public function all(array $with = array(), $all = false)
+    {
+        $cacheKey = md5(App::getLocale() . 'all' . $all);
+
+        if ($this->cache->has($cacheKey)) {
+            return $this->cache->get($cacheKey);
+        }
+
+        // Item not cached, retrieve it
+        $models = $this->repo->all($with, $all);
+
+        // Store in cache for next request
+        $this->cache->put($cacheKey, $models);
+
+        return $models;
+    }
+
+    /**
      * Render a menu
      *
      * @param  string $name menu name
