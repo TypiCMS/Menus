@@ -117,7 +117,15 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         }
 
         if ($menulink->page) {
-            return '/' . $menulink->page->uri;
+            $langPrefix = null;
+            if (
+                config('app.fallback_locale') != config('app.locale') ||
+                config('typicms.main_locale_in_url')
+            ) {
+                $langPrefix = '/' . config('app.locale');
+            }
+
+            return $langPrefix . '/' . $menulink->page->uri;
         }
 
         return '';
