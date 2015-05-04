@@ -1,5 +1,5 @@
 <li id="menuitem_{{ $menulink->id }}" class="{{ $menulink->class }}" role="menuitem">
-    <a href="{{ url($menulink->href) }}" @if($menulink->items->count()) class="dropdown-toggle" data-toggle="dropdown" @endif>
+    <a href="{{ url($menulink->href) }}" @if($menulink->target) target="{{ $menulink->target }}" @endif @if($menulink->items->count()) class="dropdown-toggle" data-toggle="dropdown" @endif>
         @if ($menulink->icon_class)
             <span class="{{ $menulink->icon_class }}"></span>
         @endif
