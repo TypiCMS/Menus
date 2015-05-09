@@ -1,7 +1,6 @@
 <?php
 namespace TypiCMS\Modules\Menus\Providers;
 
-use Config;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\AliasLoader;
@@ -12,7 +11,6 @@ use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Services\Cache\LaravelCache;
-use View;
 
 class ModuleProvider extends ServiceProvider
 {

@@ -5,12 +5,9 @@ use App;
 use Categories;
 use Config;
 use ErrorException;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Log;
-use Notification;
 use Request;
-use TypiCMS\Modules\Menulinks\Models\Menulink;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Repositories\RepositoriesAbstract;
 
