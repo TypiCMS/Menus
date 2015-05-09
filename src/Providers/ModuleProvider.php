@@ -3,6 +3,7 @@ namespace TypiCMS\Modules\Menus\Providers;
 
 use Config;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -84,7 +85,7 @@ class ModuleProvider extends ServiceProvider
         try {
             $with = [
                 'translations',
-                'menulinks' => function($query){
+                'menulinks' => function(Builder $query){
                     $query->online();
                 },
                 'menulinks.translations',

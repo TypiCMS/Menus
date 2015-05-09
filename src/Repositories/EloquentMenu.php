@@ -11,6 +11,7 @@ use Log;
 use Notification;
 use Request;
 use TypiCMS\Modules\Menulinks\Models\Menulink;
+use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Repositories\RepositoriesAbstract;
 
 class EloquentMenu extends RepositoriesAbstract implements MenuInterface
@@ -75,7 +76,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     public function getMenu($name)
     {
         try {
-            $menu = app('TypiCMS.menus')->filter(function($menu) use ($name) {
+            $menu = app('TypiCMS.menus')->filter(function(Menu $menu) use ($name) {
                 return $menu->name == $name;
             })->first();
         } catch (ErrorException $e) {
