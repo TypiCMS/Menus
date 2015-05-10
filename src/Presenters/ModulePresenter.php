@@ -1,14 +1,14 @@
 <?php
 namespace TypiCMS\Modules\Menus\Presenters;
 
-use TypiCMS\Presenters\Presenter;
+use Laracasts\Presenter\Presenter;
 
 class ModulePresenter extends Presenter
 {
 
     /**
      * Get title
-     * 
+     *
      * @return string
      */
     public function title()
