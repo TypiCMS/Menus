@@ -2,15 +2,15 @@
 namespace TypiCMS\Modules\Menus\Providers;
 
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Log;
+use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
-use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -83,7 +83,7 @@ class ModuleProvider extends ServiceProvider
         try {
             $with = [
                 'translations',
-                'menulinks' => function(Builder $query){
+                'menulinks' => function(HasMany $query){
                     $query->online();
                 },
                 'menulinks.translations',
