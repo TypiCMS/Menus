@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use TypiCMS\Repositories\RepositoryInterface;
+use TypiCMS\Modules\Core\Repositories\RepositoryInterface;
 
 interface MenuInterface extends RepositoryInterface
 {

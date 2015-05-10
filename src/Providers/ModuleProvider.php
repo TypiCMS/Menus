@@ -10,7 +10,7 @@ use Log;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
-use TypiCMS\Services\Cache\LaravelCache;
+use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 
 class ModuleProvider extends ServiceProvider
 {

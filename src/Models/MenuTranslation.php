@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Menus\Models;
 
-use TypiCMS\Models\BaseTranslation;
+use TypiCMS\Modules\Core\Models\BaseTranslation;
 
 class MenuTranslation extends BaseTranslation
 {

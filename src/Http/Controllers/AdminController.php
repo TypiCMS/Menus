@@ -1,7 +1,7 @@
 <?php
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use TypiCMS\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Repositories\MenuInterface;
 use View;

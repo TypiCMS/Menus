@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Log;
 use Request;
 use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
 
 class EloquentMenu extends RepositoriesAbstract implements MenuInterface
 {
