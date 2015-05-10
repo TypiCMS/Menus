@@ -1,7 +1,6 @@
 <?php
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use App;
 use TypiCMS\Modules\Core\Repositories\CacheAbstractDecorator;
 use TypiCMS\Modules\Core\Services\Cache\CacheInterface;
 
@@ -23,7 +22,7 @@ class CacheDecorator extends CacheAbstractDecorator implements MenuInterface
      */
     public function all(array $with = array(), $all = false)
     {
-        $cacheKey = md5(App::getLocale() . 'all' . $all);
+        $cacheKey = md5(config('app.locale') . 'all' . $all);
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
