@@ -1,8 +1,8 @@
 <div ng-app="typicms" ng-cloak ng-controller="ListController">
 
     <h1>
-        <a href="{{ route('admin.' . $module . '.create') }}" class="btn-add"><i class="fa fa-plus-circle"></i><span class="sr-only" translate>New</span></a>
-        <span translate translate-n="models.length" translate-plural="@{{ models.length }} menus">@{{ models.length }} menu</span>
+        <a href="{{ route('admin.' . $module . '.create') }}" class="btn-add"><i class="fa fa-plus-circle"></i><span class="sr-only">New</span></a>
+        <span>@{{ models.length }} @choice('menus::global.menus', 2)</span>
     </h1>
 
     <div class="btn-toolbar" role="toolbar" ng-include="'/views/partials/btnLocales.html'"></div>
@@ -14,9 +14,9 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="status" class="status st-sort" translate>Status</th>
-                    <th st-sort="name" st-sort-default="true" class="name st-sort" translate>Name</th>
-                    <th st-sort="title" class="title st-sort" translate>Title</th>
+                    <th st-sort="status" class="status st-sort">Status</th>
+                    <th st-sort="name" st-sort-default="true" class="name st-sort">Name</th>
+                    <th st-sort="title" class="title st-sort">Title</th>
                 </tr>
             </thead>
 
