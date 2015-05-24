@@ -17,7 +17,7 @@ class SidebarViewComposer extends BaseSidebarViewComposer
                 $item->route('admin.menus.index');
                 $item->append('admin.menus.create');
                 $item->authorize(
-                    $this->user->hasAccess('menus.index')
+                    $this->auth->hasAccess('menus.index')
                 );
             });
         });
