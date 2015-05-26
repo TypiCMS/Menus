@@ -9,8 +9,8 @@
         }
     ],
     "require": {
-        "typicms/core": "~2.2.0",
-        "typicms/menulinks": "~2.2.0"
+        "typicms/core": "~2.3.0",
+        "typicms/menulinks": "~2.3.0"
     },
     "autoload": {
         "psr-4": {
