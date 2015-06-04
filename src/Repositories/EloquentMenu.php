@@ -1,15 +1,13 @@
 <?php
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use App;
 use Categories;
-use Config;
 use ErrorException;
 use Illuminate\Database\Eloquent\Model;
-use Log;
-use Request;
-use TypiCMS\Modules\Menus\Models\Menu;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Menus\Models\Menu;
 
 class EloquentMenu extends RepositoriesAbstract implements MenuInterface
 {
