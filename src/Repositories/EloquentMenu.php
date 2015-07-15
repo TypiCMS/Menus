@@ -2,7 +2,7 @@
 namespace TypiCMS\Modules\Menus\Repositories;
 
 use Categories;
-use ErrorException;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
@@ -74,14 +74,12 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
             $menu = app('TypiCMS.menus')->filter(function(Menu $menu) use ($name) {
                 return $menu->name == $name;
             })->first();
-        } catch (ErrorException $e) {
+            $menu->menulinks = $this->prepare($menu->menulinks);
+            $menu->menulinks->nest();
+        } catch (Exception $e) {
             Log::info('No menu found with name “' . $name . '”');
             return null;
         }
-
-        $menu->menulinks = $this->prepare($menu->menulinks);
-
-        $menu->menulinks->nest();
 
         return $menu;
     }
