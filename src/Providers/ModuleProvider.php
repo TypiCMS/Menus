@@ -75,7 +75,7 @@ class ModuleProvider extends ServiceProvider
      *
      * @return void
      */
-    private function storeAllMenus()
+    protected function storeAllMenus()
     {
         try {
             $with = [
