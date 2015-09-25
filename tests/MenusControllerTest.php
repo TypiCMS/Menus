@@ -8,13 +8,11 @@ class MenusControllerTest extends TestCase
     {
         // Menu::shouldReceive('all')->once()->andReturn(true);
         $view = 'menus::admin.index';
-        $this->registerNestedView($view);
 
         $this->get('admin/menus');
         $this->assertEquals(200, $response->getStatusCode());
         $menus = $this->nestedViewsData[$view]['models'];
 
-        $this->assertNestedViewHas($view, 'models');
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $menus);
     }
 
