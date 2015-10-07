@@ -10,7 +10,7 @@
             <i class="fa fa-fw fa-plus-circle"></i>Add menu link
         </a>
         <div ng-app="typicms" ng-cloak ng-controller="ListController">
-            <div class="btn-toolbar" role="toolbar" ng-include="'/views/partials/btnLocales.html'"></div>
+            @include('core::admin._tabs-lang-list')
             <!-- Nested node template -->
             <div ui-tree="treeOptions">
                 <ul ui-tree-nodes="" data-max-depth="3" ng-model="models" id="tree-root">
@@ -41,7 +41,7 @@
             @endforeach
 
         </div>
-        
+
     </div>
 
 </div>
