@@ -98,10 +98,10 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     }
 
     /**
-     * 1. if menulink has url field, take it
-     * 2. if menulink has a page, take the uri of the page
+     * 1. If menulink has url field, take it.
+     * 2. If menulink has a page, take the uri of the page in the current locale.
      *
-     * @param Model   $menulink
+     * @param Model $menulink
      * @return string uri
      */
     public function setHref($menulink)
@@ -109,21 +109,10 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         if ($menulink->url) {
             return $menulink->url;
         }
-
         if ($menulink->page) {
-            $langPrefix = null;
-            if (
-                config('app.fallback_locale') != config('app.locale') ||
-                config('typicms.main_locale_in_url')
-            ) {
-                $langPrefix = '/' . config('app.locale');
-            }
-
-            return $langPrefix . '/' . $menulink->page->uri;
+            return $menulink->page->uri();
         }
-
         return '';
-
     }
 
     /**
