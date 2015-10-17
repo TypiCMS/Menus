@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateMenusTables extends Migration
 {
@@ -35,7 +35,7 @@ class CreateMenusTables extends Migration
 
             $table->timestamps();
 
-            $table->unique(array('menu_id', 'locale'));
+            $table->unique(['menu_id', 'locale']);
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
     }
@@ -50,5 +50,4 @@ class CreateMenusTables extends Migration
         Schema::drop('menu_translations');
         Schema::drop('menus');
     }
-
 }

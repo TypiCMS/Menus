@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Menus\Providers;
 
 use Exception;
@@ -14,54 +15,50 @@ use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 
 class ModuleProvider extends ServiceProvider
 {
-
     public function boot()
     {
-
         $this->storeAllMenus();
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php', 'typicms.menus'
+            __DIR__.'/../config/config.php', 'typicms.menus'
         );
 
         $modules = $this->app['config']['typicms']['modules'];
         $this->app['config']->set('typicms.modules', array_merge(['menus' => []], $modules));
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views/', 'menus');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'menus');
+        $this->loadViewsFrom(__DIR__.'/../resources/views/', 'menus');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'menus');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/menus'),
+            __DIR__.'/../resources/views' => base_path('resources/views/vendor/menus'),
         ], 'views');
         $this->publishes([
-            __DIR__ . '/../database' => base_path('database'),
+            __DIR__.'/../database' => base_path('database'),
         ], 'migrations');
 
         AliasLoader::getInstance()->alias(
             'Menus',
             'TypiCMS\Modules\Menus\Facades\Facade'
         );
-
     }
 
     public function register()
     {
-
         $app = $this->app;
 
-        /**
+        /*
          * Register route service provider
          */
         $app->register('TypiCMS\Modules\Menus\Providers\RouteServiceProvider');
 
-        /**
+        /*
          * Sidebar view composer
          */
         $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Menus\Composers\SidebarViewComposer');
 
         $app->bind('TypiCMS\Modules\Menus\Repositories\MenuInterface', function (Application $app) {
-            $repository = new EloquentMenu(new Menu);
-            if (! config('typicms.cache')) {
+            $repository = new EloquentMenu(new Menu());
+            if (!config('typicms.cache')) {
                 return $repository;
             }
             $laravelCache = new LaravelCache($app['cache'], ['menus', 'menulinks', 'pages'], 10);
@@ -71,7 +68,7 @@ class ModuleProvider extends ServiceProvider
     }
 
     /**
-     * Store all menus in container
+     * Store all menus in container.
      *
      * @return void
      */
@@ -80,7 +77,7 @@ class ModuleProvider extends ServiceProvider
         try {
             $with = [
                 'translations',
-                'menulinks' => function(HasMany $query){
+                'menulinks' => function (HasMany $query) {
                     $query->online();
                 },
                 'menulinks.translations',
@@ -91,6 +88,5 @@ class ModuleProvider extends ServiceProvider
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
-
     }
 }
