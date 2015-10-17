@@ -1,4 +1,5 @@
 <?php
+
 namespace TypiCMS\Modules\Menus\Models;
 
 use Dimsav\Translatable\Translatable;
@@ -8,35 +9,34 @@ use TypiCMS\Modules\History\Traits\Historable;
 
 class Menu extends Base
 {
-
     use Historable;
     use Translatable;
     use PresentableTrait;
 
     protected $presenter = 'TypiCMS\Modules\Menus\Presenters\ModulePresenter';
 
-    protected $fillable = array(
+    protected $fillable = [
         'name',
         'class',
         // Translatable columns
         'title',
         'status',
-    );
+    ];
 
     /**
      * Translatable model configs.
      *
      * @var array
      */
-    public $translatedAttributes = array(
+    public $translatedAttributes = [
         'title',
         'status',
-    );
+    ];
 
     protected $appends = ['status', 'title'];
 
     /**
-     * Relations
+     * Relations.
      */
     public function menulinks()
     {

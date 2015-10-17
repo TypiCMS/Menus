@@ -1,9 +1,9 @@
 <?php
+
 use TypiCMS\Modules\Menus\Models\Menu;
 
 class MenusControllerTest extends TestCase
 {
-
     public function testAdminIndex()
     {
         // Menu::shouldReceive('all')->once()->andReturn(true);
@@ -18,7 +18,7 @@ class MenusControllerTest extends TestCase
 
     public function testStoreFails()
     {
-        $input = array('name' => '');
+        $input = ['name' => ''];
         $this->call('POST', 'admin/menus', $input);
         $this->assertRedirectedToRoute('admin.menus.create');
         $this->assertSessionHasErrors();
@@ -26,22 +26,21 @@ class MenusControllerTest extends TestCase
 
     public function testStoreSuccess()
     {
-        $object = new Menu;
+        $object = new Menu();
         $object->id = 1;
         Menu::shouldReceive('create')->once()->andReturn($object);
-        $input = array('name' => 'test');
+        $input = ['name' => 'test'];
         $this->call('POST', 'admin/menus', $input);
-        $this->assertRedirectedToRoute('admin.menus.edit', array('id' => 1));
+        $this->assertRedirectedToRoute('admin.menus.edit', ['id' => 1]);
     }
 
     public function testStoreSuccessWithRedirectToList()
     {
-        $object = new Menu;
+        $object = new Menu();
         $object->id = 1;
         Menu::shouldReceive('create')->once()->andReturn($object);
-        $input = array('name' => 'test', 'exit' => true);
+        $input = ['name' => 'test', 'exit' => true];
         $this->call('POST', 'admin/menus', $input);
         $this->assertRedirectedToRoute('admin.menus.index');
     }
-
 }
