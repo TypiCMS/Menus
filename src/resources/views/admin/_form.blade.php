@@ -5,7 +5,7 @@
 <div class="row">
 
     @if ($model->id)
-    <div class="col-sm-6">
+    <div class="col-sm-6 container-menulinks">
         <a href="{{ route('admin.menus.menulinks.create', $model->id) }}">
             <i class="fa fa-fw fa-plus-circle"></i>Add menu link
         </a>
