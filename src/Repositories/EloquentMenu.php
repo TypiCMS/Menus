@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Menus\Repositories;
 use Categories;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
@@ -75,6 +76,9 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      */
     public function getMenu($name)
     {
+        if (!app('TypiCMS.menus')) {
+            $this->storeAllMenus();
+        }
         try {
             $menu = app('TypiCMS.menus')->filter(function (Menu $menu) use ($name) {
                 return $menu->name == $name;
@@ -88,6 +92,29 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         }
 
         return $menu;
+    }
+
+    /**
+     * Store all menus in container.
+     *
+     * @return void
+     */
+    private function storeAllMenus()
+    {
+        try {
+            $with = [
+                'translations',
+                'menulinks' => function (HasMany $query) {
+                    $query->online();
+                },
+                'menulinks.translations',
+                'menulinks.page.translations',
+            ];
+            $menus = $this->all($with);
+            app()->instance('TypiCMS.menus', $menus);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+        }
     }
 
     public function prepare($items = null)

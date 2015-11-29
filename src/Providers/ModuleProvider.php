@@ -17,8 +17,6 @@ class ModuleProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->storeAllMenus();
-
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php', 'typicms.menus'
         );
@@ -56,6 +54,10 @@ class ModuleProvider extends ServiceProvider
          */
         $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Menus\Composers\SidebarViewComposer');
 
+        $app->bind('TypiCMS.menus', function(Application $app) {
+            return null;
+        });
+
         $app->bind('TypiCMS\Modules\Menus\Repositories\MenuInterface', function (Application $app) {
             $repository = new EloquentMenu(new Menu());
             if (!config('typicms.cache')) {
@@ -65,28 +67,5 @@ class ModuleProvider extends ServiceProvider
 
             return new CacheDecorator($repository, $laravelCache);
         });
-    }
-
-    /**
-     * Store all menus in container.
-     *
-     * @return void
-     */
-    protected function storeAllMenus()
-    {
-        try {
-            $with = [
-                'translations',
-                'menulinks' => function (HasMany $query) {
-                    $query->online();
-                },
-                'menulinks.translations',
-                'menulinks.page.translations',
-            ];
-            $menus = $this->app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->all($with);
-            $this->app->instance('TypiCMS.menus', $menus);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-        }
     }
 }
