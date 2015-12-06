@@ -76,9 +76,6 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      */
     public function getMenu($name)
     {
-        if (!app('TypiCMS.menus')) {
-            $this->storeAllMenus();
-        }
         try {
             $menu = app('TypiCMS.menus')->filter(function (Menu $menu) use ($name) {
                 return $menu->name == $name;
@@ -92,29 +89,6 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         }
 
         return $menu;
-    }
-
-    /**
-     * Store all menus in container.
-     *
-     * @return void
-     */
-    private function storeAllMenus()
-    {
-        try {
-            $with = [
-                'translations',
-                'menulinks' => function (HasMany $query) {
-                    $query->online();
-                },
-                'menulinks.translations',
-                'menulinks.page.translations',
-            ];
-            $menus = $this->all($with);
-            app()->instance('TypiCMS.menus', $menus);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-        }
     }
 
     public function prepare($items = null)
