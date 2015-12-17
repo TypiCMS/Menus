@@ -2,11 +2,9 @@
 
 namespace TypiCMS\Modules\Menus\Providers;
 
-use Exception;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Menus\Models\Menu;
@@ -54,7 +52,7 @@ class ModuleProvider extends ServiceProvider
          */
         $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Menus\Composers\SidebarViewComposer');
 
-        $app->singleton('TypiCMS.menus', function(Application $app) {
+        $app->singleton('TypiCMS.menus', function (Application $app) {
             $with = [
                 'translations',
                 'menulinks' => function (HasMany $query) {
@@ -63,6 +61,7 @@ class ModuleProvider extends ServiceProvider
                 'menulinks.translations',
                 'menulinks.page.translations',
             ];
+
             return $app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->all($with);
         });
 
