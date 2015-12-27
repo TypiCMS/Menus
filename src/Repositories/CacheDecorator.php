@@ -16,10 +16,10 @@ class CacheDecorator extends CacheAbstractDecorator implements MenuInterface
     /**
      * Get all models.
      *
-     * @param bool  $all  Show published or all
      * @param array $with Eager load related models
+     * @param bool  $all  Show published or all
      *
-     * @return Collection
+     * @return \Illuminate\Database\Eloquent\Collection|\TypiCMS\NestableCollection
      */
     public function all(array $with = [], $all = false)
     {
@@ -55,7 +55,7 @@ class CacheDecorator extends CacheAbstractDecorator implements MenuInterface
      *
      * @param string $name menu name
      *
-     * @return Collection nested collection
+     * @return \TypiCMS\Modules\Menus\Models\Menu|null
      */
     public function getMenu($name)
     {
