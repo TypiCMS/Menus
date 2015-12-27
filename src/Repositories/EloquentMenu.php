@@ -79,9 +79,10 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     }
 
     /**
-     * Set href and classes for each items in collection
+     * Set href and classes for each items in collection.
      *
-     * @param  \TypiCMS\NestableCollection $items
+     * @param \TypiCMS\NestableCollection $items
+     *
      * @return \TypiCMS\NestableCollection
      */
     public function prepare(NestableCollection $items = null)
