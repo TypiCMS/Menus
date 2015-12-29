@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
-use TypiCMS\Modules\Menulinks\Models\Menulink;
+use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\NestableCollection;
 
@@ -102,7 +102,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      * 1. If menulink has url field, take it.
      * 2. If menulink has a page, take the uri of the page in the current locale.
      *
-     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
+     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
      *
      * @return string uri
      */
@@ -121,7 +121,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     /**
      * Take the classes from field and add active if needed.
      *
-     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
+     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
      *
      * @return string classes
      */

@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot($router);
 
         $router->model('menus', 'TypiCMS\Modules\Menus\Models\Menu');
+        $router->model('menulinks', 'TypiCMS\Modules\Menus\Models\Menulink');
     }
 
     /**
@@ -44,11 +45,17 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->resource('admin/menus', 'AdminController');
+            $router->resource('admin/menus.menulinks', 'MenulinksAdminController');
+            $router->post(
+                'admin/menulinks/sort',
+                ['as' => 'admin.menulinks.sort', 'uses' => 'MenulinksAdminController@sort']
+            );
 
             /*
              * API routes
              */
             $router->resource('api/menus', 'ApiController');
+            $router->resource('api/menulinks', 'MenulinksApiController');
         });
     }
 }

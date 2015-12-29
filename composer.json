@@ -9,7 +9,6 @@
         }
     ],
     "require": {
-        "typicms/menulinks": "~2.6.0",
         "typicms/core": "~2.6.0"
     },
     "autoload": {
