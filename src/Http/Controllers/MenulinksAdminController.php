@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
