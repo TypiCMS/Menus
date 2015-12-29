@@ -50,7 +50,7 @@ class MenulinksAdminController extends BaseAdminController
     /**
      * Show resource.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
+     * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
      * @param \TypiCMS\Modules\Menus\Models\Menulink $model
      *
      * @return Redirect
@@ -63,7 +63,7 @@ class MenulinksAdminController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
+     * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
      * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
      *
      * @return Redirect
@@ -82,8 +82,8 @@ class MenulinksAdminController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $model
+     * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
+     * @param \TypiCMS\Modules\Menus\Models\Menulink                   $model
      * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
      *
      * @return Redirect
@@ -101,7 +101,7 @@ class MenulinksAdminController extends BaseAdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menu $parent
+     * @param \TypiCMS\Modules\Menus\Models\Menu     $parent
      * @param \TypiCMS\Modules\Menus\Models\Menulink $model
      *
      * @return Redirect
