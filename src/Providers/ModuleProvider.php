@@ -90,6 +90,5 @@ class ModuleProvider extends ServiceProvider
 
             return new MenulinkCacheDecorator($repository, $laravelCache);
         });
-
     }
 }

@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
-use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Models\Menu;
+use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\NestableCollection;
 
 class EloquentMenu extends RepositoriesAbstract implements MenuInterface
