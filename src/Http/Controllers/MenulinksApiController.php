@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
+use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Repositories\MenulinkInterface as Repository;
 
 class MenulinksApiController extends BaseApiController
@@ -49,12 +50,28 @@ class MenulinksApiController extends BaseApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update($model)
+    public function update()
     {
-        $error = $this->repository->update(Request::all()) ? false : true;
+        $updated = $this->repository->update(Request::all());
 
         return response()->json([
-            'error' => $error,
-        ], 200);
+            'error' => !$updated,
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Menulink $menulink)
+    {
+        $deleted = $this->repository->delete($menulink);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }
