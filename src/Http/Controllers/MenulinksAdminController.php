@@ -18,13 +18,13 @@ class MenulinksAdminController extends BaseAdminController
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create form for a new resource.
      *
-     * @param  $menu
+     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
-    public function create($menu = null)
+    public function create(Menu $menu)
     {
         $model = $this->repository->getModel();
 
@@ -33,30 +33,33 @@ class MenulinksAdminController extends BaseAdminController
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit form for the specified resource.
      *
-     * @param  $menu
-     * @param  $model
+     * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
+     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
-    public function edit($menu = null, $model = null)
+    public function edit(Menu $menu, Menulink $menulink)
     {
         return view('menus::admin.menulink-edit')
-            ->with(compact('model', 'menu'));
+            ->with([
+                'menu' => $menu,
+                'model' => $menulink,
+            ]);
     }
 
     /**
      * Show resource.
      *
      * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $model
+     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
      *
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function show($menu = null, $model = null)
+    public function show(Menu $menu, Menulink $menulink)
     {
-        return Redirect::route('admin.menus.menulinks.edit', [$menu->id, $model->id]);
+        return Redirect::route('admin.menus.menulinks.edit', [$menu->id, $menulink->id]);
     }
 
     /**
@@ -65,9 +68,9 @@ class MenulinksAdminController extends BaseAdminController
      * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
      * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
      *
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Menu $menu = null, MenulinkFormRequest $request)
+    public function store(Menu $menu, MenulinkFormRequest $request)
     {
         $data = $request->all();
         $data['parent_id'] = null;
@@ -85,9 +88,9 @@ class MenulinksAdminController extends BaseAdminController
      * @param \TypiCMS\Modules\Menus\Models\Menulink                   $model
      * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
      *
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Menu $menu = null, Menulink $model, MenulinkFormRequest $request)
+    public function update(Menu $menu, Menulink $model, MenulinkFormRequest $request)
     {
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
@@ -100,14 +103,14 @@ class MenulinksAdminController extends BaseAdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menu     $parent
+     * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
      * @param \TypiCMS\Modules\Menus\Models\Menulink $model
      *
-     * @return Redirect
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($parent = null, $model = null)
+    public function destroy(Menu $menu, Menulink $menulink)
     {
-        if ($this->repository->delete($model)) {
+        if ($this->repository->delete($menulink)) {
             return back();
         }
     }
@@ -115,7 +118,7 @@ class MenulinksAdminController extends BaseAdminController
     /**
      * Sort list.
      *
-     * @return \Illuminate\Support\Facades\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function sort()
     {
