@@ -44,7 +44,7 @@ class MenulinksAdminController extends BaseAdminController
     {
         return view('menus::admin.menulink-edit')
             ->with([
-                'menu' => $menu,
+                'menu'  => $menu,
                 'model' => $menulink,
             ]);
     }
