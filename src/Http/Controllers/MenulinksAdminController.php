@@ -50,19 +50,6 @@ class MenulinksAdminController extends BaseAdminController
     }
 
     /**
-     * Show resource.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function show(Menu $menu, Menulink $menulink)
-    {
-        return Redirect::route('admin.menus.menulinks.edit', [$menu->id, $menulink->id]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
