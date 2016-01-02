@@ -71,34 +71,19 @@ class MenulinksAdminController extends BaseAdminController
      * Update the specified resource in storage.
      *
      * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink                   $model
+     * @param \TypiCMS\Modules\Menus\Models\Menulink                   $menulink
      * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Menu $menu, Menulink $model, MenulinkFormRequest $request)
+    public function update(Menu $menu, Menulink $menulink, MenulinkFormRequest $request)
     {
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
         $this->repository->update($data);
 
-        return $this->redirect($request, $model);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $model
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Menu $menu, Menulink $menulink)
-    {
-        if ($this->repository->delete($menulink)) {
-            return back();
-        }
+        return $this->redirect($request, $menulink);
     }
 
     /**

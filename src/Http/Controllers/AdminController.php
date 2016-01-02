@@ -68,18 +68,4 @@ class AdminController extends BaseAdminController
 
         return $this->redirect($request, $menu);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
-     *
-     * @return \Illuminate\Http\RedirectResponse|null
-     */
-    public function destroy(Menu $menu)
-    {
-        if ($this->repository->delete($menu)) {
-            return back();
-        }
-    }
 }
