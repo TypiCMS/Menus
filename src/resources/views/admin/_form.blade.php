@@ -12,7 +12,9 @@
             </a>
         </p>
         <div ng-app="typicms" ng-cloak ng-controller="ListController">
-            @include('core::admin._tabs-lang-list')
+            <div class="btn-toolbar">
+                @include('core::admin._lang-switcher')
+            </div>
             <!-- Nested node template -->
             <div ui-tree="treeOptions">
                 <ul ui-tree-nodes="" data-max-depth="3" ng-model="models" id="tree-root">

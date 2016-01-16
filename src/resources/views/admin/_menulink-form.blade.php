@@ -12,7 +12,7 @@
 <div class="btn-toolbar">
     <button class="btn btn-primary" value="true" id="exit" name="exit" type="submit">@lang('validation.attributes.save and exit')</button>
     <button class="btn btn-default" type="submit">@lang('validation.attributes.save')</button>
-    @include('core::admin._tabs-lang-form')
+    @include('core::admin._lang-switcher', ['js' => true])
 </div>
 
 <div class="row">
