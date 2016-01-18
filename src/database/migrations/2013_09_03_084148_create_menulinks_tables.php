@@ -14,7 +14,6 @@ class CreateMenulinksTables extends Migration
     {
         Schema::create('menulinks', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->integer('menu_id')->unsigned();
             $table->integer('page_id')->unsigned()->nullable();
@@ -24,30 +23,22 @@ class CreateMenulinksTables extends Migration
             $table->string('class')->nullable();
             $table->string('icon_class')->nullable();
             $table->boolean('has_categories')->nullable();
-
             $table->timestamps();
-
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('menulinks')->onDelete('cascade');
         });
+
         Schema::create('menulink_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->integer('menulink_id')->unsigned();
-
             $table->string('locale')->index();
-
             $table->boolean('status')->default(0);
-
             $table->string('title', 100);
             $table->string('url')->nullable();
-
             $table->timestamps();
-
             $table->unique(['menulink_id', 'locale']);
             $table->foreign('menulink_id')->references('id')->on('menulinks')->onDelete('cascade');
-
         });
     }
 

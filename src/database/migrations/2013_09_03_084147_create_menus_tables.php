@@ -14,27 +14,20 @@ class CreateMenusTables extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->string('name');
             $table->string('class')->nullable();
-
             $table->timestamps();
         });
 
         Schema::create('menu_translations', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-
             $table->increments('id');
             $table->integer('menu_id')->unsigned();
-
             $table->string('locale')->index();
             $table->boolean('status')->default(0);
-
             $table->string('title');
-
             $table->timestamps();
-
             $table->unique(['menu_id', 'locale']);
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
