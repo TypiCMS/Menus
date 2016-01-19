@@ -1,13 +1,13 @@
 @section('js')
     <script src="{{ asset('components/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('js/admin/form.js') }}"></script>
-@stop
+@endsection
 
 @section('titleLeftButton')
     <a href="{{ route('admin.menus.edit', $menu->id) }}" title="{{ trans('menus::global.Back to menu') }}">
         <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ trans('menus::global.Back to menu') }}</span>
     </a>
-@stop
+@endsection
 
 <div class="btn-toolbar">
     <button class="btn btn-primary" value="true" id="exit" name="exit" type="submit">@lang('validation.attributes.save and exit')</button>

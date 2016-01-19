@@ -15,4 +15,4 @@
         @include('menus::admin._menulink-form')
     {!! BootForm::close() !!}
 
-@stop
+@endsection
