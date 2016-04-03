@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Menus\Composers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Sidebar\SidebarGroup;
 use Maatwebsite\Sidebar\SidebarItem;
 
@@ -17,7 +18,7 @@ class SidebarViewComposer
                 $item->route('admin::index-menus');
                 $item->append('admin::create-menus');
                 $item->authorize(
-                    auth()->user()->can('index-menus')
+                    Auth::user()->can('index-menus')
                 );
             });
         });
