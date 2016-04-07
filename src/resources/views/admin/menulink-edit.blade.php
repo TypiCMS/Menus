@@ -11,7 +11,7 @@
         {{ $model->present()->title }}
     </h1>
 
-    {!! BootForm::open()->put()->action(route('admin.menus.menulinks.update', [$menu->id, $model->id]))->multipart() !!}
+    {!! BootForm::open()->put()->action(route('admin::update-menulinks', [$menu->id, $model->id]))->multipart() !!}
     {!! BootForm::bind($model) !!}
         @include('menus::admin._menulink-form')
     {!! BootForm::close() !!}

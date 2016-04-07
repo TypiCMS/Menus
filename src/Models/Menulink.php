@@ -89,7 +89,7 @@ class Menulink extends Base
     public function editUrl()
     {
         try {
-            return route('admin.menus.menulinks.edit', [$this->menu_id, $this->id]);
+            return route('admin::edit-menulinks', [$this->menu_id, $this->id]);
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }
@@ -103,7 +103,7 @@ class Menulink extends Base
     public function indexUrl()
     {
         try {
-            return route('admin::menus.edit', $this->menu_id);
+            return route('admin::edit-menus', $this->menu_id);
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }

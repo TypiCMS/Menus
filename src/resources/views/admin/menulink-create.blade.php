@@ -11,7 +11,7 @@
         @lang('menus::global.New menulink')
     </h1>
 
-    {!! BootForm::open()->action(route('admin.menus.menulinks.index', $menu->id))->multipart() !!}
+    {!! BootForm::open()->action(route('admin::index-menulinks', $menu->id))->multipart() !!}
         @include('menus::admin._menulink-form')
     {!! BootForm::close() !!}
 

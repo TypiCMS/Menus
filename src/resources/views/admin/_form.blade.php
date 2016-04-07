@@ -7,8 +7,8 @@
     @if ($model->id)
     <div class="col-sm-6 container-menulinks">
         <p>
-            <a href="{{ route('admin.menus.menulinks.create', $model->id) }}">
-                <i class="fa fa-fw fa-plus-circle"></i>Add menu link
+            <a href="{{ route('admin::create-menulinks', $model->id) }}">
+                <i class="fa fa-fw fa-plus-circle"></i>@lang('menus::global.New menulink')
             </a>
         </p>
         <div ng-app="typicms" ng-cloak ng-controller="ListController">
