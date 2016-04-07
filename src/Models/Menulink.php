@@ -114,7 +114,7 @@ class Menulink extends Base
      *
      * @return string
      */
-    public function getStatusAttribute($value)
+    public function getStatusAttribute()
     {
         return $this->status;
     }
@@ -124,7 +124,7 @@ class Menulink extends Base
      *
      * @return string title
      */
-    public function getTitleAttribute($value)
+    public function getTitleAttribute()
     {
         return $this->title;
     }
