@@ -103,7 +103,7 @@ class Menulink extends Base
     public function indexUrl()
     {
         try {
-            return route('admin.menus.edit', $this->menu_id);
+            return route('admin::menus.edit', $this->menu_id);
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }
