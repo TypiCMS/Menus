@@ -9,7 +9,7 @@ return [
     'No menu found with name “:name”' => 'Le menu « :name » n’a pas été trouvé.',
     'Active tab'                      => 'Onglet actif',
     'New tab'                         => 'Nouvel onglet',
-    'New menulink'                    => 'Nouvel élément de menu',
-    'Edit menulink'                   => 'Modifier l’élément de menu',
+    'New menulink'                    => 'Nouveau lien de menu',
+    'Edit menulink'                   => 'Modifier le lien de menu',
     'Back to menu'                    => 'Retour au menu',
 ];
