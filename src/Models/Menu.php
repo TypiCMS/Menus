@@ -42,4 +42,24 @@ class Menu extends Base
     {
         return $this->hasMany('TypiCMS\Modules\Menus\Models\Menulink')->orderBy('position', 'asc');
     }
+
+    /**
+     * Append status attribute from translation table.
+     *
+     * @return string
+     */
+    public function getStatusAttribute($value)
+    {
+        return $this->status;
+    }
+
+    /**
+     * Append title attribute from translation table.
+     *
+     * @return string title
+     */
+    public function getTitleAttribute($value)
+    {
+        return $this->title;
+    }
 }
