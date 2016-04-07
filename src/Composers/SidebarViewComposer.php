@@ -16,7 +16,7 @@ class SidebarViewComposer
                 $item->icon = config('typicms.menus.sidebar.icon', 'icon fa fa-fw fa-bars');
                 $item->weight = config('typicms.menus.sidebar.weight');
                 $item->route('admin::index-menus');
-                $item->append('admin::create-menus');
+                $item->append('admin::create-menu');
                 $item->authorize(
                     Gate::allows('index-menus')
                 );

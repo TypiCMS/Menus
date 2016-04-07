@@ -4,7 +4,7 @@
 
 @section('main')
 
-    <a href="{{ route('admin::edit-menus', $menu->id) }}" title="{{ trans('menus::global.Back to menu') }}" class="btn-back">
+    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ trans('menus::global.Back to menu') }}" class="btn-back">
         <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ trans('menus::global.Back to menu') }}</span>
     </a>
     <h1>
