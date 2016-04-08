@@ -21,7 +21,6 @@
                     <th class="edit"></th>
                     <th st-sort="status" class="status st-sort">Status</th>
                     <th st-sort="name" st-sort-default="true" class="name st-sort">Name</th>
-                    <th st-sort="title" class="title st-sort">Title</th>
                 </tr>
             </thead>
 
@@ -33,7 +32,6 @@
                     </td>
                     <td typi-btn-status action="toggleStatus(model)" model="model"></td>
                     <td>@{{ model.name }}</td>
-                    <td>@{{ model.title }}</td>
                 </tr>
             </tbody>
         </table>

@@ -19,7 +19,6 @@ class Menu extends Base
         'name',
         'class',
         // Translatable columns
-        'title',
         'status',
     ];
 
@@ -29,11 +28,10 @@ class Menu extends Base
      * @var array
      */
     public $translatedAttributes = [
-        'title',
         'status',
     ];
 
-    protected $appends = ['status', 'title'];
+    protected $appends = ['status'];
 
     /**
      * Relations.
@@ -51,15 +49,5 @@ class Menu extends Base
     public function getStatusAttribute()
     {
         return $this->status;
-    }
-
-    /**
-     * Append title attribute from translation table.
-     *
-     * @return string title
-     */
-    public function getTitleAttribute()
-    {
-        return $this->title;
     }
 }

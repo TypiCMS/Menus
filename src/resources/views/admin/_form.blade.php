@@ -26,14 +26,10 @@
     @endif
 
     <div class="col-sm-6">
-
         {!! BootForm::text(trans('validation.attributes.name'), 'name') !!}
         {!! BootForm::text(trans('validation.attributes.class'), 'class') !!}
-
-        {!! TranslatableBootForm::text(trans('validation.attributes.title'), 'title') !!}
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
         {!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
-
     </div>
 
 </div>
