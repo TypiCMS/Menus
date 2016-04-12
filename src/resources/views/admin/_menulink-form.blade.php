@@ -1,8 +1,3 @@
-@section('js')
-    <script src="{{ asset('components/ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('js/admin/form.js') }}"></script>
-@endsection
-
 @section('titleLeftButton')
     <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ trans('menus::global.Back to menu') }}">
         <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ trans('menus::global.Back to menu') }}</span>
