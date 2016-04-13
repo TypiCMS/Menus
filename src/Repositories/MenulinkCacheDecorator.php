@@ -13,28 +13,4 @@ class MenulinkCacheDecorator extends CacheAbstractDecorator implements MenulinkI
         $this->repo = $repo;
         $this->cache = $cache;
     }
-
-    /**
-     * Get a menu’s items and children.
-     *
-     * @param int  $id
-     * @param bool $all published or all
-     *
-     * @return Collection
-     */
-    public function allFromMenu($id = null, $all = false)
-    {
-        $cacheKey = md5(config('app.locale').'all'.$all.$id);
-
-        if ($this->cache->has($cacheKey)) {
-            return $this->cache->get($cacheKey);
-        }
-
-        $models = $this->repo->allFromMenu($id, $all);
-
-        // Store in cache for next request
-        $this->cache->put($cacheKey, $models);
-
-        return $models;
-    }
 }
