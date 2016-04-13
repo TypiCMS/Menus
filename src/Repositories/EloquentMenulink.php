@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
 

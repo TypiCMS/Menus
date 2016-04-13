@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use Illuminate\Database\Eloquent\Collection;
 use TypiCMS\Modules\Core\Repositories\CacheAbstractDecorator;
 use TypiCMS\Modules\Core\Services\Cache\CacheInterface;
 
