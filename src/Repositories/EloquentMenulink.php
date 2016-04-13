@@ -25,7 +25,7 @@ class EloquentMenulink extends RepositoriesAbstract implements MenulinkInterface
     {
         $query = $this->model->with('translations')
             ->order()
-            ->where('menu_id', $menuId);
+            ->where('menu_id', $id);
 
         // All posts or only published
         if (!$all) {
