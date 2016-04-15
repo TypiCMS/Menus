@@ -2,52 +2,30 @@
 
 namespace TypiCMS\Modules\Menus\Models;
 
-use Dimsav\Translatable\Translatable;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Laracasts\Presenter\PresentableTrait;
-use Log;
+use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\NestableTrait;
 
 class Menulink extends Base
 {
+    use HasTranslations;
     use Historable;
-    use Translatable;
-    use PresentableTrait;
     use NestableTrait;
+    use PresentableTrait;
 
     protected $presenter = 'TypiCMS\Modules\Menus\Presenters\MenulinkPresenter';
 
-    protected $fillable = [
-        'menu_id',
-        'page_id',
-        'parent_id',
-        'position',
-        'target',
-        'restricted_to',
-        'class',
-        'icon_class',
-        'link_type',
-        'has_categories',
-        // Translatable columns
+    protected $guarded = ['id'];
+
+    public $translatable = [
         'title',
         'url',
         'status',
     ];
-
-    /**
-     * Translatable model configs.
-     *
-     * @var array
-     */
-    public $translatedAttributes = [
-        'title',
-        'url',
-        'status',
-    ];
-
-    protected $appends = ['status', 'title'];
 
     /**
      * A menulink belongs to a menu.
@@ -107,16 +85,6 @@ class Menulink extends Base
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }
-    }
-
-    /**
-     * Append status attribute from translation table.
-     *
-     * @return string
-     */
-    public function getStatusAttribute()
-    {
-        return $this->status;
     }
 
     /**
