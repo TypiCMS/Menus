@@ -6,11 +6,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
-use TypiCMS\Modules\Menus\Repositories\MenulinkCacheDecorator;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
 class ModuleProvider extends ServiceProvider
 {
