@@ -86,14 +86,4 @@ class Menulink extends Base
             Log::error($e->getMessage());
         }
     }
-
-    /**
-     * Append title attribute from translation table.
-     *
-     * @return string title
-     */
-    public function getTitleAttribute()
-    {
-        return $this->title;
-    }
 }
