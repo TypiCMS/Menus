@@ -6,13 +6,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
-use TypiCMS\Modules\Menus\Repositories\MenuInterface;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Repositories\MenulinkCacheDecorator;
 
 class ModuleProvider extends ServiceProvider
@@ -70,24 +67,7 @@ class ModuleProvider extends ServiceProvider
             return $app->make(MenuInterface::class)->all($with);
         });
 
-        $app->bind('TypiCMS\Modules\Menus\Repositories\MenuInterface', function (Application $app) {
-            $repository = new EloquentMenu(new Menu());
-            if (!config('typicms.cache')) {
-                return $repository;
-            }
-            $laravelCache = new LaravelCache($app['cache'], ['menus', 'menulinks', 'pages'], 10);
-
-            return new CacheDecorator($repository, $laravelCache);
-        });
-
-        $app->bind('TypiCMS\Modules\Menus\Repositories\MenulinkInterface', function (Application $app) {
-            $repository = new EloquentMenulink(new Menulink());
-            if (!config('typicms.cache')) {
-                return $repository;
-            }
-            $laravelCache = new LaravelCache($app['cache'], 'menulinks', 10);
-
-            return new MenulinkCacheDecorator($repository, $laravelCache);
-        });
+        $app->bind('Menus', EloquentMenu::class);
+        $app->bind('Menulinks', EloquentMenulink::class);
     }
 }

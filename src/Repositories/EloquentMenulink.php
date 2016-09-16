@@ -2,15 +2,13 @@
 
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
-use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Menus\Models\Menulink;
 
-class EloquentMenulink extends RepositoriesAbstract implements MenulinkInterface
+class EloquentMenulink extends EloquentRepository
 {
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    protected $repositoryId = 'menulinks';
+
+    protected $model = Menulink::class;
 
     /**
      * Get sort data.

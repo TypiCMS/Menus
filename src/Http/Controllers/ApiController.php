@@ -5,7 +5,7 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Repositories\MenuInterface as Repository;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenu as Repository;
 
 class ApiController extends BaseApiController
 {

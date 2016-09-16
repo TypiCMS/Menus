@@ -4,20 +4,18 @@ namespace TypiCMS\Modules\Menus\Repositories;
 
 use Categories;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Core\EloquentRepository;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\NestableCollection;
 
-class EloquentMenu extends RepositoriesAbstract implements MenuInterface
+class EloquentMenu extends EloquentRepository
 {
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    protected $repositoryId = 'menus';
+
+    protected $model = Menu::class;
 
     /**
      * Get all models.

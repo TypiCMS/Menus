@@ -7,11 +7,11 @@ use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\MenulinkInterface;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
 class MenulinksAdminController extends BaseAdminController
 {
-    public function __construct(MenulinkInterface $menulink)
+    public function __construct(EloquentMenulink $menulink)
     {
         parent::__construct($menulink);
     }
@@ -81,7 +81,7 @@ class MenulinksAdminController extends BaseAdminController
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
-        $this->repository->update($data);
+        $this->repository->update($menulink->id, $data);
 
         return $this->redirect($request, $menulink);
     }

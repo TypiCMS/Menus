@@ -5,7 +5,7 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\MenulinkInterface as Repository;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenulink as Repository;
 
 class MenulinksApiController extends BaseApiController
 {

@@ -5,11 +5,11 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Repositories\MenuInterface;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(MenuInterface $menu)
+    public function __construct(EloquentMenu $menu)
     {
         parent::__construct($menu);
     }
