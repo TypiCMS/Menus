@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Menus\Repositories;
 
+use TypiCMS\Modules\Core\EloquentRepository;
 use TypiCMS\Modules\Menus\Models\Menulink;
 
 class EloquentMenulink extends EloquentRepository
