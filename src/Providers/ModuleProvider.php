@@ -64,7 +64,7 @@ class ModuleProvider extends ServiceProvider
                 'menulinks.page',
             ];
 
-            return $app->make(MenuInterface::class)->all($with);
+            return $app->make('Menus')->with($with)->findAll();
         });
 
         $app->bind('Menus', EloquentMenu::class);
