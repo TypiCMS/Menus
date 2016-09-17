@@ -38,7 +38,7 @@ class ModuleProvider extends ServiceProvider
 
         AliasLoader::getInstance()->alias(
             'Menus',
-            'TypiCMS\Modules\Slides\Facades\Menus'
+            'TypiCMS\Modules\Menus\Facades\Menus'
         );
     }
 
