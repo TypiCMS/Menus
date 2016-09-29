@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * Admin routes
              */
-            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function(Router $router) {
+            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
                 $router->get('menus', 'AdminController@index')->name('admin::index-menus');
                 $router->get('menus/create', 'AdminController@create')->name('admin::create-menu');
                 $router->get('menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu');
@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
             /*
              * API routes
              */
-            $router->group(['middleware' => 'api', 'prefix' => 'api'], function(Router $router) {
+            $router->group(['middleware' => 'api', 'prefix' => 'api'], function (Router $router) {
                 $router->get('menus', 'ApiController@index')->name('api::index-menus');
                 $router->put('menus/{menu}', 'ApiController@update')->name('api::update-menu');
                 $router->delete('menus/{menu}', 'ApiController@destroy')->name('api::destroy-menu');
