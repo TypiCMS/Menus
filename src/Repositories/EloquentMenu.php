@@ -6,7 +6,7 @@ use Categories;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\EloquentRepository;
+use TypiCMS\Modules\Core\Repositories\EloquentRepository;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\NestableCollection;

@@ -22,7 +22,7 @@ class MenulinksApiController extends BaseApiController
     public function index()
     {
         $id = Request::input('menu_id');
-        $models = $this->repository->allNestedBy('menu_id', $id, [], true);
+        $models = $this->repository->where('menu_id', $id)->allNested();
 
         return response()->json($models, 200);
     }
