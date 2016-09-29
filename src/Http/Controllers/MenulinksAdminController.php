@@ -25,7 +25,7 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function create(Menu $menu)
     {
-        $model = $this->repository->getModel();
+        $model = $this->repository->createModel();
 
         return view('menus::admin.menulink-create')
             ->with(compact('model', 'menu'));
