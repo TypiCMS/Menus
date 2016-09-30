@@ -27,7 +27,7 @@ class EloquentMenu extends EloquentRepository
      */
     public function all(array $with = [], $all = false)
     {
-        $query = $this->make($with);
+        $query = $this->with($with);
 
         if (!$all) {
             $query->online();
