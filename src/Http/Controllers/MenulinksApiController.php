@@ -52,7 +52,7 @@ class MenulinksApiController extends BaseApiController
      */
     public function update()
     {
-        $updated = $this->repository->update(Request::all());
+        $updated = $this->repository->update(request('id'), Request::all());
 
         return response()->json([
             'error' => !$updated,
