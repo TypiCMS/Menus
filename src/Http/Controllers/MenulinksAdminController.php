@@ -100,4 +100,20 @@ class MenulinksAdminController extends BaseAdminController
             'message' => trans('global.Items sorted'),
         ], 200);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Menulink $menulink)
+    {
+        $deleted = $this->repository->delete($menulink);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
+    }
 }

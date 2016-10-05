@@ -77,8 +77,24 @@ class AdminController extends BaseAdminController
      */
     public function update(Menu $menu, FormRequest $request)
     {
-        $this->repository->update(request('id'), $request->all());
+        $this->repository->update($request->id, $request->all());
 
         return $this->redirect($request, $menu);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Menu $menu)
+    {
+        $deleted = $this->repository->delete($menu);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }
