@@ -30,10 +30,6 @@ class Menulink extends Base
         'icon_class',
         'link_type',
         'has_categories',
-        // Translatable columns
-        'title',
-        'url',
-        'status',
     ];
 
     /**
@@ -114,9 +110,9 @@ class Menulink extends Base
      *
      * @return string
      */
-    public function getStatusAttribute()
+    public function getStatusAttribute($value)
     {
-        return $this->status;
+        return $value;
     }
 
     /**
@@ -124,8 +120,8 @@ class Menulink extends Base
      *
      * @return string title
      */
-    public function getTitleAttribute()
+    public function getTitleAttribute($value)
     {
-        return $this->title;
+        return $value;
     }
 }

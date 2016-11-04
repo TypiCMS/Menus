@@ -18,8 +18,6 @@ class Menu extends Base
     protected $fillable = [
         'name',
         'class',
-        // Translatable columns
-        'status',
     ];
 
     /**
@@ -46,8 +44,8 @@ class Menu extends Base
      *
      * @return string
      */
-    public function getStatusAttribute()
+    public function getStatusAttribute($value)
     {
-        return $this->status;
+        return $value;
     }
 }

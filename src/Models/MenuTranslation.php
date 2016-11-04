@@ -6,6 +6,10 @@ use TypiCMS\Modules\Core\Models\BaseTranslation;
 
 class MenuTranslation extends BaseTranslation
 {
+    protected $fillable = [
+        'status',
+    ];
+
     /**
      * get the parent model.
      */

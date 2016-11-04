@@ -6,6 +6,12 @@ use TypiCMS\Modules\Core\Models\BaseTranslation;
 
 class MenulinkTranslation extends BaseTranslation
 {
+    protected $fillable = [
+        'title',
+        'url',
+        'status',
+    ];
+
     /**
      * get the parent model.
      */
