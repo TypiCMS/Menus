@@ -8,6 +8,7 @@ use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
+use TypiCMS\Modules\Pages\Models\Page;
 use TypiCMS\NestableTrait;
 
 class Menulink extends Base
@@ -32,7 +33,7 @@ class Menulink extends Base
      */
     public function menu()
     {
-        return $this->belongsTo('TypiCMS\Modules\Menus\Models\Menu');
+        return $this->belongsTo(Menu::class);
     }
 
     /**
@@ -40,7 +41,7 @@ class Menulink extends Base
      */
     public function page()
     {
-        return $this->belongsTo('TypiCMS\Modules\Pages\Models\Page');
+        return $this->belongsTo(Page::class);
     }
 
     /**
@@ -48,7 +49,7 @@ class Menulink extends Base
      */
     public function children()
     {
-        return $this->hasMany('TypiCMS\Modules\Menus\Models\Menulink', 'parent_id');
+        return $this->hasMany(Menulink::class, 'parent_id');
     }
 
     /**
@@ -56,7 +57,7 @@ class Menulink extends Base
      */
     public function parent()
     {
-        return $this->belongsTo('TypiCMS\Modules\Menus\Models\Menulink', 'parent_id');
+        return $this->belongsTo(Menulink::class, 'parent_id');
     }
 
     /**

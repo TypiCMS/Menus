@@ -23,6 +23,6 @@ class Menu extends Base
 
     public function menulinks()
     {
-        return $this->hasMany('TypiCMS\Modules\Menus\Models\Menulink')->orderBy('position', 'asc');
+        return $this->hasMany(Menulink::class)->orderBy('position', 'asc');
     }
 }
