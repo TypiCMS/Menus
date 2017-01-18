@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Menus\Providers;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
 use TypiCMS\Modules\Menus\Models\Menu;
@@ -42,6 +43,10 @@ class ModuleProvider extends ServiceProvider
             'Menus',
             'TypiCMS\Modules\Menus\Facades\Facade'
         );
+
+        Blade::directive('menu', function ($name) {
+            return "<?php echo Menus::render($name) ?>";
+        });
     }
 
     public function register()
