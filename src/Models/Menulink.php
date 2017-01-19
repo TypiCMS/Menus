@@ -49,7 +49,7 @@ class Menulink extends Base
      */
     public function children()
     {
-        return $this->hasMany(Menulink::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     /**
@@ -57,7 +57,7 @@ class Menulink extends Base
      */
     public function parent()
     {
-        return $this->belongsTo(Menulink::class, 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
