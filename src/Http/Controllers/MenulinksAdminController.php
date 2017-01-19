@@ -43,7 +43,7 @@ class MenulinksAdminController extends BaseAdminController
     {
         return view('menus::admin.menulink-edit')
             ->with([
-                'menu'  => $menu,
+                'menu' => $menu,
                 'model' => $menulink,
             ]);
     }
@@ -96,7 +96,7 @@ class MenulinksAdminController extends BaseAdminController
         $this->repository->sort(Request::all());
 
         return response()->json([
-            'error'   => false,
+            'error' => false,
             'message' => trans('global.Items sorted'),
         ], 200);
     }

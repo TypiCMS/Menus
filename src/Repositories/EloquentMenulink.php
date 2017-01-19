@@ -22,7 +22,7 @@ class EloquentMenulink extends EloquentRepository
     protected function getSortData($position, $item)
     {
         return [
-            'position'  => $position,
+            'position' => $position,
             'parent_id' => $item['parent_id'],
         ];
     }
