@@ -5,8 +5,8 @@
 @endsection
 
 <div class="btn-toolbar">
-    <button class="btn btn-primary" value="true" id="exit" name="exit" type="submit">@lang('validation.attributes.save and exit')</button>
-    <button class="btn btn-default" type="submit">@lang('validation.attributes.save')</button>
+    <button class="btn btn-primary" value="true" id="exit" name="exit" type="submit">{{ __('Save and exit') }}</button>
+    <button class="btn btn-default" type="submit">{{ __('Save') }}</button>
     @include('core::admin._lang-switcher', ['js' => true])
 </div>
 
@@ -18,19 +18,19 @@
     {!! BootForm::hidden('parent_id') !!}
 
     <div class="col-sm-6">
-        {!! TranslatableBootForm::text(__('validation.attributes.title'), 'title') !!}
-        {!! TranslatableBootForm::text(__('validation.attributes.url'), 'url')->placeholder('http://') !!}
+        {!! TranslatableBootForm::text(__('Title'), 'title') !!}
+        {!! TranslatableBootForm::text(__('Url'), 'url')->placeholder('http://') !!}
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
-        {!! TranslatableBootForm::checkbox(__('validation.attributes.online'), 'status') !!}
+        {!! TranslatableBootForm::checkbox(__('Online'), 'status') !!}
     </div>
 
     <div class="col-sm-6">
-        {!! BootForm::select(__('validation.attributes.page_id'), 'page_id', Pages::allForSelect()) !!}
+        {!! BootForm::select(__('Page'), 'page_id', Pages::allForSelect()) !!}
         {!! BootForm::hidden('has_categories')->value(0) !!}
-        {!! BootForm::checkbox(__('validation.attributes.has_categories'), 'has_categories') !!}
-        {!! BootForm::select(__('validation.attributes.target'), 'target', ['' => __('menus::global.Active tab'), '_blank' => __('menus::global.New tab')]) !!}
-        {!! BootForm::text(__('validation.attributes.class'), 'class') !!}
-        {!! BootForm::text(__('validation.attributes.icon_class'), 'icon_class') !!}
+        {!! BootForm::checkbox(__('Show categories'), 'has_categories') !!}
+        {!! BootForm::select(__('Target'), 'target', ['' => __('menus::global.Active tab'), '_blank' => __('menus::global.New tab')]) !!}
+        {!! BootForm::text(__('Class'), 'class') !!}
+        {!! BootForm::text(__('Icon class'), 'icon_class') !!}
     </div>
 
 </div>
