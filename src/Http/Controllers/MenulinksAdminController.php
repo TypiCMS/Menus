@@ -97,7 +97,7 @@ class MenulinksAdminController extends BaseAdminController
 
         return response()->json([
             'error' => false,
-            'message' => trans('global.Items sorted'),
+            'message' => __('global.Items sorted'),
         ], 200);
     }
 

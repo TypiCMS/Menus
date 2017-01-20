@@ -1,6 +1,6 @@
 @section('titleLeftButton')
-    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ trans('menus::global.Back to menu') }}">
-        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ trans('menus::global.Back to menu') }}</span>
+    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('menus::global.Back to menu') }}">
+        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('menus::global.Back to menu') }}</span>
     </a>
 @endsection
 
@@ -18,19 +18,19 @@
     {!! BootForm::hidden('parent_id') !!}
 
     <div class="col-sm-6">
-        {!! TranslatableBootForm::text(trans('validation.attributes.title'), 'title') !!}
-        {!! TranslatableBootForm::text(trans('validation.attributes.url'), 'url')->placeholder('http://') !!}
+        {!! TranslatableBootForm::text(__('validation.attributes.title'), 'title') !!}
+        {!! TranslatableBootForm::text(__('validation.attributes.url'), 'url')->placeholder('http://') !!}
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
-        {!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
+        {!! TranslatableBootForm::checkbox(__('validation.attributes.online'), 'status') !!}
     </div>
 
     <div class="col-sm-6">
-        {!! BootForm::select(trans('validation.attributes.page_id'), 'page_id', Pages::allForSelect()) !!}
+        {!! BootForm::select(__('validation.attributes.page_id'), 'page_id', Pages::allForSelect()) !!}
         {!! BootForm::hidden('has_categories')->value(0) !!}
-        {!! BootForm::checkbox(trans('validation.attributes.has_categories'), 'has_categories') !!}
-        {!! BootForm::select(trans('validation.attributes.target'), 'target', ['' => trans('menus::global.Active tab'), '_blank' => trans('menus::global.New tab')]) !!}
-        {!! BootForm::text(trans('validation.attributes.class'), 'class') !!}
-        {!! BootForm::text(trans('validation.attributes.icon_class'), 'icon_class') !!}
+        {!! BootForm::checkbox(__('validation.attributes.has_categories'), 'has_categories') !!}
+        {!! BootForm::select(__('validation.attributes.target'), 'target', ['' => __('menus::global.Active tab'), '_blank' => __('menus::global.New tab')]) !!}
+        {!! BootForm::text(__('validation.attributes.class'), 'class') !!}
+        {!! BootForm::text(__('validation.attributes.icon_class'), 'icon_class') !!}
     </div>
 
 </div>
