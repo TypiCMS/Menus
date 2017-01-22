@@ -2,7 +2,7 @@
 
 @section('title', __('menus::global.New'))
 
-@section('main')
+@section('content')
 
     @include('core::admin._button-back', ['module' => 'menus'])
     <h1>

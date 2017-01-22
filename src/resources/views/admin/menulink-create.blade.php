@@ -2,7 +2,7 @@
 
 @section('title', __('menus::global.New menulink'))
 
-@section('main')
+@section('content')
 
     <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('menus::global.Back to menu') }}" class="btn-back">
         <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('menus::global.Back to menu') }}</span>

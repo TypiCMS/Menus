@@ -2,7 +2,7 @@
 
 @section('title', $model->title)
 
-@section('main')
+@section('content')
 
     <h1>
         <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('menus::global.Back to menu') }}">
