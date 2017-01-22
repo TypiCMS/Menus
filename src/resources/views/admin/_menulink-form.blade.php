@@ -21,7 +21,7 @@
         {!! TranslatableBootForm::text(__('Title'), 'title') !!}
         {!! TranslatableBootForm::text(__('Url'), 'url')->placeholder('http://') !!}
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
-        {!! TranslatableBootForm::checkbox(__('Online'), 'status') !!}
+        {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
     </div>
 
     <div class="col-sm-6">

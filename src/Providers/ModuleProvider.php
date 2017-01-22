@@ -56,7 +56,7 @@ class ModuleProvider extends ServiceProvider
         $app->singleton('TypiCMS.menus', function (Application $app) {
             $with = [
                 'menulinks' => function (HasMany $query) {
-                    $query->online();
+                    $query->published();
                 },
                 'menulinks.page',
             ];

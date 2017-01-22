@@ -29,7 +29,7 @@
         {!! BootForm::text(__('Name'), 'name') !!}
         {!! BootForm::text(__('Class'), 'class') !!}
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
-        {!! TranslatableBootForm::checkbox(__('Online'), 'status') !!}
+        {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
     </div>
 
 </div>

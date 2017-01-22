@@ -30,7 +30,7 @@ class EloquentMenu extends EloquentRepository
         $query = $this->with($with);
 
         if (!$all) {
-            $query->online();
+            $query->published();
         }
 
         // Query ORDER BY
