@@ -11,10 +11,10 @@ class MenulinkFormRequest extends AbstractFormRequest
         return [
             'menu_id' => 'required',
             'page_id' => 'required_if:has_categories,1',
-            'class' => 'max:255',
-            'icon_class' => 'max:255',
-            'title.*' => 'max:255',
-            'url.*' => 'url|max:255',
+            'class' => 'nullable|max:255',
+            'icon_class' => 'nullable|max:255',
+            'title.*' => 'nullable|max:255',
+            'url.*' => 'nullable|url|max:255',
         ];
     }
 }
