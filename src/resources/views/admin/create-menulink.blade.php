@@ -12,7 +12,7 @@
     </h1>
 
     {!! BootForm::open()->action(route('admin::index-menulinks', $menu->id))->multipart() !!}
-        @include('menus::admin._menulink-form')
+        @include('menus::admin._form-menulink')
     {!! BootForm::close() !!}
 
 @endsection

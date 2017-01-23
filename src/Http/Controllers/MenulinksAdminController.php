@@ -27,7 +27,7 @@ class MenulinksAdminController extends BaseAdminController
     {
         $model = $this->repository->createModel();
 
-        return view('menus::admin.menulink-create')
+        return view('menus::admin.create-menulink')
             ->with(compact('model', 'menu'));
     }
 
@@ -41,7 +41,7 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function edit(Menu $menu, Menulink $menulink)
     {
-        return view('menus::admin.menulink-edit')
+        return view('menus::admin.edit-menulink')
             ->with([
                 'menu' => $menu,
                 'model' => $menulink,
