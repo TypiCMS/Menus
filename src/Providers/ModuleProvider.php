@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
+use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
+use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
@@ -33,10 +35,7 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../database' => base_path('database'),
         ], 'migrations');
 
-        AliasLoader::getInstance()->alias(
-            'Menus',
-            'TypiCMS\Modules\Menus\Facades\Menus'
-        );
+        AliasLoader::getInstance()->alias('Menus', Menus::class);
     }
 
     public function register()
@@ -46,12 +45,12 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register('TypiCMS\Modules\Menus\Providers\RouteServiceProvider');
+        $app->register(RouteServiceProvider::class);
 
         /*
          * Sidebar view composer
          */
-        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Menus\Composers\SidebarViewComposer');
+        $app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
 
         $app->singleton('TypiCMS.menus', function (Application $app) {
             $with = [
