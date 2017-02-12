@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use Illuminate\Support\Facades\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
@@ -14,6 +13,19 @@ class MenulinksAdminController extends BaseAdminController
     public function __construct(EloquentMenulink $menulink)
     {
         parent::__construct($menulink);
+    }
+
+    /**
+     * Get models.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Menu $menu)
+    {
+        $id = request('menu_id');
+        $models = $this->repository->where('menu_id', $id)->allNested();
+
+        return response()->json($models, 200);
     }
 
     /**
@@ -93,7 +105,7 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function sort()
     {
-        $this->repository->sort(Request::all());
+        $this->repository->sort(request()->all());
 
         return response()->json([
             'error' => false,
