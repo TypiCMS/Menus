@@ -34,6 +34,9 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../database' => base_path('database'),
         ], 'migrations');
+        $this->publishes([
+            __DIR__.'/../../public' => public_path(),
+        ], 'assets');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
     }
