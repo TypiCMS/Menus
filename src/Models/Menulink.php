@@ -28,6 +28,8 @@ class Menulink extends Base
         'status',
     ];
 
+    protected $appends = ['title_translated'];
+
     /**
      * A menulink belongs to a menu.
      */
@@ -86,5 +88,16 @@ class Menulink extends Base
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }
+    }
+
+    /**
+     * Append title_translated attribute.
+     *
+     * @return string
+     */
+    public function getTitleTranslatedAttribute()
+    {
+        $locale = config('app.locale');
+        return $this->translate('title', config('typicms.content_locale', $locale));
     }
 }
