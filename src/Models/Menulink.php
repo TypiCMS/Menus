@@ -98,6 +98,7 @@ class Menulink extends Base
     public function getTitleTranslatedAttribute()
     {
         $locale = config('app.locale');
+
         return $this->translate('title', config('typicms.content_locale', $locale));
     }
 }
