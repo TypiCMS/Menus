@@ -7,7 +7,7 @@
 <div class="btn-toolbar">
     <button class="btn btn-primary" value="true" id="exit" name="exit" type="submit">{{ __('Save and exit') }}</button>
     <button class="btn btn-default" type="submit">{{ __('Save') }}</button>
-    @include('core::admin._lang-switcher', ['js' => true])
+    @include('core::admin._lang-switcher-for-form')
 </div>
 
 <div class="row">

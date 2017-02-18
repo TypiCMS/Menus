@@ -13,7 +13,7 @@
         </p>
         <div ng-app="typicms" ng-cloak ng-controller="ListController">
             <div class="btn-toolbar">
-                @include('core::admin._lang-switcher')
+                @include('core::admin._lang-switcher-for-list')
             </div>
             <!-- Nested node template -->
             <div ui-tree="treeOptions">
