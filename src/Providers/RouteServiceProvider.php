@@ -34,15 +34,15 @@ class RouteServiceProvider extends ServiceProvider
                 $router->get('menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu');
                 $router->post('menus', 'AdminController@store')->name('admin::store-menu');
                 $router->put('menus/{menu}', 'AdminController@update')->name('admin::update-menu');
-                $router->patch('menus/{menu}', 'AdminController@ajaxUpdate');
-                $router->delete('menus/{menu}', 'AdminController@destroy')->name('admin::destroy-menu');
+                $router->patch('menus/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-menu');
+                $router->delete('menus/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-menu');
 
                 $router->get('menulinks', 'MenulinksAdminController@index')->name('admin::index-menulinks');
                 $router->get('menus/{menu}/menulinks/create', 'MenulinksAdminController@create')->name('admin::create-menulink');
                 $router->get('menus/{menu}/menulinks/{menulink}/edit', 'MenulinksAdminController@edit')->name('admin::edit-menulink');
                 $router->post('menus/{menu}/menulinks', 'MenulinksAdminController@store')->name('admin::store-menulink');
                 $router->put('menus/{menu}/menulinks/{menulink}', 'MenulinksAdminController@update')->name('admin::update-menulink');
-                $router->patch('menulinks/{menulink}', 'MenulinksAdminController@ajaxUpdate');
+                $router->patch('menulinks/{ids}', 'MenulinksAdminController@ajaxUpdate')->name('admin::update-menulink');
                 $router->delete('menulinks/{menulink}', 'MenulinksAdminController@destroy')->name('admin::destroy-menulink');
                 $router->post('menulinks/sort', 'MenulinksAdminController@sort')->name('admin::sort-menulinks');
             });
