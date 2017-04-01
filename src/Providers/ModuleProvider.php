@@ -5,6 +5,7 @@ namespace TypiCMS\Modules\Menus\Providers;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Menus\Facades\Menus;
@@ -39,6 +40,11 @@ class ModuleProvider extends ServiceProvider
         ], 'assets');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
+
+        Blade::directive('menu', function ($name) {
+            return "<?php echo Menus::render($name) ?>";
+        });
+
     }
 
     public function register()
