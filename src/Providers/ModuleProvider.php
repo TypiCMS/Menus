@@ -44,7 +44,6 @@ class ModuleProvider extends ServiceProvider
         Blade::directive('menu', function ($name) {
             return "<?php echo Menus::render($name) ?>";
         });
-
     }
 
     public function register()
