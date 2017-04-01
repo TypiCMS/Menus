@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
@@ -75,6 +76,7 @@ class MenulinksAdminController extends BaseAdminController
         $data['page_id'] = $data['page_id'] ?: null;
         $data['position'] = $data['position'] ?: 0;
         $model = $this->repository->create($data);
+        Menus::forgetCache();
 
         return $this->redirect($request, $model);
     }
@@ -94,6 +96,7 @@ class MenulinksAdminController extends BaseAdminController
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
         $this->repository->update($menulink->id, $data);
+        Menus::forgetCache();
 
         return $this->redirect($request, $menulink);
     }
@@ -106,6 +109,7 @@ class MenulinksAdminController extends BaseAdminController
     public function sort()
     {
         $this->repository->sort(request()->all());
+        Menus::forgetCache();
 
         return response()->json([
             'error' => false,
@@ -123,6 +127,7 @@ class MenulinksAdminController extends BaseAdminController
     public function destroy(Menulink $menulink)
     {
         $deleted = $this->repository->delete($menulink);
+        Menus::forgetCache();
 
         return response()->json([
             'error' => !$deleted,
