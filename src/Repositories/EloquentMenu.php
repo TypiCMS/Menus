@@ -81,15 +81,16 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     /**
      * Set href and classes for each items in collection.
      *
-     * @param \TypiCMS\NestableCollection $items
+     * @param $items
      *
      * @return \TypiCMS\NestableCollection
      */
-    public function prepare(NestableCollection $items = null)
+    public function prepare($items = null)
     {
         $items->each(function ($item) {
+            $item->items = collect();
             if ($item->has_categories) {
-                $item->items = $this->prepare(Categories::allForMenu($item->page->uri));
+                $item->items = $this->prepare(Categories::allForMenu($item->page->uri()));
             }
             $item->href = $this->setHref($item);
             $item->class = $this->setClass($item);
@@ -102,11 +103,11 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      * 1. If menulink has url field, take it.
      * 2. If menulink has a page, take the uri of the page in the current locale.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
+     * @param $menulink
      *
      * @return string uri
      */
-    public function setHref(Menulink $menulink)
+    public function setHref($menulink)
     {
         if ($menulink->url) {
             return $menulink->url;
@@ -121,11 +122,11 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     /**
      * Take the classes from field and add active if needed.
      *
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
+     * @param $menulink
      *
      * @return string classes
      */
-    public function setClass(Menulink $menulink)
+    public function setClass($menulink)
     {
         $classArray = preg_split('/ /', $menulink->class, null, PREG_SPLIT_NO_EMPTY);
         // add active class if current uri is equal to item uri or contains
