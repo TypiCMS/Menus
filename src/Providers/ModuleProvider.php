@@ -20,6 +20,9 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../config/config.php', 'typicms.menus'
         );
         $this->mergeConfigFrom(
+            __DIR__.'/../config/permissions.php', 'typicms.permissions'
+        );
+        $this->mergeConfigFrom(
             __DIR__.'/../config/config-menulinks.php', 'typicms.menulinks'
         );
 
