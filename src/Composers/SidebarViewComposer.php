@@ -11,7 +11,7 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        $view->sidebar->group(__('global.menus.content'), function (SidebarGroup $group) {
+        $view->sidebar->group(__('Content'), function (SidebarGroup $group) {
             $group->addItem(__('menus::global.name'), function (SidebarItem $item) {
                 $item->id = 'menus';
                 $item->icon = config('typicms.menus.sidebar.icon', 'icon fa fa-fw fa-bars');
