@@ -2,15 +2,9 @@
 
 return [
     'menus' => [
-        'index-menus' => 'View list',
+        'see-all-menus' => 'View list',
         'create-menu' => 'Create',
-        'edit-menu' => 'Edit',
-        'destroy-menu' => 'Destroy',
-    ],
-    'menulinks' => [
-        'index-menulinks' => 'View list',
-        'create-menulink' => 'Create',
-        'edit-menulink' => 'Edit',
-        'destroy-menulink' => 'Destroy',
+        'update-menu' => 'Edit',
+        'delete-menu' => 'Delete',
     ],
 ];

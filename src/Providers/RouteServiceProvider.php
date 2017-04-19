@@ -29,22 +29,22 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
-                $router->get('menus', 'AdminController@index')->name('admin::index-menus');
-                $router->get('menus/create', 'AdminController@create')->name('admin::create-menu');
-                $router->get('menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu');
-                $router->post('menus', 'AdminController@store')->name('admin::store-menu');
-                $router->put('menus/{menu}', 'AdminController@update')->name('admin::update-menu');
-                $router->patch('menus/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-menu-ajax');
-                $router->delete('menus/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-menu');
+                $router->get('menus', 'AdminController@index')->name('admin::index-menus')->middleware('can:see-all-menus');
+                $router->get('menus/create', 'AdminController@create')->name('admin::create-menu')->middleware('can:create-menu');
+                $router->get('menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu')->middleware('can:update-menu');
+                $router->post('menus', 'AdminController@store')->name('admin::store-menu')->middleware('can:create-menu');
+                $router->put('menus/{menu}', 'AdminController@update')->name('admin::update-menu')->middleware('can:update-menu');
+                $router->patch('menus/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-menu-ajax')->middleware('can:update-menu');
+                $router->delete('menus/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-menu')->middleware('can:delete-menu');
 
-                $router->get('menulinks', 'MenulinksAdminController@index')->name('admin::index-menulinks');
-                $router->get('menus/{menu}/menulinks/create', 'MenulinksAdminController@create')->name('admin::create-menulink');
-                $router->get('menus/{menu}/menulinks/{menulink}/edit', 'MenulinksAdminController@edit')->name('admin::edit-menulink');
-                $router->post('menus/{menu}/menulinks', 'MenulinksAdminController@store')->name('admin::store-menulink');
-                $router->put('menus/{menu}/menulinks/{menulink}', 'MenulinksAdminController@update')->name('admin::update-menulink');
-                $router->patch('menulinks/{ids}', 'MenulinksAdminController@ajaxUpdate')->name('admin::update-menulink-ajax');
-                $router->delete('menulinks/{menulink}', 'MenulinksAdminController@destroy')->name('admin::destroy-menulink');
-                $router->post('menulinks/sort', 'MenulinksAdminController@sort')->name('admin::sort-menulinks');
+                $router->get('menulinks', 'MenulinksAdminController@index')->name('admin::index-menulinks')->middleware('can:update-menu');
+                $router->get('menus/{menu}/menulinks/create', 'MenulinksAdminController@create')->name('admin::create-menulink')->middleware('can:create-menu');
+                $router->get('menus/{menu}/menulinks/{menulink}/edit', 'MenulinksAdminController@edit')->name('admin::edit-menulink')->middleware('can:update-menu');
+                $router->post('menus/{menu}/menulinks', 'MenulinksAdminController@store')->name('admin::store-menulink')->middleware('can:create-menu');
+                $router->put('menus/{menu}/menulinks/{menulink}', 'MenulinksAdminController@update')->name('admin::update-menulink')->middleware('can:update-menu');
+                $router->patch('menulinks/{ids}', 'MenulinksAdminController@ajaxUpdate')->name('admin::update-menulink-ajax')->middleware('can:update-menu');
+                $router->delete('menulinks/{menulink}', 'MenulinksAdminController@destroy')->name('admin::destroy-menulink')->middleware('can:delete-menu');
+                $router->post('menulinks/sort', 'MenulinksAdminController@sort')->name('admin::sort-menulinks')->middleware('can:update-menu');
             });
         });
     }
