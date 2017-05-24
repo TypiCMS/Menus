@@ -12,7 +12,7 @@
                 <i class="fa fa-fw fa-plus-circle"></i>@lang('menus::global.New menulink')
             </a>
         </p>
-        <div ng-app="typicms" ng-cloak ng-controller="ListController">
+        <div ng-cloak ng-controller="ListController">
             <div class="btn-toolbar">
                 @include('core::admin._lang-switcher-for-list')
             </div>
