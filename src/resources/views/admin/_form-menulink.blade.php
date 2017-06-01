@@ -1,6 +1,6 @@
 @section('titleLeftButton')
-    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('menus::global.Back to menu') }}">
-        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('menus::global.Back to menu') }}</span>
+    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('Back to menu') }}">
+        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('Back to menu') }}</span>
     </a>
 @endsection
 
@@ -28,7 +28,7 @@
         {!! BootForm::select(__('Page'), 'page_id', Pages::allForSelect()) !!}
         {!! BootForm::hidden('has_categories')->value(0) !!}
         {!! BootForm::checkbox(__('Show categories'), 'has_categories') !!}
-        {!! BootForm::select(__('Target'), 'target', ['' => __('menus::global.Active tab'), '_blank' => __('menus::global.New tab')]) !!}
+        {!! BootForm::select(__('Target'), 'target', ['' => __('Active tab'), '_blank' => __('New tab')]) !!}
         {!! BootForm::text(__('Class'), 'class') !!}
         {!! BootForm::text(__('Icon class'), 'icon_class') !!}
     </div>

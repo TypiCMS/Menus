@@ -1,6 +1,6 @@
 @extends('core::admin.master')
 
-@section('title', __('menus::global.name'))
+@section('title', __('Menus'))
 
 @section('content')
 
@@ -8,7 +8,7 @@
 
     @include('core::admin._button-create', ['module' => 'menus'])
 
-    <h1>@lang('menus::global.name')</h1>
+    <h1>@lang('Menus')</h1>
 
     <div class="btn-toolbar">
         @include('core::admin._button-select')

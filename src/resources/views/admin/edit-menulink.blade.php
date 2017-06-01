@@ -4,12 +4,11 @@
 
 @section('content')
 
-    <h1>
-        <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('menus::global.Back to menu') }}">
-            <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('menus::global.Back to menu') }}</span>
-        </a>
-        {{ $model->present()->title }}
-    </h1>
+    <a class="btn-back" href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('Back to menu') }}">
+        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('Back to menu') }}</span>
+    </a>
+
+    <h1>{{ $model->present()->title }}</h1>
 
     {!! BootForm::open()->put()->action(route('admin::update-menulink', [$menu->id, $model->id]))->multipart() !!}
     {!! BootForm::bind($model) !!}

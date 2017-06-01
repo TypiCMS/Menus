@@ -9,7 +9,7 @@
     <div class="col-sm-6 container-menulinks">
         <p>
             <a href="{{ route('admin::create-menulink', $model->id) }}">
-                <i class="fa fa-fw fa-plus-circle"></i>@lang('menus::global.New menulink')
+                <i class="fa fa-fw fa-plus-circle"></i>@lang('New menulink')
             </a>
         </p>
         <div ng-cloak ng-controller="ListController">
