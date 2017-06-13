@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
+use Illuminate\Http\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
@@ -99,6 +100,21 @@ class MenulinksAdminController extends BaseAdminController
         Menus::forgetCache();
 
         return $this->redirect($request, $menulink);
+    }
+
+    /**
+     * Update the specified resources in storage.
+     *
+     * @param array   $ids
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function ajaxUpdate($ids, Request $request)
+    {
+        Menus::forgetCache();
+
+        return parent::ajaxUpdate($ids, $request);
     }
 
     /**
