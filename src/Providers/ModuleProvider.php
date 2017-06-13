@@ -44,6 +44,11 @@ class ModuleProvider extends ServiceProvider
         Blade::directive('menu', function ($name) {
             return "<?php echo Menus::render($name) ?>";
         });
+
+        /*
+         * Sidebar view composer
+         */
+        $this->app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
     }
 
     public function register()
@@ -54,11 +59,6 @@ class ModuleProvider extends ServiceProvider
          * Register route service provider
          */
         $app->register(RouteServiceProvider::class);
-
-        /*
-         * Sidebar view composer
-         */
-        $app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
 
         $app->singleton('TypiCMS.menus', function (Application $app) {
             $with = [
