@@ -61,9 +61,9 @@ class EloquentMenu extends EloquentRepository
     public function getMenu($name)
     {
         try {
-            $menu = app('TypiCMS.menus')->filter(function (Menu $menu) use ($name) {
+            $menu = app('TypiCMS.menus')->first(function (Menu $menu) use ($name) {
                 return $menu->name == $name;
-            })->first();
+            });
             $menu->menulinks = $this->prepare($menu->menulinks);
             $menu->menulinks->nest();
         } catch (Exception $e) {
