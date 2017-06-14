@@ -1,5 +1,5 @@
-<li id="menuitem_{{ $menulink->id }}" class="{{ $menulink->class }}" role="menuitem">
-    <a href="{{ url($menulink->href) }}" @if ($menulink->target) target="{{ $menulink->target }}" @endif @if ($menulink->items->count()) class="dropdown-toggle" data-toggle="dropdown" @endif>
+<li class="menu-{{ $name }}-item menu-{{ $name }}-item-{{ $menulink->id }} {{ $menulink->class }}" id="menuitem_{{ $menulink->id }}" role="menuitem">
+    <a class="menu-{{ $name }}-link {{ $menulink->items->count() > 0 ? 'dropdown-toggle' : '' }}" href="{{ url($menulink->href) }}" @if ($menulink->target) target="{{ $menulink->target }}" @endif @if ($menulink->items->count()) data-toggle="dropdown" @endif>
         @if ($menulink->icon_class)
             <span class="{{ $menulink->icon_class }}"></span>
         @endif
@@ -9,7 +9,7 @@
         @endif
     </a>
     @if ($menulink->items->count())
-        <ul class="dropdown-menu">
+        <ul class="menu-{{ $name }}-dropdown dropdown-menu">
             @foreach ($menulink->items as $menulink)
                 @include('menus::public._item', ['menulink' => $menulink])
             @endforeach
