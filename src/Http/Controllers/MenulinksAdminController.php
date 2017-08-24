@@ -25,7 +25,7 @@ class MenulinksAdminController extends BaseAdminController
     public function index()
     {
         $id = request('menu_id');
-        $models = $this->repository->where('menu_id', $id)->findAll()->nest();
+        $models = $this->repository->where('menu_id', $id)->orderBy('position')->findAll()->nest();
 
         return response()->json($models, 200);
     }
