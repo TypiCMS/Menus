@@ -22,7 +22,7 @@ class MenulinksAdminController extends BaseAdminController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Menu $menu)
+    public function index()
     {
         $id = request('menu_id');
         $models = $this->repository->where('menu_id', $id)->findAll()->nest();
