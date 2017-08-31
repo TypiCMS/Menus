@@ -1,19 +1,19 @@
 @extends('core::admin.master')
 
-@section('title', trans('menus::global.name'))
+@section('title', __('Menus'))
 
-@section('main')
+@section('content')
 
-<div ng-app="typicms" ng-cloak ng-controller="ListController">
+<div ng-cloak ng-controller="ListController">
 
     @include('core::admin._button-create', ['module' => 'menus'])
 
-    <h1>
-        <span>@{{ models.length }} @choice('menus::global.menus', 2)</span>
-    </h1>
+    <h1>@lang('Menus')</h1>
 
     <div class="btn-toolbar">
-        @include('core::admin._lang-switcher')
+        @include('core::admin._button-select')
+        @include('core::admin._button-actions')
+        @include('core::admin._lang-switcher-for-list')
     </div>
 
     <div class="table-responsive">
@@ -23,14 +23,16 @@
                 <tr>
                     <th class="delete"></th>
                     <th class="edit"></th>
-                    <th st-sort="status" class="status st-sort">Status</th>
-                    <th st-sort="name" st-sort-default="true" class="name st-sort">Name</th>
+                    <th st-sort="status_translated" class="status st-sort">{{ __('Status') }}</th>
+                    <th st-sort="name" st-sort-default="true" class="name st-sort">{{ __('Name') }}</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr ng-repeat="model in displayedModels">
-                    <td typi-btn-delete action="delete(model)"></td>
+                    <td>
+                        <input type="checkbox" checklist-model="checked.models" checklist-value="model">
+                    </td>
                     <td>
                         @include('core::admin._button-edit', ['module' => 'menus'])
                     </td>

@@ -2,18 +2,32 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\MenulinkInterface;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
 class MenulinksAdminController extends BaseAdminController
 {
-    public function __construct(MenulinkInterface $menulink)
+    public function __construct(EloquentMenulink $menulink)
     {
         parent::__construct($menulink);
+    }
+
+    /**
+     * Get models.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index()
+    {
+        $id = request('menu_id');
+        $models = $this->repository->where('menu_id', $id)->orderBy('position')->findAll()->nest();
+
+        return response()->json($models, 200);
     }
 
     /**
@@ -25,9 +39,9 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function create(Menu $menu)
     {
-        $model = $this->repository->getModel();
+        $model = $this->repository->createModel();
 
-        return view('menus::admin.menulink-create')
+        return view('menus::admin.create-menulink')
             ->with(compact('model', 'menu'));
     }
 
@@ -41,9 +55,9 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function edit(Menu $menu, Menulink $menulink)
     {
-        return view('menus::admin.menulink-edit')
+        return view('menus::admin.edit-menulink')
             ->with([
-                'menu'  => $menu,
+                'menu' => $menu,
                 'model' => $menulink,
             ]);
     }
@@ -63,6 +77,7 @@ class MenulinksAdminController extends BaseAdminController
         $data['page_id'] = $data['page_id'] ?: null;
         $data['position'] = $data['position'] ?: 0;
         $model = $this->repository->create($data);
+        Menus::forgetCache();
 
         return $this->redirect($request, $model);
     }
@@ -81,9 +96,25 @@ class MenulinksAdminController extends BaseAdminController
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
-        $this->repository->update($data);
+        $this->repository->update($menulink->id, $data);
+        Menus::forgetCache();
 
         return $this->redirect($request, $menulink);
+    }
+
+    /**
+     * Update the specified resources in storage.
+     *
+     * @param array   $ids
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function ajaxUpdate($ids, Request $request)
+    {
+        Menus::forgetCache();
+
+        return parent::ajaxUpdate($ids, $request);
     }
 
     /**
@@ -93,11 +124,29 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function sort()
     {
-        $this->repository->sort(Request::all());
+        $this->repository->sort(request()->all());
+        Menus::forgetCache();
 
         return response()->json([
-            'error'   => false,
-            'message' => trans('global.Items sorted'),
+            'error' => false,
+            'message' => __('Items sorted'),
         ], 200);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Menulink $menulink)
+    {
+        $deleted = $this->repository->delete($menulink);
+        Menus::forgetCache();
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }

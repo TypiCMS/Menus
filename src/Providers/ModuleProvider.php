@@ -7,13 +7,10 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Services\Cache\LaravelCache;
-use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\CacheDecorator;
+use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
+use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
-use TypiCMS\Modules\Menus\Repositories\MenulinkCacheDecorator;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -23,30 +20,35 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../config/config.php', 'typicms.menus'
         );
         $this->mergeConfigFrom(
-            __DIR__.'/../config/menulinksconfig.php', 'typicms.menulinks'
+            __DIR__.'/../config/permissions.php', 'typicms.permissions'
+        );
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/config-menulinks.php', 'typicms.menulinks'
         );
 
         $modules = $this->app['config']['typicms']['modules'];
         $this->app['config']->set('typicms.modules', array_merge(['menus' => []], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'menus');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'menus');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/menus'),
         ], 'views');
         $this->publishes([
-            __DIR__.'/../database' => base_path('database'),
-        ], 'migrations');
+            __DIR__.'/../../public' => public_path(),
+        ], 'assets');
 
-        AliasLoader::getInstance()->alias(
-            'Menus',
-            'TypiCMS\Modules\Menus\Facades\Facade'
-        );
+        AliasLoader::getInstance()->alias('Menus', Menus::class);
 
         Blade::directive('menu', function ($name) {
             return "<?php echo Menus::render($name) ?>";
         });
+
+        /*
+         * Sidebar view composer
+         */
+        $this->app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
     }
 
     public function register()
@@ -56,44 +58,20 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register('TypiCMS\Modules\Menus\Providers\RouteServiceProvider');
-
-        /*
-         * Sidebar view composer
-         */
-        $app->view->composer('core::admin._sidebar', 'TypiCMS\Modules\Menus\Composers\SidebarViewComposer');
+        $app->register(RouteServiceProvider::class);
 
         $app->singleton('TypiCMS.menus', function (Application $app) {
             $with = [
-                'translations',
                 'menulinks' => function (HasMany $query) {
-                    $query->online();
+                    $query->published();
                 },
-                'menulinks.translations',
-                'menulinks.page.translations',
+                'menulinks.page',
             ];
 
-            return $app->make('TypiCMS\Modules\Menus\Repositories\MenuInterface')->all($with);
+            return $app->make('Menus')->published()->with($with)->findAll();
         });
 
-        $app->bind('TypiCMS\Modules\Menus\Repositories\MenuInterface', function (Application $app) {
-            $repository = new EloquentMenu(new Menu());
-            if (!config('typicms.cache')) {
-                return $repository;
-            }
-            $laravelCache = new LaravelCache($app['cache'], ['menus', 'menulinks', 'pages'], 10);
-
-            return new CacheDecorator($repository, $laravelCache);
-        });
-
-        $app->bind('TypiCMS\Modules\Menus\Repositories\MenulinkInterface', function (Application $app) {
-            $repository = new EloquentMenulink(new Menulink());
-            if (!config('typicms.cache')) {
-                return $repository;
-            }
-            $laravelCache = new LaravelCache($app['cache'], 'menulinks', 10);
-
-            return new MenulinkCacheDecorator($repository, $laravelCache);
-        });
+        $app->bind('Menus', EloquentMenu::class);
+        $app->bind('Menulinks', EloquentMenulink::class);
     }
 }

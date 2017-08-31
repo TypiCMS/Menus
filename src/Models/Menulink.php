@@ -2,55 +2,40 @@
 
 namespace TypiCMS\Modules\Menus\Models;
 
-use Dimsav\Translatable\Translatable;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 use Laracasts\Presenter\PresentableTrait;
-use Log;
+use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\History\Traits\Historable;
+use TypiCMS\Modules\Pages\Models\Page;
 use TypiCMS\NestableTrait;
 
 class Menulink extends Base
 {
+    use HasTranslations;
     use Historable;
-    use Translatable;
-    use PresentableTrait;
     use NestableTrait;
+    use PresentableTrait;
 
     protected $presenter = 'TypiCMS\Modules\Menus\Presenters\MenulinkPresenter';
 
-    protected $fillable = [
-        'menu_id',
-        'page_id',
-        'parent_id',
-        'position',
-        'target',
-        'restricted_to',
-        'class',
-        'icon_class',
-        'link_type',
-        'has_categories',
-    ];
+    protected $guarded = ['id', 'exit'];
 
-    /**
-     * Translatable model configs.
-     *
-     * @var array
-     */
-    public $translatedAttributes = [
+    public $translatable = [
         'title',
         'url',
         'status',
     ];
 
-    protected $appends = ['status', 'title'];
+    protected $appends = ['title_translated', 'status_translated'];
 
     /**
      * A menulink belongs to a menu.
      */
     public function menu()
     {
-        return $this->belongsTo('TypiCMS\Modules\Menus\Models\Menu');
+        return $this->belongsTo(Menu::class);
     }
 
     /**
@@ -58,7 +43,7 @@ class Menulink extends Base
      */
     public function page()
     {
-        return $this->belongsTo('TypiCMS\Modules\Pages\Models\Page');
+        return $this->belongsTo(Page::class);
     }
 
     /**
@@ -66,7 +51,7 @@ class Menulink extends Base
      */
     public function children()
     {
-        return $this->hasMany('TypiCMS\Modules\Menus\Models\Menulink', 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     /**
@@ -74,7 +59,7 @@ class Menulink extends Base
      */
     public function parent()
     {
-        return $this->belongsTo('TypiCMS\Modules\Menus\Models\Menulink', 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
@@ -106,22 +91,26 @@ class Menulink extends Base
     }
 
     /**
-     * Append status attribute from translation table.
+     * Append title_translated attribute.
      *
      * @return string
      */
-    public function getStatusAttribute($value)
+    public function getTitleTranslatedAttribute()
     {
-        return $value;
+        $locale = config('app.locale');
+
+        return $this->translate('title', config('typicms.content_locale', $locale));
     }
 
     /**
-     * Append title attribute from translation table.
+     * Append status_translated attribute.
      *
-     * @return string title
+     * @return string
      */
-    public function getTitleAttribute($value)
+    public function getStatusTranslatedAttribute()
     {
-        return $value;
+        $locale = config('app.locale');
+
+        return $this->translate('status', config('typicms.content_locale', $locale));
     }
 }

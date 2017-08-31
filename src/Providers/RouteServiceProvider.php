@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Menus\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -19,39 +20,32 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
+     * @return null
      */
-    public function map(Router $router)
+    public function map()
     {
-        $router->group(['namespace' => $this->namespace], function (Router $router) {
+        Route::group(['namespace' => $this->namespace], function (Router $router) {
             /*
              * Admin routes
              */
-            $router->get('admin/menus', 'AdminController@index')->name('admin::index-menus');
-            $router->get('admin/menus/create', 'AdminController@create')->name('admin::create-menu');
-            $router->get('admin/menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu');
-            $router->post('admin/menus', 'AdminController@store')->name('admin::store-menu');
-            $router->put('admin/menus/{menu}', 'AdminController@update')->name('admin::update-menu');
+            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
+                $router->get('menus', 'AdminController@index')->name('admin::index-menus')->middleware('can:see-all-menus');
+                $router->get('menus/create', 'AdminController@create')->name('admin::create-menu')->middleware('can:create-menu');
+                $router->get('menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu')->middleware('can:update-menu');
+                $router->post('menus', 'AdminController@store')->name('admin::store-menu')->middleware('can:create-menu');
+                $router->put('menus/{menu}', 'AdminController@update')->name('admin::update-menu')->middleware('can:update-menu');
+                $router->patch('menus/{ids}', 'AdminController@ajaxUpdate')->name('admin::update-menu-ajax')->middleware('can:update-menu');
+                $router->delete('menus/{ids}', 'AdminController@destroyMultiple')->name('admin::destroy-menu')->middleware('can:delete-menu');
 
-            $router->get('admin/menus/{menu}/menulinks', 'MenulinksAdminController@index')->name('admin::index-menulinks');
-            $router->get('admin/menus/{menu}/menulinks/create', 'MenulinksAdminController@create')->name('admin::create-menulink');
-            $router->get('admin/menus/{menu}/menulinks/{menulink}/edit', 'MenulinksAdminController@edit')->name('admin::edit-menulink');
-            $router->post('admin/menus/{menu}/menulinks', 'MenulinksAdminController@store')->name('admin::store-menulink');
-            $router->put('admin/menus/{menu}/menulinks/{menulink}', 'MenulinksAdminController@update')->name('admin::update-menulink');
-            $router->post('admin/menulinks/sort', 'MenulinksAdminController@sort')->name('admin::sort-menulinks');
-
-            /*
-             * API routes
-             */
-            $router->get('api/menus', 'ApiController@index')->name('api::index-menus');
-            $router->put('api/menus/{menu}', 'ApiController@update')->name('api::update-menu');
-            $router->delete('api/menus/{menu}', 'ApiController@destroy')->name('api::destroy-menu');
-
-            $router->get('api/menulinks', 'MenulinksApiController@index')->name('api::index-menulinks');
-            $router->put('api/menulinks/{menulink}', 'MenulinksApiController@update')->name('api::update-menulink');
-            $router->delete('api/menulinks/{menulink}', 'MenulinksApiController@destroy')->name('api::destroy-menulink');
+                $router->get('menulinks', 'MenulinksAdminController@index')->name('admin::index-menulinks')->middleware('can:update-menu');
+                $router->get('menus/{menu}/menulinks/create', 'MenulinksAdminController@create')->name('admin::create-menulink')->middleware('can:create-menu');
+                $router->get('menus/{menu}/menulinks/{menulink}/edit', 'MenulinksAdminController@edit')->name('admin::edit-menulink')->middleware('can:update-menu');
+                $router->post('menus/{menu}/menulinks', 'MenulinksAdminController@store')->name('admin::store-menulink')->middleware('can:create-menu');
+                $router->put('menus/{menu}/menulinks/{menulink}', 'MenulinksAdminController@update')->name('admin::update-menulink')->middleware('can:update-menu');
+                $router->patch('menulinks/{ids}', 'MenulinksAdminController@ajaxUpdate')->name('admin::update-menulink-ajax')->middleware('can:update-menu');
+                $router->delete('menulinks/{menulink}', 'MenulinksAdminController@destroy')->name('admin::destroy-menulink')->middleware('can:delete-menu');
+                $router->post('menulinks/sort', 'MenulinksAdminController@sort')->name('admin::sort-menulinks')->middleware('can:update-menu');
+            });
         });
     }
 }

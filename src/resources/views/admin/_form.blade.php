@@ -1,4 +1,5 @@
-@include('core::admin._buttons-form')
+@component('core::admin._buttons-form', ['model' => $model])
+@endcomponent
 
 {!! BootForm::hidden('id') !!}
 
@@ -8,12 +9,12 @@
     <div class="col-sm-6 container-menulinks">
         <p>
             <a href="{{ route('admin::create-menulink', $model->id) }}">
-                <i class="fa fa-fw fa-plus-circle"></i>@lang('menus::global.New menulink')
+                <i class="fa fa-fw fa-plus-circle"></i>@lang('New menulink')
             </a>
         </p>
-        <div ng-app="typicms" ng-cloak ng-controller="ListController">
+        <div ng-cloak ng-controller="ListController">
             <div class="btn-toolbar">
-                @include('core::admin._lang-switcher')
+                @include('core::admin._lang-switcher-for-list')
             </div>
             <!-- Nested node template -->
             <div ui-tree="treeOptions">
@@ -26,10 +27,10 @@
     @endif
 
     <div class="col-sm-6">
-        {!! BootForm::text(trans('validation.attributes.name'), 'name') !!}
-        {!! BootForm::text(trans('validation.attributes.class'), 'class') !!}
+        {!! BootForm::text(__('Name'), 'name')->required() !!}
+        {!! BootForm::text(__('Class'), 'class') !!}
         {!! TranslatableBootForm::hidden('status')->value(0) !!}
-        {!! TranslatableBootForm::checkbox(trans('validation.attributes.online'), 'status') !!}
+        {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
     </div>
 
 </div>

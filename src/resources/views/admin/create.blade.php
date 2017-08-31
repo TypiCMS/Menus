@@ -1,12 +1,12 @@
 @extends('core::admin.master')
 
-@section('title', trans('menus::global.New'))
+@section('title', __('New menu'))
 
-@section('main')
+@section('content')
 
     @include('core::admin._button-back', ['module' => 'menus'])
     <h1>
-        @lang('menus::global.New')
+        @lang('New menu')
     </h1>
 
     {!! BootForm::open()->action(route('admin::index-menus'))->multipart()->role('form') !!}

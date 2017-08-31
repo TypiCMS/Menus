@@ -5,11 +5,11 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Repositories\MenuInterface;
+use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 
 class AdminController extends BaseAdminController
 {
-    public function __construct(MenuInterface $menu)
+    public function __construct(EloquentMenu $menu)
     {
         parent::__construct($menu);
     }
@@ -21,7 +21,7 @@ class AdminController extends BaseAdminController
      */
     public function index()
     {
-        $models = $this->repository->all([], true);
+        $models = $this->repository->findAll();
         app('JavaScript')->put('models', $models);
 
         return view('menus::admin.index');
@@ -34,7 +34,7 @@ class AdminController extends BaseAdminController
      */
     public function create()
     {
-        $model = $this->repository->getModel();
+        $model = $this->repository->createModel();
 
         return view('menus::admin.create')
             ->with(compact('model'));
@@ -77,8 +77,24 @@ class AdminController extends BaseAdminController
      */
     public function update(Menu $menu, FormRequest $request)
     {
-        $this->repository->update($request->all());
+        $this->repository->update($request->id, $request->all());
 
         return $this->redirect($request, $menu);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Menu $menu)
+    {
+        $deleted = $this->repository->delete($menu);
+
+        return response()->json([
+            'error' => !$deleted,
+        ]);
     }
 }

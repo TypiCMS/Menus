@@ -2,21 +2,19 @@
 
 namespace TypiCMS\Modules\Menus\Repositories;
 
-use Categories;
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request;
-use TypiCMS\Modules\Core\Repositories\RepositoriesAbstract;
+use TypiCMS\Modules\Core\Repositories\EloquentRepository;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
+use TypiCMS\Modules\Projects\Facades\ProjectCategories;
 
-class EloquentMenu extends RepositoriesAbstract implements MenuInterface
+class EloquentMenu extends EloquentRepository
 {
-    public function __construct(Model $model)
-    {
-        $this->model = $model;
-    }
+    protected $repositoryId = 'menus';
+
+    protected $model = Menu::class;
 
     /**
      * Get all models.
@@ -28,10 +26,10 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
      */
     public function all(array $with = [], $all = false)
     {
-        $query = $this->make($with);
+        $query = $this->with($with);
 
         if (!$all) {
-            $query->online();
+            $query->published();
         }
 
         // Query ORDER BY
@@ -63,9 +61,9 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
     public function getMenu($name)
     {
         try {
-            $menu = app('TypiCMS.menus')->filter(function (Menu $menu) use ($name) {
+            $menu = app('TypiCMS.menus')->first(function (Menu $menu) use ($name) {
                 return $menu->name == $name;
-            })->first();
+            });
             $menu->menulinks = $this->prepare($menu->menulinks);
             $menu->menulinks->nest();
         } catch (Exception $e) {
@@ -89,7 +87,7 @@ class EloquentMenu extends RepositoriesAbstract implements MenuInterface
         $items->each(function ($item) {
             $item->items = collect();
             if ($item->has_categories) {
-                $item->items = $this->prepare(Categories::allForMenu($item->page->uri()));
+                $item->items = $this->prepare(ProjectCategories::allForMenu($item->page->uri()));
             }
             $item->href = $this->setHref($item);
             $item->class = $this->setClass($item);
