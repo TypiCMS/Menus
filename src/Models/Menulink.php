@@ -2,8 +2,8 @@
 
 namespace TypiCMS\Modules\Menus\Models;
 
+use Exception;
 use Illuminate\Support\Facades\Log;
-use InvalidArgumentException;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
@@ -71,7 +71,7 @@ class Menulink extends Base
     {
         try {
             return route('admin::edit-menulink', [$this->menu_id, $this->id]);
-        } catch (InvalidArgumentException $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
         }
     }
@@ -85,7 +85,7 @@ class Menulink extends Base
     {
         try {
             return route('admin::edit-menu', $this->menu_id);
-        } catch (InvalidArgumentException $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
         }
     }
