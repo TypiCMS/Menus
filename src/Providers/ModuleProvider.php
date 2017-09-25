@@ -34,10 +34,10 @@ class ModuleProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../resources/views' => base_path('resources/views/vendor/menus'),
-        ], 'views');
+        ], 'typicms-views');
         $this->publishes([
             __DIR__.'/../../public' => public_path(),
-        ], 'assets');
+        ], 'typicms-assets');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
 
