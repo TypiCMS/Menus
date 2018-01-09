@@ -24,11 +24,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        Route::group(['namespace' => $this->namespace], function (Router $router) {
+        Route::namespace($this->namespace)->group(function (Router $router) {
             /*
              * Admin routes
              */
-            $router->group(['middleware' => 'admin', 'prefix' => 'admin'], function (Router $router) {
+            $router->middleware('admin')->prefix('admin')->group(function (Router $router) {
                 $router->get('menus', 'AdminController@index')->name('admin::index-menus')->middleware('can:see-all-menus');
                 $router->get('menus/create', 'AdminController@create')->name('admin::create-menu')->middleware('can:create-menu');
                 $router->get('menus/{menu}/edit', 'AdminController@edit')->name('admin::edit-menu')->middleware('can:update-menu');
