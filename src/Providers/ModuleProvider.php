@@ -72,7 +72,7 @@ class ModuleProvider extends ServiceProvider
                     'menulinks.page',
                 ])
                 ->findAll()
-                ->transform(function(Menu $menu) {
+                ->transform(function (Menu $menu) {
                     $menu->menulinks = app('Menus')->prepare($menu->menulinks)->nest();
 
                     return $menu;
