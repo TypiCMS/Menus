@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Menus\Facades\Menus;
+use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
@@ -61,14 +62,21 @@ class ModuleProvider extends ServiceProvider
         $app->register(RouteServiceProvider::class);
 
         $app->singleton('TypiCMS.menus', function (Application $app) {
-            $with = [
-                'menulinks' => function (HasMany $query) {
-                    $query->published();
-                },
-                'menulinks.page',
-            ];
+            return $app
+                ->make('Menus')
+                ->published()
+                ->with([
+                    'menulinks' => function (HasMany $query) {
+                        $query->published();
+                    },
+                    'menulinks.page',
+                ])
+                ->findAll()
+                ->transform(function(Menu $menu) {
+                    $menu->menulinks = app('Menus')->prepare($menu->menulinks)->nest();
 
-            return $app->make('Menus')->published()->with($with)->findAll();
+                    return $menu;
+                });
         });
 
         $app->bind('Menus', EloquentMenu::class);
