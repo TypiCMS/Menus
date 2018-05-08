@@ -29,8 +29,10 @@
     <div class="col-sm-6">
         {!! BootForm::text(__('Name'), 'name')->required() !!}
         {!! BootForm::text(__('Class'), 'class') !!}
-        {!! TranslatableBootForm::hidden('status')->value(0) !!}
-        {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
+        <div class="form-group">
+            {!! TranslatableBootForm::hidden('status')->value(0) !!}
+            {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
+        </div>
     </div>
 
 </div>
