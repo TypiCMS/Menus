@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Menus\Facades\Menus;
+use TypiCMS\Modules\Menus\Facades\Menulinks;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
@@ -41,6 +42,7 @@ class ModuleProvider extends ServiceProvider
         ], 'typicms-assets');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
+        AliasLoader::getInstance()->alias('Menulinks', Menulinks::class);
 
         Blade::directive('menu', function ($name) {
             return "<?php echo Menus::render($name) ?>";
