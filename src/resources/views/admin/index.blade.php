@@ -4,46 +4,37 @@
 
 @section('content')
 
-<div ng-cloak ng-controller="ListController">
+<item-list
+    url-base="{{ route('api::index-menus') }}"
+    locale="{{ config('typicms.content_locale') }}"
+    fields="id,name"
+    translatable-fields="status"
+    table="menus"
+    title="menus"
+    :sorting="['id']">
 
-    @include('core::admin._button-create', ['module' => 'menus'])
+    <template slot="add-button">
+        @include('core::admin._button-create', ['module' => 'menus'])
+    </template>
 
-    <h1>@lang('Menus')</h1>
-
-    <div class="btn-toolbar">
-        @include('core::admin._button-select')
-        @include('core::admin._button-actions')
+    <template slot="buttons">
         @include('core::admin._lang-switcher-for-list')
-    </div>
+    </template>
 
-    <div class="table-responsive">
+    <template slot="columns" slot-scope="{ sortArray }">
+        <item-list-column-header name="checkbox"></item-list-column-header>
+        <item-list-column-header name="edit"></item-list-column-header>
+        <item-list-column-header name="status_translated" sortable :sort-array="sortArray" :label="$t('Status')"></item-list-column-header>
+        <item-list-column-header name="name" sortable :sort-array="sortArray" :label="$t('Name')"></item-list-column-header>
+    </template>
 
-        <table st-persist="menusTable" st-table="displayedModels" st-safe-src="models" st-order st-filter class="table table-main">
-            <thead>
-                <tr>
-                    <th class="delete"></th>
-                    <th class="edit"></th>
-                    <th st-sort="status_translated" class="status st-sort">{{ __('Status') }}</th>
-                    <th st-sort="name" st-sort-default="true" class="name st-sort">{{ __('Name') }}</th>
-                </tr>
-            </thead>
+    <template slot="table-row" slot-scope="{ model, checkedModels, loading }">
+        <td class="checkbox"><item-list-checkbox :model="model" :checked-models-prop="checkedModels" :loading="loading"></item-list-checkbox></td>
+        <td>@include('core::admin._button-edit', ['module' => 'menus'])</td>
+        <td><item-list-status-button :model="model"></item-list-status-button></td>
+        <td>@{{ model.name }}</td>
+    </template>
 
-            <tbody>
-                <tr ng-repeat="model in displayedModels">
-                    <td>
-                        <input type="checkbox" checklist-model="checked.models" checklist-value="model">
-                    </td>
-                    <td>
-                        @include('core::admin._button-edit', ['module' => 'menus'])
-                    </td>
-                    <td typi-btn-status action="toggleStatus(model)" model="model"></td>
-                    <td>@{{ model.name }}</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-
-</div>
+</item-list>
 
 @endsection

@@ -16,12 +16,15 @@
             <div class="btn-toolbar">
                 @include('core::admin._lang-switcher-for-list')
             </div>
-            <!-- Nested node template -->
-            <div ui-tree="treeOptions">
-                <ul ui-tree-nodes="" data-max-depth="3" ng-model="models" id="tree-root">
-                    <li ng-repeat="model in models" ui-tree-node ng-include="'/views/partials/listItemMenulink.html'"></li>
-                </ul>
-            </div>
+
+            <item-list-tree url-base="{{ route('api::index-menulinks', $model->id) }}">
+
+                <template slot="buttons">
+                    @include('core::admin._lang-switcher-for-list')
+                </template>
+
+            </item-list-tree>
+
         </div>
     </div>
     @endif
