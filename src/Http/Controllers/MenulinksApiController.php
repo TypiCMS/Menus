@@ -22,35 +22,50 @@ class MenulinksApiController extends BaseAdminController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Menu $menu)
+    public function index(Menu $menu, Request $request)
     {
+        $userPreferences = $request->user()->preferences;
+
         $models = $this->repository
             ->where('menu_id', $menu->id)
             ->orderBy('position')
             ->findAll()
+            ->map(function ($item) use ($userPreferences) {
+                $item->data = $item->toArray();
+                $item->isLeaf = $item->module === null ? false : true;
+                $item->isExpanded = !array_get($userPreferences, 'Menulinks_'.$item->id.'_collapsed', false);
+
+                return $item;
+            })
+            ->childrenName('children')
             ->nest();
 
         return $models;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink                   $menulink
-     * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Menu $menu, Menulink $menulink, MenulinkFormRequest $request)
+    public function update(Menu $menu, Menulink $menulink, Request $request)
     {
-        $data = $request->all();
-        $data['parent_id'] = $data['parent_id'] ?: null;
-        $data['page_id'] = $data['page_id'] ?: null;
-        $this->repository->update($menulink->id, $data);
-        Menus::forgetCache();
+        $data = [];
+        foreach ($request->all() as $column => $content) {
+            if (is_array($content)) {
+                foreach ($content as $key => $value) {
+                    $data[$column.'->'.$key] = $value;
+                }
+            } else {
+                $data[$column] = $content;
+            }
+        }
 
-        return $this->redirect($request, $menulink);
+        foreach ($data as $key => $value) {
+            $menulink->$key = $value;
+        }
+        $saved = $menulink->save();
+
+        $this->repository->forgetCache();
+
+        return response()->json([
+            'error' => !$saved,
+        ]);
     }
 
     /**
@@ -58,7 +73,7 @@ class MenulinksApiController extends BaseAdminController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sort()
+    public function sort(Menu $menu)
     {
         $this->repository->sort(request()->all());
         Menus::forgetCache();
@@ -76,7 +91,7 @@ class MenulinksApiController extends BaseAdminController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Menulink $menulink)
+    public function destroy(Menu $menu, Menulink $menulink)
     {
         $deleted = $this->repository->delete($menulink);
         Menus::forgetCache();

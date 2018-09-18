@@ -45,11 +45,13 @@ class Menulink extends Base
     }
 
     /**
-     * A menulink can have children.
+     * A menulink can have submenulinks.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function children()
+    public function submenulinks()
     {
-        return $this->hasMany(self::class, 'parent_id');
+        return $this->hasMany(self::class, 'parent_id')->order();
     }
 
     /**

@@ -74,8 +74,8 @@ class MenulinksAdminController extends BaseAdminController
     {
         $data = $request->all();
         $data['parent_id'] = null;
-        $data['page_id'] = $data['page_id'] ?: null;
-        $data['position'] = $data['position'] ?: 0;
+        $data['page_id'] = $data['page_id'] ?? null;
+        $data['position'] = $data['position'] ?? 0;
         $model = $this->repository->create($data);
         Menus::forgetCache();
 

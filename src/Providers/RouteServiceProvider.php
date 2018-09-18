@@ -39,8 +39,6 @@ class RouteServiceProvider extends ServiceProvider
                 $router->get('menus/{menu}/menulinks/{menulink}/edit', 'MenulinksAdminController@edit')->name('admin::edit-menulink')->middleware('can:update-menu');
                 $router->post('menus/{menu}/menulinks', 'MenulinksAdminController@store')->name('admin::store-menulink')->middleware('can:create-menu');
                 $router->put('menus/{menu}/menulinks/{menulink}', 'MenulinksAdminController@update')->name('admin::update-menulink')->middleware('can:update-menu');
-                $router->delete('menulinks/{menulink}', 'MenulinksAdminController@destroy')->name('admin::destroy-menulink')->middleware('can:delete-menu');
-                $router->post('menulinks/sort', 'MenulinksAdminController@sort')->name('admin::sort-menulinks')->middleware('can:update-menu');
             });
 
             /*
@@ -52,9 +50,9 @@ class RouteServiceProvider extends ServiceProvider
                 $router->delete('menus/{menu}', 'ApiController@destroy')->name('api::destroy-menu');
 
                 $router->get('menus/{menu}/menulinks', 'MenulinksApiController@index')->name('api::index-menulinks');
-                $router->patch('menulinks/{menulink}', 'MenulinksApiController@update')->name('api::update-menulink');
-                $router->post('menulinks/sort', 'MenulinksApiController@sort')->name('api::sort-menulinks');
-                $router->delete('menulinks/{menulink}', 'MenulinksApiController@destroy')->name('api::destroy-menulink');
+                $router->patch('menus/{menu}/menulinks/{menulink}', 'MenulinksApiController@update')->name('api::update-menulink');
+                $router->post('menus/{menu}/menulinks/sort', 'MenulinksApiController@sort')->name('api::sort-menulinks');
+                $router->delete('menus/{menu}/menulinks/{menulink}', 'MenulinksApiController@destroy')->name('api::destroy-menulink');
             });
         });
     }
