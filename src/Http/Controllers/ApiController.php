@@ -5,7 +5,6 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
-use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 
