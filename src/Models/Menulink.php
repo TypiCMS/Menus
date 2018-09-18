@@ -28,8 +28,6 @@ class Menulink extends Base
         'status',
     ];
 
-    protected $appends = ['title_translated', 'status_translated'];
-
     /**
      * A menulink belongs to a menu.
      */
@@ -88,29 +86,5 @@ class Menulink extends Base
         } catch (Exception $e) {
             Log::error($e->getMessage());
         }
-    }
-
-    /**
-     * Append title_translated attribute.
-     *
-     * @return string
-     */
-    public function getTitleTranslatedAttribute()
-    {
-        $locale = config('app.locale');
-
-        return $this->translate('title', config('typicms.content_locale', $locale));
-    }
-
-    /**
-     * Append status_translated attribute.
-     *
-     * @return string
-     */
-    public function getStatusTranslatedAttribute()
-    {
-        $locale = config('app.locale');
-
-        return $this->translate('status', config('typicms.content_locale', $locale));
     }
 }
