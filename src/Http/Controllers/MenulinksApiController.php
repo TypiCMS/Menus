@@ -5,7 +5,6 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use Illuminate\Http\Request;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Facades\Menus;
-use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
