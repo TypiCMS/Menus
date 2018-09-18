@@ -45,14 +45,16 @@ class RouteServiceProvider extends ServiceProvider
              * API routes
              */
             $router->middleware('api')->prefix('api')->group(function (Router $router) {
-                $router->get('menus', 'ApiController@index')->name('api::index-menus');
-                $router->patch('menus/{menu}', 'ApiController@update')->name('api::update-menu');
-                $router->delete('menus/{menu}', 'ApiController@destroy')->name('api::destroy-menu');
+                $router->middleware('auth:api')->group(function (Router $router) {
+                    $router->get('menus', 'ApiController@index')->name('api::index-menus');
+                    $router->patch('menus/{menu}', 'ApiController@update')->name('api::update-menu');
+                    $router->delete('menus/{menu}', 'ApiController@destroy')->name('api::destroy-menu');
 
-                $router->get('menus/{menu}/menulinks', 'MenulinksApiController@index')->name('api::index-menulinks');
-                $router->patch('menus/{menu}/menulinks/{menulink}', 'MenulinksApiController@update')->name('api::update-menulink');
-                $router->post('menus/{menu}/menulinks/sort', 'MenulinksApiController@sort')->name('api::sort-menulinks');
-                $router->delete('menus/{menu}/menulinks/{menulink}', 'MenulinksApiController@destroy')->name('api::destroy-menulink');
+                    $router->get('menus/{menu}/menulinks', 'MenulinksApiController@index')->name('api::index-menulinks');
+                    $router->patch('menus/{menu}/menulinks/{menulink}', 'MenulinksApiController@update')->name('api::update-menulink');
+                    $router->post('menus/{menu}/menulinks/sort', 'MenulinksApiController@sort')->name('api::sort-menulinks');
+                    $router->delete('menus/{menu}/menulinks/{menulink}', 'MenulinksApiController@destroy')->name('api::destroy-menulink');
+                });
             });
         });
     }
