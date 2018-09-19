@@ -11,7 +11,7 @@
     translatable-fields="status"
     table="menus"
     title="menus"
-    :sorting="['id']">
+    :sorting="['name']">
 
     <template slot="add-button">
         @include('core::admin._button-create', ['module' => 'menus'])
