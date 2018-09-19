@@ -103,21 +103,6 @@ class MenulinksAdminController extends BaseAdminController
     }
 
     /**
-     * Update the specified resources in storage.
-     *
-     * @param array   $ids
-     * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function ajaxUpdate($ids, Request $request)
-    {
-        Menus::forgetCache();
-
-        return parent::ajaxUpdate($ids, $request);
-    }
-
-    /**
      * Sort list.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -131,22 +116,5 @@ class MenulinksAdminController extends BaseAdminController
             'error' => false,
             'message' => __('Items sorted'),
         ], 200);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(Menulink $menulink)
-    {
-        $deleted = $this->repository->delete($menulink);
-        Menus::forgetCache();
-
-        return response()->json([
-            'error' => !$deleted,
-        ]);
     }
 }

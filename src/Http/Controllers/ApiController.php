@@ -4,12 +4,12 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
-use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Http\Requests\FormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 
-class ApiController extends BaseAdminController
+class ApiController extends BaseApiController
 {
     public function __construct(EloquentMenu $menu)
     {
@@ -19,13 +19,13 @@ class ApiController extends BaseAdminController
     public function index(Request $request)
     {
         $data = QueryBuilder::for(Menu::class)
-            ->translated(explode(',', $request->input('translatable_fields')))
+            ->translated($request->input('translatable_fields'))
             ->paginate($request->input('per_page'));
 
         return $data;
     }
 
-    protected function update(Menu $menu, Request $request)
+    protected function updatePartial(Menu $menu, Request $request)
     {
         $data = [];
         foreach ($request->all() as $column => $content) {

@@ -3,14 +3,14 @@
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use Illuminate\Http\Request;
-use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
+use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
-class MenulinksApiController extends BaseAdminController
+class MenulinksApiController extends BaseApiController
 {
     public function __construct(EloquentMenulink $menulink)
     {
@@ -43,7 +43,7 @@ class MenulinksApiController extends BaseAdminController
         return $models;
     }
 
-    public function update(Menu $menu, Menulink $menulink, Request $request)
+    public function updatePartial(Menu $menu, Menulink $menulink, Request $request)
     {
         $data = [];
         foreach ($request->all() as $column => $content) {
