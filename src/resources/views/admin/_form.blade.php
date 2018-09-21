@@ -13,7 +13,7 @@
 @if ($model->id)
 
     <item-list-tree
-        url-base="{{ route('api::index-menulinks', $model->id) }}"
+        url-base="/api/menus/{{ $model->id }}/menulinks"
         title="Menulinks"
     >
 

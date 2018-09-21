@@ -5,7 +5,7 @@
 @section('content')
 
 <item-list
-    url-base="{{ route('api::index-menus') }}"
+    url-base="/api/menus"
     locale="{{ config('typicms.content_locale') }}"
     fields="id,name"
     translatable-fields="status"
