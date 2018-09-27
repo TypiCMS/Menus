@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Models\Menu;
@@ -25,10 +26,11 @@ class MenulinksApiController extends BaseApiController
     {
         $userPreferences = $request->user()->preferences;
 
-        $models = $this->repository
+        $models = QueryBuilder::for(Menulink::class)
+            ->translated($request->input('translatable_fields'))
             ->where('menu_id', $menu->id)
             ->orderBy('position')
-            ->findAll()
+            ->get()
             ->map(function ($item) use ($userPreferences) {
                 $item->data = $item->toArray();
                 $item->isLeaf = $item->module === null ? false : true;

@@ -13,7 +13,11 @@
 @if ($model->id)
 
     <item-list-tree
+        locale="{{ config('typicms.content_locale') }}"
         url-base="/api/menus/{{ $model->id }}/menulinks"
+        fields="id,menu_id,page_id,position,parent_id"
+        translatable-fields="status,title,url"
+        table="menulinks"
         title="Menulinks"
     >
 
