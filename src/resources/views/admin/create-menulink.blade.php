@@ -4,12 +4,10 @@
 
 @section('content')
 
-    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('Back to menu') }}" class="btn-back">
-        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('Back to menu') }}</span>
-    </a>
-    <h1>
-        @lang('New menulink')
-    </h1>
+    <div class="header">
+        @include('core::admin._button-back', ['url' => route('admin::edit-menu', $menu)])
+        <h1 class="header-title">@lang('New menulink')</h1>
+    </div>
 
     {!! BootForm::open()->action(route('admin::store-menulink', $menu->id))->multipart() !!}
         @include('menus::admin._form-menulink')

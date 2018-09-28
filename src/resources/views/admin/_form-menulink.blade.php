@@ -1,12 +1,6 @@
-@section('titleLeftButton')
-    <a href="{{ route('admin::edit-menu', $menu->id) }}" title="{{ __('Back to menu') }}">
-        <span class="text-muted fa fa-arrow-circle-left"></span><span class="sr-only">{{ __('Back to menu') }}</span>
-    </a>
-@endsection
-
-<div class="btn-toolbar">
-    <button class="btn btn-primary mr-2" value="true" id="exit" name="exit" type="submit">{{ __('Save and exit') }}</button>
-    <button class="btn btn-light" type="submit">{{ __('Save') }}</button>
+<div class="btn-toolbar mb-4">
+    <button class="btn btn-sm btn-primary mr-2" value="true" id="exit" name="exit" type="submit">{{ __('Save and exit') }}</button>
+    <button class="btn btn-sm btn-light mr-2" type="submit">{{ __('Save') }}</button>
     @include('core::admin._lang-switcher-for-form')
 </div>
 

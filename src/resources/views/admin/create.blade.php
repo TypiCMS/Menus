@@ -4,10 +4,10 @@
 
 @section('content')
 
-    @include('core::admin._button-back', ['module' => 'menus'])
-    <h1>
-        @lang('New menu')
-    </h1>
+    <div class="header">
+        @include('core::admin._button-back', ['module' => 'menus'])
+        <h1 class="header-title">@lang('New menu')</h1>
+    </div>
 
     {!! BootForm::open()->action(route('admin::index-menus'))->multipart()->role('form') !!}
         @include('menus::admin._form')
