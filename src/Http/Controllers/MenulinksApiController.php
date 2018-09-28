@@ -26,7 +26,7 @@ class MenulinksApiController extends BaseApiController
     {
         $userPreferences = $request->user()->preferences;
 
-        $models = QueryBuilder::for(Menulink::class)
+        $data = QueryBuilder::for(Menulink::class)
             ->translated($request->input('translatable_fields'))
             ->where('menu_id', $menu->id)
             ->orderBy('position')
@@ -41,7 +41,7 @@ class MenulinksApiController extends BaseApiController
             ->childrenName('children')
             ->nest();
 
-        return $models;
+        return $data;
     }
 
     public function updatePartial(Menu $menu, Menulink $menulink, Request $request)
