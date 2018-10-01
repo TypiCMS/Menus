@@ -37,9 +37,6 @@ class ModuleProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/menus'),
         ], 'views');
-        $this->publishes([
-            __DIR__.'/../../public' => public_path(),
-        ], 'resources');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
         AliasLoader::getInstance()->alias('Menulinks', Menulinks::class);
