@@ -11,6 +11,7 @@
     translatable-fields="status"
     table="menus"
     title="menus"
+    :searchable="['name']"
     :sorting="['name']">
 
     <template slot="add-button">

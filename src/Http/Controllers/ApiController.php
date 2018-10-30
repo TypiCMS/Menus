@@ -3,7 +3,9 @@
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\Filter;
 use Spatie\QueryBuilder\QueryBuilder;
+use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
@@ -18,6 +20,9 @@ class ApiController extends BaseApiController
     public function index(Request $request)
     {
         $data = QueryBuilder::for(Menu::class)
+            ->allowedFilters([
+                Filter::custom('name', FilterOr::class),
+            ])
             ->translated($request->input('translatable_fields'))
             ->paginate($request->input('per_page'));
 
