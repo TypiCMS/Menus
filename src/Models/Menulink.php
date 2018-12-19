@@ -2,8 +2,7 @@
 
 namespace TypiCMS\Modules\Menus\Models;
 
-use Exception;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Route;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
@@ -69,11 +68,12 @@ class Menulink extends Base
      */
     public function editUrl()
     {
-        try {
-            return route('admin::edit-menulink', [$this->menu_id, $this->id]);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
+        $route = 'admin::edit-menulink';
+        if (Route::has($route)) {
+            return route($route, [$this->menu_id, $this->id]);
         }
+
+        return route('dashboard');
     }
 
     /**
@@ -83,10 +83,11 @@ class Menulink extends Base
      */
     public function indexUrl()
     {
-        try {
-            return route('admin::edit-menu', $this->menu_id);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
+        $route = 'admin::edit-menu';
+        if (Route::has($route)) {
+            return route($route, $this->menu_id);
         }
+
+        return route('dashboard');
     }
 }
