@@ -63,6 +63,7 @@ class MenulinksApiController extends BaseApiController
         $saved = $menulink->save();
 
         $this->repository->forgetCache();
+        Menus::forgetCache();
 
         return response()->json([
             'error' => !$saved,
