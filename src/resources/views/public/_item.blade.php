@@ -4,9 +4,6 @@
             <span class="{{ $menulink->icon_class }}"></span>
         @endif
         {{ $menulink->title }}
-        @if ($menulink->items->count() > 0)
-            <span class="caret"></span>
-        @endif
     </a>
     @if ($menulink->items->count() > 0)
         <ul class="menu-{{ $name }}-dropdown dropdown-menu">
