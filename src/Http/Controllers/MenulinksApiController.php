@@ -3,6 +3,7 @@
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Facades\Menus;
@@ -34,7 +35,7 @@ class MenulinksApiController extends BaseApiController
             ->map(function ($item) use ($userPreferences) {
                 $item->data = $item->toArray();
                 $item->isLeaf = $item->module === null ? false : true;
-                $item->isExpanded = !array_get($userPreferences, 'Menulinks_'.$item->id.'_collapsed', false);
+                $item->isExpanded = !Arr::get($userPreferences, 'Menulinks_'.$item->id.'_collapsed', false);
 
                 return $item;
             })
