@@ -15,6 +15,7 @@ class CreateMenusTables extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->integer('image_id')->unsigned()->nullable();
             $table->string('name');
             $table->string('class')->nullable();
             $table->json('status');

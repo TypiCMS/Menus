@@ -3,6 +3,9 @@
 
 {!! BootForm::hidden('id') !!}
 
+<filepicker related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></filepicker>
+<file-field type="image" field="image_id" data="{{ $model->image }}"></file-field>
+
 {!! BootForm::text(__('Name'), 'name')->required() !!}
 {!! BootForm::text(__('Class'), 'class') !!}
 <div class="form-group">

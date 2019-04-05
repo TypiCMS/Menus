@@ -23,6 +23,7 @@ class ApiController extends BaseApiController
             ->allowedFilters([
                 Filter::custom('name', FilterOr::class),
             ])
+            ->allowedIncludes('image')
             ->translated($request->input('translatable_fields'))
             ->paginate($request->input('per_page'));
 

@@ -10,6 +10,7 @@ class FormRequest extends AbstractFormRequest
     {
         return [
             'name' => 'required|max:255|alpha_dash|unique:menus,name,'.$this->id,
+            'image_id' => 'nullable|integer',
         ];
     }
 }
