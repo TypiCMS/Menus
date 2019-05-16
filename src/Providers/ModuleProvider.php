@@ -60,7 +60,15 @@ class ModuleProvider extends ServiceProvider
          */
         $app->register(RouteServiceProvider::class);
 
-        $app->singleton('TypiCMS.menus', function (Application $app) {
+        $this->prepareMenus();
+
+        $app->bind('Menus', EloquentMenu::class);
+        $app->bind('Menulinks', EloquentMenulink::class);
+    }
+
+    protected function prepareMenus()
+    {
+        $this->app->singleton('TypiCMS.menus', function (Application $app) {
             return $app
                 ->make('Menus')
                 ->published()
@@ -77,8 +85,5 @@ class ModuleProvider extends ServiceProvider
                     return $menu;
                 });
         });
-
-        $app->bind('Menus', EloquentMenu::class);
-        $app->bind('Menulinks', EloquentMenulink::class);
     }
 }
