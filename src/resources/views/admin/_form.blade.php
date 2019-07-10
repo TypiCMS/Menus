@@ -25,7 +25,7 @@
     >
 
         <template slot="add-button">
-            @include('core::admin._button-create', ['url' => route('admin::create-menulink', $model->id), 'module' => 'menulinks'])
+            @include('core::admin._button-create', ['url' => route('admin::create-menulink', $model->id), 'module' => 'menus'])
         </template>
 
     </item-list-tree>
