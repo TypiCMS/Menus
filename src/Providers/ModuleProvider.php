@@ -11,8 +11,6 @@ use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Menus\Facades\Menulinks;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -42,7 +40,7 @@ class ModuleProvider extends ServiceProvider
         AliasLoader::getInstance()->alias('Menulinks', Menulinks::class);
 
         Blade::directive('menu', function ($name) {
-            return "<?php echo Menus::render($name) ?>";
+            return "<?php echo view('menus::public._menu', ['name' => $name]) ?>";
         });
 
         /*
@@ -62,8 +60,8 @@ class ModuleProvider extends ServiceProvider
 
         $this->prepareMenus();
 
-        $app->bind('Menus', EloquentMenu::class);
-        $app->bind('Menulinks', EloquentMenulink::class);
+        $app->bind('Menus', Menu::class);
+        $app->bind('Menulinks', Menulink::class);
     }
 
     protected function prepareMenus()
@@ -78,7 +76,7 @@ class ModuleProvider extends ServiceProvider
                     },
                     'menulinks.page',
                 ])
-                ->findAll()
+                ->get()
                 ->transform(function (Menu $menu) {
                     $menu->menulinks = app('Menus')->prepare($menu->menulinks)->nest();
 

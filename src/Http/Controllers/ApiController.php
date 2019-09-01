@@ -8,15 +8,9 @@ use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Models\Menu;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenu;
 
 class ApiController extends BaseApiController
 {
-    public function __construct(EloquentMenu $menu)
-    {
-        parent::__construct($menu);
-    }
-
     public function index(Request $request)
     {
         $data = QueryBuilder::for(Menu::class)
@@ -48,7 +42,7 @@ class ApiController extends BaseApiController
         }
         $saved = $menu->save();
 
-        $this->repository->forgetCache();
+        $this->model->forgetCache();
 
         return response()->json([
             'error' => !$saved,
@@ -57,7 +51,7 @@ class ApiController extends BaseApiController
 
     public function destroy(Menu $menu)
     {
-        $deleted = $this->repository->delete($menu);
+        $deleted = $menu->delete();
 
         return response()->json([
             'error' => !$deleted,

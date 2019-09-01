@@ -2,6 +2,8 @@
 
 namespace TypiCMS\Modules\Menus\Models;
 
+use Exception;
+use Illuminate\Support\Facades\Log;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
@@ -24,6 +26,28 @@ class Menu extends Base
     public $translatable = [
         'status',
     ];
+
+    /**
+     * Get a menu.
+     *
+     * @param string $name menu name
+     *
+     * @return \TypiCMS\Modules\Menus\Models\Menu|null
+     */
+    public function getMenu($name)
+    {
+        try {
+            $menu = app('TypiCMS.menus')->first(function (Menu $menu) use ($name) {
+                return $menu->name == $name;
+            });
+        } catch (Exception $e) {
+            Log::info('No menu found with name “'.$name.'”');
+
+            return;
+        }
+
+        return $menu;
+    }
 
     /**
      * Append thumb attribute.

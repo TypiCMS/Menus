@@ -8,15 +8,9 @@ use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
 class MenulinksAdminController extends BaseAdminController
 {
-    public function __construct(EloquentMenulink $menulink)
-    {
-        parent::__construct($menulink);
-    }
-
     /**
      * Get models.
      *
@@ -25,7 +19,7 @@ class MenulinksAdminController extends BaseAdminController
     public function index()
     {
         $id = request('menu_id');
-        $models = $this->repository->where('menu_id', $id)->orderBy('position')->findAll()->nest();
+        $models = $this->model->where('menu_id', $id)->orderBy('position')->findAll()->nest();
 
         return response()->json($models, 200);
     }
@@ -39,7 +33,7 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function create(Menu $menu)
     {
-        $model = $this->repository->createModel();
+        $model = new;
 
         return view('menus::admin.create-menulink')
             ->with(compact('model', 'menu'));
@@ -76,7 +70,7 @@ class MenulinksAdminController extends BaseAdminController
         $data['parent_id'] = null;
         $data['page_id'] = $data['page_id'] ?? null;
         $data['position'] = $data['position'] ?? 0;
-        $model = $this->repository->create($data);
+        $model = ::create($data);
         Menus::forgetCache();
 
         return $this->redirect($request, $model);
@@ -96,7 +90,7 @@ class MenulinksAdminController extends BaseAdminController
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
-        $this->repository->update($menulink->id, $data);
+        ::update($menulink->id, $data);
         Menus::forgetCache();
 
         return $this->redirect($request, $menulink);
@@ -109,7 +103,7 @@ class MenulinksAdminController extends BaseAdminController
      */
     public function sort()
     {
-        $this->repository->sort(request()->all());
+        $this->model->sort(request()->all());
         Menus::forgetCache();
 
         return response()->json([

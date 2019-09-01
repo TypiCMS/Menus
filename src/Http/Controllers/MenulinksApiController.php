@@ -9,15 +9,9 @@ use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
-use TypiCMS\Modules\Menus\Repositories\EloquentMenulink;
 
 class MenulinksApiController extends BaseApiController
 {
-    public function __construct(EloquentMenulink $menulink)
-    {
-        parent::__construct($menulink);
-    }
-
     /**
      * Get models.
      *
@@ -63,7 +57,7 @@ class MenulinksApiController extends BaseApiController
         }
         $saved = $menulink->save();
 
-        $this->repository->forgetCache();
+        $this->model->forgetCache();
         Menus::forgetCache();
 
         return response()->json([
@@ -78,7 +72,7 @@ class MenulinksApiController extends BaseApiController
      */
     public function sort(Menu $menu)
     {
-        $this->repository->sort(request()->all());
+        $this->model->sort(request()->all());
         Menus::forgetCache();
 
         return response()->json([
@@ -96,7 +90,7 @@ class MenulinksApiController extends BaseApiController
      */
     public function destroy(Menu $menu, Menulink $menulink)
     {
-        $deleted = $this->repository->delete($menulink);
+        $deleted = $menulink->delete();
         Menus::forgetCache();
 
         return response()->json([
