@@ -50,6 +50,67 @@ class Menu extends Base
     }
 
     /**
+     * Set href and classes for each items in collection.
+     *
+     * @param $items
+     *
+     * @return \TypiCMS\NestableCollection
+     */
+    public function prepare($items = null)
+    {
+        $items->each(function ($item) {
+            $item->items = collect();
+            $item->href = $this->setHref($item);
+            $item->class = $this->setClass($item);
+        });
+
+        return $items;
+    }
+
+    /**
+     * 1. If menulink has url field, take it.
+     * 2. If menulink has a page, take the uri of the page in the current locale.
+     *
+     * @param $menulink
+     *
+     * @return string uri
+     */
+    public function setHref($menulink)
+    {
+        if ($menulink->url) {
+            return $menulink->url;
+        }
+        if ($menulink->page) {
+            return $menulink->page->uri();
+        }
+
+        return '/';
+    }
+
+    /**
+     * Take the classes from field and add active if needed.
+     *
+     * @param $menulink
+     *
+     * @return string classes
+     */
+    public function setClass($menulink)
+    {
+        $classArray = preg_split('/ /', $menulink->class, null, PREG_SPLIT_NO_EMPTY);
+        // add active class if current uri is equal to item uri or contains
+        // item uri and is bigger than 3 to avoid homepage link always active ('/', '/lg')
+        $pattern = $menulink->href;
+        if (strlen($menulink->href) > 3) {
+            $pattern .= '*';
+        }
+        if (request()->is($pattern)) {
+            $classArray[] = 'active';
+        }
+
+        return implode(' ', $classArray);
+    }
+
+    /**
      * Append thumb attribute.
      *
      * @return string
