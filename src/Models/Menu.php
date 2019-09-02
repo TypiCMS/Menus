@@ -37,7 +37,7 @@ class Menu extends Base
     public function getMenu($name)
     {
         try {
-            $menu = app('TypiCMS.menus')->first(function (Menu $menu) use ($name) {
+            $menu = app('TypiCMS.menus')->first(function (self $menu) use ($name) {
                 return $menu->name == $name;
             });
         } catch (Exception $e) {
