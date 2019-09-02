@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -9,15 +10,11 @@ use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Models\Menu;
 use TypiCMS\Modules\Menus\Models\Menulink;
+use TypiCMS\NestableCollection;
 
 class MenulinksApiController extends BaseApiController
 {
-    /**
-     * Get models.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(Menu $menu, Request $request)
+    public function index(Menu $menu, Request $request): NestableCollection
     {
         $userPreferences = $request->user()->preferences;
 
@@ -57,23 +54,22 @@ class MenulinksApiController extends BaseApiController
         }
         $saved = $menulink->save();
 
-        $this->model->forgetCache();
-        Menus::forgetCache();
-
         return response()->json([
             'error' => !$saved,
         ]);
     }
 
-    /**
-     * Sort list.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sort(Menu $menu)
+    public function sort(Menu $menu, Request $request): JsonResponse
     {
-        $this->model->sort(request()->all());
-        Menus::forgetCache();
+        $data = $request->all();
+        foreach ($data['item'] as $position => $item) {
+            $menulink = Menulink::find($item['id']);
+            $sortData = [
+                'position' => (int) $position + 1,
+                'parent_id' => $item['parent_id'],
+            ];
+            $menulink->update($sortData);
+        }
 
         return response()->json([
             'error' => false,
@@ -81,17 +77,9 @@ class MenulinksApiController extends BaseApiController
         ], 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \TypiCMS\Modules\Menulinks\Models\Menulink $menulink
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(Menu $menu, Menulink $menulink)
+    public function destroy(Menu $menu, Menulink $menulink): JsonResponse
     {
         $deleted = $menulink->delete();
-        Menus::forgetCache();
 
         return response()->json([
             'error' => !$deleted,

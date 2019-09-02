@@ -2,7 +2,10 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use TypiCMS\Modules\Core\Http\Controllers\BaseAdminController;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest;
@@ -11,12 +14,7 @@ use TypiCMS\Modules\Menus\Models\Menulink;
 
 class MenulinksAdminController extends BaseAdminController
 {
-    /**
-     * Get models.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
+    public function index(): View
     {
         $id = request('menu_id');
         $models = $this->model->where('menu_id', $id)->orderBy('position')->findAll()->nest();
@@ -24,30 +22,15 @@ class MenulinksAdminController extends BaseAdminController
         return response()->json($models, 200);
     }
 
-    /**
-     * Create form for a new resource.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu $menu
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create(Menu $menu)
+    public function create(Menu $menu): View
     {
-        $model = new;
+        $model = new Menulink;
 
         return view('menus::admin.create-menulink')
             ->with(compact('model', 'menu'));
     }
 
-    /**
-     * Edit form for the specified resource.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu     $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink $menulink
-     *
-     * @return \Illuminate\View\View
-     */
-    public function edit(Menu $menu, Menulink $menulink)
+    public function edit(Menu $menu, Menulink $menulink): View
     {
         return view('menus::admin.edit-menulink')
             ->with([
@@ -56,55 +39,30 @@ class MenulinksAdminController extends BaseAdminController
             ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
-     * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(Menu $menu, MenulinkFormRequest $request)
+    public function store(Menu $menu, MenulinkFormRequest $request): RedirectResponse
     {
         $data = $request->all();
         $data['parent_id'] = null;
         $data['page_id'] = $data['page_id'] ?? null;
         $data['position'] = $data['position'] ?? 0;
-        $model = ::create($data);
-        Menus::forgetCache();
+        $model = Menulink::create($data);
 
         return $this->redirect($request, $model);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \TypiCMS\Modules\Menus\Models\Menu                       $menu
-     * @param \TypiCMS\Modules\Menus\Models\Menulink                   $menulink
-     * @param \TypiCMS\Modules\Menus\Http\Requests\MenulinkFormRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Menu $menu, Menulink $menulink, MenulinkFormRequest $request)
+    public function update(Menu $menu, Menulink $menulink, MenulinkFormRequest $request): RedirectResponse
     {
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
-        ::update($menulink->id, $data);
-        Menus::forgetCache();
+        $menulink->update($menulink->id, $data);
 
         return $this->redirect($request, $menulink);
     }
 
-    /**
-     * Sort list.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sort()
+    public function sort(): JsonResponse
     {
         $this->model->sort(request()->all());
-        Menus::forgetCache();
 
         return response()->json([
             'error' => false,
