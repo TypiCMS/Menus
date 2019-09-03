@@ -38,7 +38,7 @@ class AdminController extends BaseAdminController
 
     public function update(Menu $menu, FormRequest $request): RedirectResponse
     {
-        $menu->update($request->id, $request->all());
+        $menu->update($request->all());
 
         return $this->redirect($request, $menu);
     }

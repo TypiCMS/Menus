@@ -54,7 +54,7 @@ class MenulinksAdminController extends BaseAdminController
         $data = $request->all();
         $data['parent_id'] = $data['parent_id'] ?: null;
         $data['page_id'] = $data['page_id'] ?: null;
-        $menulink->update($menulink->id, $data);
+        $menulink->update($data);
 
         return $this->redirect($request, $menulink);
     }
