@@ -11,7 +11,6 @@ use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\History\Traits\Historable;
-use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Presenters\ModulePresenter;
 use TypiCMS\NestableCollection;
 
