@@ -18,6 +18,7 @@ class CreateMenulinksTables extends Migration
             $table->integer('menu_id')->unsigned();
             $table->integer('page_id')->unsigned()->nullable();
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
+            $table->integer('image_id')->unsigned()->nullable();
             $table->integer('position')->unsigned()->default(0);
             $table->string('target', 10)->nullable();
             $table->string('class')->nullable();
