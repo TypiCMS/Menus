@@ -3,13 +3,18 @@
 namespace TypiCMS\Modules\Menus\Models;
 
 use Exception;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Log;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\History\Traits\Historable;
+use TypiCMS\Modules\Menus\Models\Menu;
+use TypiCMS\Modules\Menus\Models\Menulink;
 use TypiCMS\Modules\Menus\Presenters\ModulePresenter;
+use TypiCMS\NestableCollection;
 
 class Menu extends Base
 {
@@ -27,14 +32,7 @@ class Menu extends Base
         'status',
     ];
 
-    /**
-     * Get a menu.
-     *
-     * @param string $name menu name
-     *
-     * @return \TypiCMS\Modules\Menus\Models\Menu|null
-     */
-    public function getMenu($name)
+    public function getMenu($name): ?Menu
     {
         try {
             $menu = app('TypiCMS.menus')->first(function (self $menu) use ($name) {
@@ -43,20 +41,13 @@ class Menu extends Base
         } catch (Exception $e) {
             Log::info('No menu found with name “'.$name.'”');
 
-            return;
+            return null;
         }
 
         return $menu;
     }
 
-    /**
-     * Set href and classes for each items in collection.
-     *
-     * @param $items
-     *
-     * @return \TypiCMS\NestableCollection
-     */
-    public function prepare($items = null)
+    public function prepare($items = null): NestableCollection
     {
         $items->each(function ($item) {
             $item->items = collect();
@@ -70,12 +61,8 @@ class Menu extends Base
     /**
      * 1. If menulink has url field, take it.
      * 2. If menulink has a page, take the uri of the page in the current locale.
-     *
-     * @param $menulink
-     *
-     * @return string uri
      */
-    public function setHref($menulink)
+    public function setHref(Menulink $menulink): string
     {
         if ($menulink->url) {
             return $menulink->url;
@@ -88,13 +75,9 @@ class Menu extends Base
     }
 
     /**
-     * Take the classes from field and add active if needed.
-     *
-     * @param $menulink
-     *
-     * @return string classes
+     * Set the class and add active if needed.
      */
-    public function setClass($menulink)
+    public function setClass($menulink): string
     {
         $classArray = preg_split('/ /', $menulink->class, null, PREG_SPLIT_NO_EMPTY);
         // add active class if current uri is equal to item uri or contains
@@ -110,32 +93,17 @@ class Menu extends Base
         return implode(' ', $classArray);
     }
 
-    /**
-     * Append thumb attribute.
-     *
-     * @return string
-     */
-    public function getThumbAttribute()
+    public function getThumbAttribute(): string
     {
         return $this->present()->image(null, 54);
     }
 
-    /**
-     * This model belongs to one image.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function image()
+    public function image(): BelongsTo
     {
         return $this->belongsTo(File::class, 'image_id');
     }
 
-    /**
-     * This model has many menu links.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function menulinks()
+    public function menulinks(): HasMany
     {
         return $this->hasMany(Menulink::class)->orderBy('position', 'asc');
     }

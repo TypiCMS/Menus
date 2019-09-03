@@ -2,10 +2,12 @@
 
 namespace TypiCMS\Modules\Menus\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Route;
 use Laracasts\Presenter\PresentableTrait;
 use Spatie\Translatable\HasTranslations;
 use TypiCMS\Modules\Core\Models\Base;
+use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Modules\Pages\Models\Page;
 use TypiCMS\NestableTrait;
@@ -27,46 +29,32 @@ class Menulink extends Base
         'status',
     ];
 
-    /**
-     * A menulink belongs to a menu.
-     */
-    public function menu()
+    public function menu(): BelongsTo
     {
         return $this->belongsTo(Menu::class);
     }
 
-    /**
-     * A menulink can belongs to a page.
-     */
-    public function page()
+    public function image(): BelongsTo
+    {
+        return $this->belongsTo(File::class, 'image_id');
+    }
+
+    public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
     }
 
-    /**
-     * A menulink can have submenulinks.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function submenulinks()
+    public function submenulinks(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id')->order();
     }
 
-    /**
-     * A menulink can have a parent.
-     */
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    /**
-     * Get edit url of model.
-     *
-     * @return string|void
-     */
-    public function editUrl()
+    public function editUrl(): string
     {
         $route = 'admin::edit-menulink';
         if (Route::has($route)) {
@@ -76,12 +64,7 @@ class Menulink extends Base
         return route('dashboard');
     }
 
-    /**
-     * Get back office’s index of models url.
-     *
-     * @return string|void
-     */
-    public function indexUrl()
+    public function indexUrl(): string
     {
         $route = 'admin::edit-menu';
         if (Route::has($route)) {
