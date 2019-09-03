@@ -35,7 +35,7 @@ class MenulinksApiController extends BaseApiController
         return $data;
     }
 
-    public function updatePartial(Menu $menu, Menulink $menulink, Request $request)
+    protected function updatePartial(Menu $menu, Menulink $menulink, Request $request)
     {
         $data = [];
         foreach ($request->all() as $column => $content) {
