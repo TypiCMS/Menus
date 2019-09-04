@@ -5,7 +5,7 @@ namespace TypiCMS\Modules\Menus\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Spatie\QueryBuilder\Filter;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use TypiCMS\Modules\Core\Filters\FilterOr;
 use TypiCMS\Modules\Core\Http\Controllers\BaseApiController;
@@ -16,11 +16,12 @@ class ApiController extends BaseApiController
     public function index(Request $request): LengthAwarePaginator
     {
         $data = QueryBuilder::for(Menu::class)
+            ->selectFields($request->input('fields.menus'))
+            ->allowedSorts(['status_translated', 'name'])
             ->allowedFilters([
-                Filter::custom('name', FilterOr::class),
+                AllowedFilter::custom('name', new FilterOr),
             ])
-            ->allowedIncludes('image')
-            ->translated($request->input('translatable_fields'))
+            ->allowedIncludes(['image'])
             ->paginate($request->input('per_page'));
 
         return $data;
