@@ -24,8 +24,6 @@ class Menu extends Base
 
     protected $guarded = ['id', 'exit'];
 
-    protected $appends = ['thumb'];
-
     public $translatable = [
         'status',
     ];
