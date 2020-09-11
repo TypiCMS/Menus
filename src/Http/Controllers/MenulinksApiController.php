@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -49,16 +48,12 @@ class MenulinksApiController extends BaseApiController
         }
 
         foreach ($data as $key => $value) {
-            $menulink->$key = $value;
+            $menulink->{$key} = $value;
         }
-        $saved = $menulink->save();
-
-        return response()->json([
-            'error' => !$saved,
-        ]);
+        $menulink->save();
     }
 
-    public function sort(Menu $menu, Request $request): JsonResponse
+    public function sort(Menu $menu, Request $request)
     {
         $data = $request->all();
         foreach ($data['item'] as $position => $item) {
@@ -69,19 +64,10 @@ class MenulinksApiController extends BaseApiController
             ];
             $menulink->update($sortData);
         }
-
-        return response()->json([
-            'error' => false,
-            'message' => __('Items sorted'),
-        ], 200);
     }
 
-    public function destroy(Menu $menu, Menulink $menulink): JsonResponse
+    public function destroy(Menu $menu, Menulink $menulink)
     {
-        $deleted = $menulink->delete();
-
-        return response()->json([
-            'error' => !$deleted,
-        ]);
+        $menulink->delete();
     }
 }
