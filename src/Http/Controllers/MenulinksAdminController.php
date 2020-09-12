@@ -2,7 +2,6 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -57,15 +56,5 @@ class MenulinksAdminController extends BaseAdminController
         $menulink->update($data);
 
         return $this->redirect($request, $menulink);
-    }
-
-    public function sort(): JsonResponse
-    {
-        $this->model->sort(request()->all());
-
-        return response()->json([
-            'error' => false,
-            'message' => __('Items sorted'),
-        ], 200);
     }
 }
