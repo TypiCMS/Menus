@@ -21,7 +21,7 @@ class Menulink extends Base
 
     protected $presenter = 'TypiCMS\Modules\Menus\Presenters\MenulinkPresenter';
 
-    protected $guarded = ['id', 'exit'];
+    protected $guarded = [];
 
     public $translatable = [
         'title',

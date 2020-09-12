@@ -31,14 +31,14 @@ class AdminController extends BaseAdminController
 
     public function store(FormRequest $request): RedirectResponse
     {
-        $menu = Menu::create($request->all());
+        $menu = Menu::create($request->validated());
 
         return $this->redirect($request, $menu);
     }
 
     public function update(Menu $menu, FormRequest $request): RedirectResponse
     {
-        $menu->update($request->all());
+        $menu->update($request->validated());
 
         return $this->redirect($request, $menu);
     }

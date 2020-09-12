@@ -39,21 +39,14 @@ class MenulinksAdminController extends BaseAdminController
 
     public function store(Menu $menu, MenulinkFormRequest $request): RedirectResponse
     {
-        $data = $request->all();
-        $data['parent_id'] = null;
-        $data['page_id'] = $data['page_id'] ?? null;
-        $data['position'] = $data['position'] ?? 0;
-        $model = Menulink::create($data);
+        $menulink = Menulink::create($request->validated());
 
-        return $this->redirect($request, $model);
+        return $this->redirect($request, $menulink);
     }
 
     public function update(Menu $menu, Menulink $menulink, MenulinkFormRequest $request): RedirectResponse
     {
-        $data = $request->all();
-        $data['parent_id'] = $data['parent_id'] ?: null;
-        $data['page_id'] = $data['page_id'] ?: null;
-        $menulink->update($data);
+        $menulink->update($request->validated());
 
         return $this->redirect($request, $menulink);
     }
