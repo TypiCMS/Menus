@@ -6,7 +6,7 @@
 
 <div class="row">
 
-    {!! BootForm::hidden('id') !!}
+
     {!! BootForm::hidden('menu_id')->value($menu->id) !!}
     {!! BootForm::hidden('position') !!}
     {!! BootForm::hidden('parent_id') !!}
