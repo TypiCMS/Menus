@@ -72,6 +72,8 @@ class Menu extends Base
 
     /**
      * Set the class and add active if needed.
+     *
+     * @param mixed $menulink
      */
     public function setClass($menulink): string
     {
@@ -79,7 +81,7 @@ class Menu extends Base
         // add active class if current uri is equal to item uri or contains
         // item uri and is bigger than 3 to avoid homepage link always active ('/', '/lg')
         $pattern = $menulink->href;
-        if (strlen($menulink->href) > 3) {
+        if (mb_strlen($menulink->href) > 3) {
             $pattern .= '*';
         }
         if (request()->is($pattern)) {
