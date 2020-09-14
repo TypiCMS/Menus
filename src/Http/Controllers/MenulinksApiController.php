@@ -36,20 +36,16 @@ class MenulinksApiController extends BaseApiController
 
     protected function updatePartial(Menu $menu, Menulink $menulink, Request $request)
     {
-        $data = [];
-        foreach ($request->all() as $column => $content) {
-            if (is_array($content)) {
-                foreach ($content as $key => $value) {
-                    $data[$column.'->'.$key] = $value;
+        foreach ($request->only('status') as $key => $content) {
+            if ($menulink->isTranslatableAttribute($key)) {
+                foreach ($content as $lang => $value) {
+                    $menulink->setTranslation($key, $lang, $value);
                 }
             } else {
-                $data[$column] = $content;
+                $menulink->{$key} = $content;
             }
         }
 
-        foreach ($data as $key => $value) {
-            $menulink->{$key} = $value;
-        }
         $menulink->save();
     }
 
