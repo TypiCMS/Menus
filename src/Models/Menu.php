@@ -32,7 +32,7 @@ class Menu extends Base
     {
         try {
             $menu = app('TypiCMS.menus')->first(function (self $menu) use ($name) {
-                return $menu->name == $name;
+                return $menu->name === $name;
             });
         } catch (Exception $e) {
             Log::info('No menu found with name “'.$name.'”');
