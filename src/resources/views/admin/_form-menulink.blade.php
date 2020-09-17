@@ -24,10 +24,6 @@
 
     <div class="col-sm-6">
         {!! BootForm::select(__('Page'), 'page_id', Pages::allForSelect()) !!}
-        <div class="form-group">
-            {!! BootForm::hidden('has_categories')->value(0) !!}
-            {!! BootForm::checkbox(__('Show categories'), 'has_categories') !!}
-        </div>
         {!! BootForm::select(__('Target'), 'target', ['' => __('Active tab'), '_blank' => __('New tab')]) !!}
         {!! BootForm::text(__('Class'), 'class') !!}
         {!! BootForm::text(__('Icon class'), 'icon_class') !!}

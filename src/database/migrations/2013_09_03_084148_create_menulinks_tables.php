@@ -21,7 +21,6 @@ class CreateMenulinksTables extends Migration
             $table->string('target', 10)->nullable();
             $table->string('class')->nullable();
             $table->string('icon_class')->nullable();
-            $table->boolean('has_categories')->nullable();
             $table->json('status');
             $table->json('title', 100);
             $table->json('url');
