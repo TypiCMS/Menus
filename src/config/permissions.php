@@ -2,9 +2,9 @@
 
 return [
     'menus' => [
-        'see-all-menus' => 'View list',
-        'create-menu' => 'Create',
-        'update-menu' => 'Edit',
-        'delete-menu' => 'Delete',
+        'read menus' => 'Read',
+        'create menus' => 'Create',
+        'update menus' => 'Edit',
+        'delete menus' => 'Delete',
     ],
 ];

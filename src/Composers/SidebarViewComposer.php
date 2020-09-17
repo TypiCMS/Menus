@@ -11,7 +11,7 @@ class SidebarViewComposer
 {
     public function compose(View $view)
     {
-        if (Gate::denies('see-all-menus')) {
+        if (Gate::denies('read menus')) {
             return;
         }
         $view->sidebar->group(__('Content'), function (SidebarGroup $group) {
