@@ -64,6 +64,10 @@ class Menu extends Base
             return $menulink->url;
         }
         if ($menulink->page) {
+            if ($menulink->section !== null) {
+                return $menulink->page->uri().'#'.$menulink->section->slug.'-'.$menulink->section->id;
+            }
+
             return $menulink->page->uri();
         }
 

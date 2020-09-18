@@ -11,6 +11,7 @@ use TypiCMS\Modules\Core\Models\Base;
 use TypiCMS\Modules\Files\Models\File;
 use TypiCMS\Modules\History\Traits\Historable;
 use TypiCMS\Modules\Pages\Models\Page;
+use TypiCMS\Modules\Pages\Models\PageSection;
 use TypiCMS\NestableTrait;
 
 class Menulink extends Base
@@ -44,6 +45,11 @@ class Menulink extends Base
     public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
+    }
+
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(PageSection::class);
     }
 
     public function submenulinks(): HasMany
