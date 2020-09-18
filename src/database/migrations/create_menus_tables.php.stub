@@ -33,6 +33,7 @@ class CreateMenusTables extends Migration
             $table->json('status');
             $table->json('title');
             $table->json('url');
+            $table->json('description');
             $table->timestamps();
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->foreign('parent_id')->references('id')->on('menulinks')->onDelete('cascade');

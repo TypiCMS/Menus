@@ -18,6 +18,7 @@
             {!! TranslatableBootForm::hidden('status')->value(0) !!}
             {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
         </div>
+        {!! TranslatableBootForm::textarea(__('Description'), 'description')->rows(3) !!}
         <file-manager related-table="{{ $model->getTable() }}" :related-id="{{ $model->id ?? 0 }}"></file-manager>
         <file-field type="image" field="image_id" data="{{ $model->image }}"></file-field>
     </div>

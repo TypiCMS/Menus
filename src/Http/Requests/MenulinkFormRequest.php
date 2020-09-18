@@ -16,6 +16,7 @@ class MenulinkFormRequest extends AbstractFormRequest
             'class' => 'nullable|max:255',
             'icon_class' => 'nullable|max:255',
             'title.*' => 'nullable|max:255',
+            'description.*' => 'nullable',
             'url.*' => 'nullable|url|max:255',
         ];
     }
