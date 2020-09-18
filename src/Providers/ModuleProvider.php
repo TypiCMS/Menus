@@ -11,6 +11,7 @@ use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Menus\Facades\Menulinks;
 use TypiCMS\Modules\Menus\Facades\Menus;
 use TypiCMS\Modules\Menus\Models\Menu;
+use TypiCMS\Modules\Menus\Models\Menulink;
 
 class ModuleProvider extends ServiceProvider
 {
