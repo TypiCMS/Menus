@@ -24,6 +24,7 @@ class CreateMenusTables extends Migration
             $table->increments('id');
             $table->integer('menu_id')->unsigned();
             $table->integer('page_id')->unsigned()->nullable();
+            $table->integer('section_id')->unsigned()->nullable();
             $table->integer('parent_id')->unsigned()->nullable()->default(null);
             $table->integer('image_id')->unsigned()->nullable();
             $table->integer('position')->unsigned()->default(0);

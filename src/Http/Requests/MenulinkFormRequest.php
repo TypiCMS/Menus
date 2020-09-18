@@ -13,6 +13,7 @@ class MenulinkFormRequest extends AbstractFormRequest
             'menu_id' => 'required',
             'parent_id' => 'nullable',
             'page_id' => 'nullable',
+            'section_id' => 'nullable',
             'class' => 'nullable|max:255',
             'icon_class' => 'nullable|max:255',
             'title.*' => 'nullable|max:255',
