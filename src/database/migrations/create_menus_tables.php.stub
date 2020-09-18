@@ -31,7 +31,7 @@ class CreateMenusTables extends Migration
             $table->string('class')->nullable();
             $table->string('icon_class')->nullable();
             $table->json('status');
-            $table->json('title', 100);
+            $table->json('title');
             $table->json('url');
             $table->timestamps();
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
