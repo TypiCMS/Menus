@@ -25,7 +25,10 @@ class ModuleProvider extends ServiceProvider
         $this->app['config']->set('typicms.modules', array_merge(['menus' => []], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../resources/views/', 'menus');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+
+        $this->publishes([
+            __DIR__.'/../database/migrations/create_menus_tables.php.stub' => getMigrationFileName('create_menus_tables'),
+        ], 'migrations');
 
         $this->publishes([
             __DIR__.'/../resources/views' => resource_path('views/vendor/menus'),
@@ -35,7 +38,7 @@ class ModuleProvider extends ServiceProvider
         AliasLoader::getInstance()->alias('Menulinks', Menulinks::class);
 
         Blade::directive('menu', function ($name) {
-            return "<?php echo view('menus::public._menu', ['name' => $name]) ?>";
+            return "<?php echo view('menus::public._menu', ['name' => {$name}]) ?>";
         });
 
         /*
