@@ -28,10 +28,10 @@ class RouteServiceProvider extends ServiceProvider
                 $router->post('menus', [AdminController::class, 'store'])->name('admin::store-menu')->middleware('can:create menus');
                 $router->put('menus/{menu}', [AdminController::class, 'update'])->name('admin::update-menu')->middleware('can:update menus');
 
-                $router->get('menus/{menu}/menulinks/create', [MenulinksAdminController::class, 'create'])->name('admin::create-menulink')->middleware('can:create menus');
-                $router->get('menus/{menu}/menulinks/{menulink}/edit', [MenulinksAdminController::class, 'edit'])->name('admin::edit-menulink')->middleware('can:update menus');
-                $router->post('menus/{menu}/menulinks', [MenulinksAdminController::class, 'store'])->name('admin::store-menulink')->middleware('can:create menus');
-                $router->put('menus/{menu}/menulinks/{menulink}', [MenulinksAdminController::class, 'update'])->name('admin::update-menulink')->middleware('can:update menus');
+                $router->get('menus/{menu}/menulinks/create', [MenulinksAdminController::class, 'create'])->name('admin::create-menulink')->middleware('can:create menulinks');
+                $router->get('menus/{menu}/menulinks/{menulink}/edit', [MenulinksAdminController::class, 'edit'])->name('admin::edit-menulink')->middleware('can:update menulinks');
+                $router->post('menus/{menu}/menulinks', [MenulinksAdminController::class, 'store'])->name('admin::store-menulink')->middleware('can:create menulinks');
+                $router->put('menus/{menu}/menulinks/{menulink}', [MenulinksAdminController::class, 'update'])->name('admin::update-menulink')->middleware('can:update menulinks');
             });
 
             /*
@@ -43,10 +43,10 @@ class RouteServiceProvider extends ServiceProvider
                     $router->patch('menus/{menu}', [ApiController::class, 'updatePartial'])->middleware('can:update menus');
                     $router->delete('menus/{menu}', [ApiController::class, 'destroy'])->middleware('can:delete menus');
 
-                    $router->get('menus/{menu}/menulinks', [MenulinksApiController::class, 'index'])->middleware('can:read menus');
-                    $router->patch('menus/{menu}/menulinks/{menulink}', [MenulinksApiController::class, 'updatePartial'])->middleware('can:update menus');
-                    $router->post('menus/{menu}/menulinks/sort', [MenulinksApiController::class, 'sort'])->middleware('can:update menus');
-                    $router->delete('menus/{menu}/menulinks/{menulink}', [MenulinksApiController::class, 'destroy'])->middleware('can:delete menus');
+                    $router->get('menus/{menu}/menulinks', [MenulinksApiController::class, 'index'])->middleware('can:read menulinks');
+                    $router->patch('menus/{menu}/menulinks/{menulink}', [MenulinksApiController::class, 'updatePartial'])->middleware('can:update menulinks');
+                    $router->post('menus/{menu}/menulinks/sort', [MenulinksApiController::class, 'sort'])->middleware('can:update menulinks');
+                    $router->delete('menus/{menu}/menulinks/{menulink}', [MenulinksApiController::class, 'destroy'])->middleware('can:delete menulinks');
                 });
             });
         });
