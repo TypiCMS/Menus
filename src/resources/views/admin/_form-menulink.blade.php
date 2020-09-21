@@ -4,12 +4,12 @@
     @include('core::admin._lang-switcher-for-form')
 </div>
 
-<div class="row">
+{!! BootForm::hidden('id') !!}
+{!! BootForm::hidden('menu_id')->value($menu->id) !!}
+{!! BootForm::hidden('position') !!}
+{!! BootForm::hidden('parent_id') !!}
 
-    {!! BootForm::hidden('id') !!}
-    {!! BootForm::hidden('menu_id')->value($menu->id) !!}
-    {!! BootForm::hidden('position') !!}
-    {!! BootForm::hidden('parent_id') !!}
+<div class="form-row">
 
     <div class="col-sm-6">
         {!! TranslatableBootForm::text(__('Title'), 'title') !!}
