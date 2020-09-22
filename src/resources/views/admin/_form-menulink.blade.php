@@ -28,7 +28,6 @@
         {!! TranslatableBootForm::text(__('Url'), 'url')->placeholder('http://') !!}
         {!! BootForm::select(__('Target'), 'target', ['' => __('Active tab'), '_blank' => __('New tab')])->addClass('custom-select') !!}
         {!! BootForm::text(__('Class'), 'class') !!}
-        {!! BootForm::text(__('Icon class'), 'icon_class') !!}
     </div>
 
 </div>
