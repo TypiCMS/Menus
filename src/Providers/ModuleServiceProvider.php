@@ -2,9 +2,7 @@
 
 namespace TypiCMS\Modules\Menus\Providers;
 
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\AliasLoader;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
@@ -56,30 +54,7 @@ class ModuleServiceProvider extends ServiceProvider
          */
         $app->register(RouteServiceProvider::class);
 
-        $this->prepareMenus();
-
         $app->bind('Menus', Menu::class);
         $app->bind('Menulinks', Menulink::class);
-    }
-
-    protected function prepareMenus()
-    {
-        $this->app->singleton('TypiCMS.menus', function (Application $app) {
-            return $app
-                ->make('Menus')
-                ->published()
-                ->with([
-                    'menulinks' => function (HasMany $query) {
-                        $query->published();
-                    },
-                    'menulinks.page',
-                ])
-                ->get()
-                ->transform(function (Menu $menu) {
-                    $menu->menulinks = app('Menus')->prepare($menu->menulinks)->nest();
-
-                    return $menu;
-                });
-        });
     }
 }

@@ -31,16 +31,24 @@ class Menu extends Base
     public function getMenu($name): ?self
     {
         try {
-            $menu = app('TypiCMS.menus')->first(function (self $menu) use ($name) {
-                return $menu->name === $name;
-            });
+            $menu = $this->published()
+                ->with([
+                    'menulinks' => function (HasMany $query) {
+                        $query->published();
+                    },
+                    'menulinks.page',
+                ])
+                ->where('name', $name)
+                ->first();
+
+            $menu->menulinks = $this->prepare($menu->menulinks)->nest();
+
+            return $menu;
         } catch (Exception $e) {
             Log::info('No menu found with name “'.$name.'”');
 
             return null;
         }
-
-        return $menu;
     }
 
     public function prepare($items = null): NestableCollection
