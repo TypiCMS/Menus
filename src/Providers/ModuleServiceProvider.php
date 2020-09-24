@@ -33,7 +33,7 @@ class ModuleServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            __DIR__.'/../database/seeds/MenuSeeder.php' => database_path('seeds/MenuSeeder.php'),
+            __DIR__.'/../database/seeders/MenuSeeder.php' => database_path('seeders/MenuSeeder.php'),
         ], 'seeders');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
