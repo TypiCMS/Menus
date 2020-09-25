@@ -34,6 +34,7 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../database/seeders/MenuSeeder.php' => database_path('seeders/MenuSeeder.php'),
+            __DIR__.'/../database/seeders/MenulinkSeeder.php' => database_path('seeders/MenulinkSeeder.php'),
         ], 'seeders');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
