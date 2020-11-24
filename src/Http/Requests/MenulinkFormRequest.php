@@ -15,6 +15,7 @@ class MenulinkFormRequest extends AbstractFormRequest
             'page_id' => 'nullable|integer',
             'section_id' => 'nullable|integer',
             'class' => 'nullable|max:255',
+            'target' => 'nullable|max:255',
             'title.*' => 'nullable|max:255',
             'status.*' => 'boolean',
             'description.*' => 'nullable',
