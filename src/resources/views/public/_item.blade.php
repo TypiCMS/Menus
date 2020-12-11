@@ -1,7 +1,7 @@
 <li class="menu-{{ $name }}-item menu-{{ $name }}-item-{{ $menulink->id }} {{ $menulink->class }}" id="menuitem_{{ $menulink->id }}" role="menuitem">
     <a class="menu-{{ $name }}-link {{ $menulink->items->count() > 0 ? 'dropdown-toggle' : '' }}" href="{{ url($menulink->href) }}" @if ($menulink->target === '_blank') target="_blank" rel="noopener noreferrer" @endif @if ($menulink->items->count() > 0) data-toggle="dropdown" @endif>
         @if ($menulink->image !== null)
-            <img src="{{ $menulink->present()->image }}" width="32" height="32">
+            <img src="{{ $menulink->present()->image }}" width="32" height="32" alt="{{ $menulink->title }}">
         @endif
         {{ $menulink->title }}
     </a>
