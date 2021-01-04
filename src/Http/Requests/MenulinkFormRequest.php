@@ -16,6 +16,7 @@ class MenulinkFormRequest extends AbstractFormRequest
             'page_id' => 'required_if:has_categories,1',
             'class' => 'nullable|max:255',
             'icon_class' => 'nullable|max:255',
+            'status.*' => 'boolean',
             'title.*' => 'nullable|max:255',
             'url.*' => 'nullable|url|max:255',
         ];
