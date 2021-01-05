@@ -1,6 +1,6 @@
 <div class="btn-toolbar mb-4">
-    <button class="btn btn-sm btn-primary mr-2" value="true" id="exit" name="exit" type="submit">{{ __('Save and exit') }}</button>
-    <button class="btn btn-sm btn-light mr-2" type="submit">{{ __('Save') }}</button>
+    <button class="btn btn-sm btn-primary me-2" value="true" id="exit" name="exit" type="submit">{{ __('Save and exit') }}</button>
+    <button class="btn btn-sm btn-light me-2" type="submit">{{ __('Save') }}</button>
     @include('core::admin._lang-switcher-for-form')
 </div>
 
@@ -9,11 +9,11 @@
 {!! BootForm::hidden('position') !!}
 {!! BootForm::hidden('parent_id') !!}
 
-<div class="form-row">
+<div class="row gx-3">
 
     <div class="col-sm-6">
         {!! TranslatableBootForm::text(__('Title'), 'title') !!}
-        <div class="form-group">
+        <div class="mb-3">
             {!! TranslatableBootForm::hidden('status')->value(0) !!}
             {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
         </div>

@@ -13,7 +13,7 @@
 @endif
 
 {!! BootForm::text(__('Class'), 'class') !!}
-<div class="form-group">
+<div class="mb-3">
     {!! TranslatableBootForm::hidden('status')->value(0) !!}
     {!! TranslatableBootForm::checkbox(__('Published'), 'status') !!}
 </div>
