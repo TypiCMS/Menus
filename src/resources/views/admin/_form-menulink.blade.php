@@ -23,10 +23,10 @@
     </div>
 
     <div class="col-sm-6">
-        {!! BootForm::select(__('Page'), 'page_id', Pages::allForSelect())->addClass('custom-select') !!}
-        {!! BootForm::select(__('Section'), 'section_id', ['' => ''])->addClass('custom-select') !!}
+        {!! BootForm::select(__('Page'), 'page_id', Pages::allForSelect()) !!}
+        {!! BootForm::select(__('Section'), 'section_id', ['' => '']) !!}
         {!! TranslatableBootForm::text(__('Url'), 'url')->placeholder('http://') !!}
-        {!! BootForm::select(__('Target'), 'target', ['' => __('Active tab'), '_blank' => __('New tab')])->addClass('custom-select') !!}
+        {!! BootForm::select(__('Target'), 'target', ['' => __('Active tab'), '_blank' => __('New tab')]) !!}
         {!! BootForm::text(__('Class'), 'class') !!}
     </div>
 
