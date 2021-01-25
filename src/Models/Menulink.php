@@ -69,7 +69,7 @@ class Menulink extends Base
             return route($route, [$this->menu_id, $this->id]);
         }
 
-        return route('dashboard');
+        return route('admin::dashboard');
     }
 
     public function indexUrl(): string
@@ -79,6 +79,6 @@ class Menulink extends Base
             return route($route, $this->menu_id);
         }
 
-        return route('dashboard');
+        return route('admin::dashboard');
     }
 }
