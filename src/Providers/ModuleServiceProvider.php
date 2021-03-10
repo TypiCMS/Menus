@@ -22,19 +22,19 @@ class ModuleServiceProvider extends ServiceProvider
         $modules = $this->app['config']['typicms']['modules'];
         $this->app['config']->set('typicms.modules', array_merge(['menus' => []], $modules));
 
-        $this->loadViewsFrom(__DIR__.'/../resources/views/', 'menus');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'menus');
 
         $this->publishes([
-            __DIR__.'/../database/migrations/create_menus_tables.php.stub' => getMigrationFileName('create_menus_tables'),
+            __DIR__.'/../../database/migrations/create_menus_tables.php.stub' => getMigrationFileName('create_menus_tables'),
         ], 'migrations');
 
         $this->publishes([
-            __DIR__.'/../resources/views' => resource_path('views/vendor/menus'),
+            __DIR__.'/../../resources/views' => resource_path('views/vendor/menus'),
         ], 'views');
 
         $this->publishes([
-            __DIR__.'/../database/seeders/MenuSeeder.php' => database_path('seeders/MenuSeeder.php'),
-            __DIR__.'/../database/seeders/MenulinkSeeder.php' => database_path('seeders/MenulinkSeeder.php'),
+            __DIR__.'/../../database/seeders/MenuSeeder.php' => database_path('seeders/MenuSeeder.php'),
+            __DIR__.'/../../database/seeders/MenulinkSeeder.php' => database_path('seeders/MenulinkSeeder.php'),
         ], 'seeders');
 
         AliasLoader::getInstance()->alias('Menus', Menus::class);
