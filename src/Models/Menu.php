@@ -44,7 +44,7 @@ class Menu extends Base
             $menu->menulinks = $this->prepare($menu->menulinks)->nest();
 
             return $menu;
-        } catch (Exception $e) {
+        } catch (Exception) {
             Log::info('No menu found with name “'.$name.'”');
 
             return null;
@@ -63,8 +63,7 @@ class Menu extends Base
     }
 
     /**
-     * 1. If menulink has url field, take it.
-     * 2. If menulink has a page, take the uri of the page in the current locale.
+     * Set the href to the menulink’s URL or the URL of the linked page.
      */
     public function setHref(Menulink $menulink): string
     {
@@ -89,7 +88,7 @@ class Menu extends Base
      */
     public function setClass($menulink): string
     {
-        $classArray = preg_split('/ /', $menulink->class, null, PREG_SPLIT_NO_EMPTY);
+        $classArray = preg_split('/ /', $menulink->class, -1, PREG_SPLIT_NO_EMPTY);
         // add active class if current uri is equal to item uri or contains
         // item uri and is bigger than 3 to avoid homepage link always active ('/', '/lg')
         $pattern = $menulink->href;
