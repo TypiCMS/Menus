@@ -44,7 +44,7 @@ class Menu extends Base
             $menu->menulinks = $this->prepare($menu->menulinks)->nest();
 
             return $menu;
-        } catch (Exception) {
+        } catch (Exception $e) {
             Log::info('No menu found with name “'.$name.'”');
 
             return null;
