@@ -33,7 +33,7 @@ class Menu extends Base
         try {
             $menu = $this->published()
                 ->with([
-                    'menulinks' => function (HasMany $query) {
+                    'menulinks' => function ($query) {
                         $query->published();
                     },
                     'menulinks.page',
