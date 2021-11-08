@@ -2,6 +2,7 @@
 
 namespace TypiCMS\Modules\Menus\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -12,7 +13,7 @@ use TypiCMS\Modules\Menus\Models\Menulink;
 
 class MenulinksAdminController extends BaseAdminController
 {
-    public function index(): View
+    public function index(): JsonResponse
     {
         $id = request('menu_id');
         $models = $this->model->where('menu_id', $id)->orderBy('position')->findAll()->nest();
