@@ -12,7 +12,7 @@ use TypiCMS\Modules\Menus\Http\Controllers\MenulinksApiController;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    public function map()
+    public function map(): void
     {
         /*
          * Admin routes

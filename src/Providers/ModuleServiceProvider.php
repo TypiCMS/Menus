@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Menus\Providers;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use TypiCMS\Modules\Menus\Composers\SidebarViewComposer;
 use TypiCMS\Modules\Menus\Facades\Menulinks;
@@ -13,14 +14,11 @@ use TypiCMS\Modules\Menus\Models\Menulink;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'typicms.menus');
         $this->mergeConfigFrom(__DIR__.'/../config/permissions.php', 'typicms.permissions');
         $this->mergeConfigFrom(__DIR__.'/../config/config-menulinks.php', 'typicms.menulinks');
-
-        $modules = $this->app['config']['typicms']['modules'];
-        $this->app['config']->set('typicms.modules', array_merge(['menus' => []], $modules));
 
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'menus');
 
@@ -44,22 +42,14 @@ class ModuleServiceProvider extends ServiceProvider
             return "<?php echo view('menus::public._menu', ['name' => {$name}]) ?>";
         });
 
-        /*
-         * Sidebar view composer
-         */
-        $this->app->view->composer('core::admin._sidebar', SidebarViewComposer::class);
+        View::composer('core::admin._sidebar', SidebarViewComposer::class);
     }
 
-    public function register()
+    public function register(): void
     {
-        $app = $this->app;
+        $this->app->register(RouteServiceProvider::class);
 
-        /*
-         * Register route service provider
-         */
-        $app->register(RouteServiceProvider::class);
-
-        $app->bind('Menus', Menu::class);
-        $app->bind('Menulinks', Menulink::class);
+        $this->app->bind('Menus', Menu::class);
+        $this->app->bind('Menulinks', Menulink::class);
     }
 }
