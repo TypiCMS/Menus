@@ -6,7 +6,7 @@
         <span class="{{ $name }}-nav-label">{{ $menulink->title }}</span>
     </a>
     @if ($menulink->items->count() > 0)
-        <ul class="{{ $name }}-nav-dropdown dropdown-menu" aria-labelledby="menuitem_{{ $menulink->id }}_id">
+        <ul class="{{ $name }}-nav-dropdown dropdown-menu" aria-labelledby="menuitem_{{ $menulink->id }}_id" role="menu">
             @foreach ($menulink->items as $menulink)
                 @include('menus::public._item', ['menulink' => $menulink])
             @endforeach
